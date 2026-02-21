@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HARVICS</title>
+  <style>
+    :root{
+      --burgundy:#6C1D18;
+      --burgundy-deep:#5A1815;
+      --gold:#D4AF37;
+      --gold-bright:#EED27A;
+      --offwhite:#F7F5F2;
+      --text:#1D1D1F;
+      --text-2:#6E6E73;
+      --divider:#E5E5EA;
+      --card-shadow:0 8px 16px rgba(0,0,0,0.08);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: var(--text);
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: saturate(180%) blur(25px);
+      -webkit-backdrop-filter: saturate(180%) blur(25px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--burgundy);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .top-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .clock {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.12);
+      border: 1px solid #ececec;
+      display: block;
+      position: relative;
+      flex: 0 0 44px;
+    }
+    .clock:before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      opacity: 0.8;
+    }
+    .clock .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom;
+      background: #5A1815;
+      z-index: 2;
+    }
+    .hand.hour {width:2px;height:10px;border-radius:2px;opacity:1}
+    .hand.min {width:2px;height:14px;border-radius:2px;opacity:0.9}
+    .hand.sec {width:1px;height:16px;background:var(--burgundy);border-radius:2px;opacity:0.8}
+    .clock .dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      z-index: 3;
+    }
+    .clock .numeral {display:none}
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color:var(--gold-bright);
+    }
+
+    .search-btn{display:flex;align-items:center;gap:8px}
+    .search-toggle{width:30px;height:30px;border-radius:4px;border:1px solid rgba(107,15,26,0.35);background:transparent;color:var(--burgundy);display:grid;place-items:center;cursor:pointer}
+    .search-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:1200}
+    .search-panel{width:min(720px,90vw);background:#fff;border-radius:12px;box-shadow:var(--card-shadow);padding:16px}
+    .search-input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid #ccc;font-size:16px}
+
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .language-switcher select{padding:0 4px;font-size:13px;border:none;background:transparent;color:var(--burgundy);appearance:none}
+    .language-switcher .login-link{padding:0;font-size:13px;border:none;background:transparent;text-decoration:none;color:var(--burgundy)}
+    .language-switcher .login-link:hover{text-decoration:underline}
+    .search-toggle{width:auto;height:auto;border:none;background:transparent;color:var(--burgundy);cursor:pointer;font-size:16px;line-height:1}
+
+    .main-nav {
+      background: transparent;
+      border-top: 1px solid rgba(108,29,24,0.08);
+    }
+
+    .main-menu {
+      max-width: 1200px;
+      margin: 0 auto;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 16px;
+    }
+
+    .mega{position:absolute;left:0;right:0;top:100%;background:rgba(255,255,255,0.72);backdrop-filter:saturate(200%) blur(32px);-webkit-backdrop-filter:saturate(200%) blur(32px);border-bottom:1px solid rgba(255,255,255,0.4);box-shadow:0 14px 30px rgba(0,0,0,0.12);transform-origin:top;transform:translateY(-18px);opacity:0;transition:transform .36s cubic-bezier(.16,1,.3,1), opacity .30s ease-out;pointer-events:none;will-change:transform,opacity}
+    .mega.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .mega-ctr{max-width:1200px;margin:0 auto;padding:18px 16px 20px 16px;position:relative;min-height:220px}
+    .mega-ctr .group{display:flex;align-items:center;gap:16px;white-space:nowrap;padding:12px 4px;border-bottom:1px solid #f5f1ee}
+    .mega-ctr .group:last-child{border-bottom:none}
+    .mega-ctr .g-head{min-width:160px;font-size:14px;color:rgba(108,29,24,0.62);font-weight:300;letter-spacing:.02em}
+    .mega-ctr .g-items{display:flex;gap:10px;flex-wrap:nowrap}
+    .mega-ctr .g-items a{display:inline-block;padding:5px 0;margin-right:12px;color:#444;text-decoration:none;font-size:13px;font-weight:400;border:none;background:transparent}
+    .mega-ctr .g-items a:hover{color:var(--burgundy);text-decoration:underline;background:transparent}
+    .curtain{position:fixed;left:0;right:0;top:var(--header-h,96px);bottom:0;background:linear-gradient(180deg,rgba(248,245,240,0.8),rgba(248,245,240,0.6));backdrop-filter:saturate(120%) blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease}
+    .curtain.open{opacity:1;pointer-events:auto}
+
+    .main-menu > li {
+      position: relative;
+    }
+
+    .main-menu > li > a {
+      display: block;
+      padding: 12px 0;
+      text-decoration: none;
+      color: rgba(108,29,24,0.78);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      font-weight: 500;
+      transition: opacity .2s ease;
+    }
+
+    .main-menu > li > a:hover {
+      opacity: .9;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      list-style: none;
+      padding: 8px 0;
+      margin: 0;
+      opacity:0;
+      transform: scaleY(.96);
+      transform-origin: top;
+      pointer-events:none;
+      z-index: 1000;
+      box-shadow: var(--card-shadow);
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .dropdown li a {
+      display: block;
+      padding: 8px 16px;
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .dropdown li a:hover {
+      background: #f5f5f5;
+    }
+
+    .has-dropdown:hover .dropdown,
+    .has-dropdown:focus-within .dropdown {opacity:0;transform:translateY(-8px);pointer-events:none}
+    .dropdown{display:none !important}
+
+    /* Company Gallery CSS */
+    .company-gallery {
+      padding: 96px 24px;
+      background: #fafafa;
+    }
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 64px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .gallery-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #111;
+    }
+    .gallery-desc {
+      font-size: 1.1rem;
+      color: #666;
+      line-height: 1.6;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative;
+      height: 400px; /* Tall portrait style */
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      cursor: pointer;
+      background-color: rgba(0,0,0,0.03); /* Very low opacity grey */
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.7) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-caption {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+    
+    /* Original Feature Pages CSS */
+    .feature-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: rgba(0,0,0,0.03); /* Fallback color */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; /* Parallax Effect */
+      color: #fff;
+      overflow: hidden;
+    }
+    .feature-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
+    }
+    .feature-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+    .feature-title {
+      font-size: clamp(3rem, 6vw, 5rem); /* Responsive giant text */
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .feature-desc {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 400;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .feature-btn {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #000;
+      background: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .feature-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    /* Staggered Reveal */
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    
+    /* Original Hero Slider CSS */
+    .hero {
+      position: sticky;
+      top: 0;
+      z-index: 0;
+      margin: 0;
+      padding: 0;
+      min-height: calc(100vh - var(--header-h, 96px));
+      background: none;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.03); /* Fallback color */
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 8s linear;
+      transform: scale(1.05);
+      will-change: opacity, transform;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    /* Product Showcase CSS */
+    .products-showcase { padding: 80px 40px; background: #fff; }
+    .industry-grid { display: flex; flex-direction: column; gap: 60px; }
+    .category-row { width: 100%; }
+    .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid #e5e5e5; padding-bottom: 12px; }
+    .category-title { font-size: 28px; font-weight: 600; color: var(--burgundy); }
+    .category-link { font-size: 14px; color: var(--gold); text-decoration: none; font-weight: 500; }
+    .product-carousel { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+    .showcase-card { background: #f9f9f9; border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+    .showcase-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .showcase-img { height: 200px; background-size: cover; background-position: center; }
+    .showcase-info { padding: 16px; }
+    .showcase-name { font-size: 16px; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
+    .showcase-price { font-size: 14px; color: #86868b; }
+    @media (max-width: 768px) { .products-showcase { padding: 40px 20px; } .product-carousel { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .product-carousel { grid-template-columns: 1fr; } }
+
+    /* Smooth overlay for text readability */
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+      z-index: 1;
+    }
+    .hero-text {
+      position: relative;
+      z-index: 2; /* Bring text above overlay */
+      color: #fff;
+    }
+    
+    .hero-text {max-width:1200px;width:100%;margin:0 auto;padding:72px 16px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #f0f0f0;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: #ddd;
+    }
+
+    .hero-title{font-size:72px;line-height:1.02;margin:0 0 12px 0;font-weight:200;letter-spacing:.005em;color:#fff}
+    .hero-slogan{font-size:15px;color:#f0f0f0;max-width:520px}
+    .hero-brand{font-size:20px;letter-spacing:.10em;font-weight:500;color:var(--gold-bright);text-transform:uppercase;margin-bottom:8px}
+    /* legacy hero grid removed */
+    
+    .about-split{position:relative;max-width:1200px;margin:0 auto;padding:72px 16px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+    .about-split:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(107,15,26,0.025) 0 2px,transparent 2px 28px);animation:stripePan 24s linear infinite;pointer-events:none}
+    @keyframes stripePan{0%{background-position:0 0}100%{background-position:240px 0}}
+    .about-name{font-size:88px;line-height:0.86;color:var(--gold-bright);font-weight:800;letter-spacing:.06em}
+    .about-col h3{margin:0 0 8px 0;color:var(--burgundy)}
+    .about-col p{margin:0 0 16px 0;color:var(--text-2);font-size:15px}
+    @media (max-width:880px){.about-split{grid-template-columns:1fr}.about-name{font-size:72px}}
+
+    .howwework{max-width:1200px;margin:24px auto;padding:24px 16px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .wheel{display:grid;place-items:center;background:#fff;border:1px solid #e0e0e0;border-radius:12px;box-shadow:var(--card-shadow);padding:24px}
+    .wheel-svg{width:320px;height:320px;transition:transform 2.5s cubic-bezier(0.25, 1, 0.5, 1)}
+    .howwework.active .wheel-svg{transform:rotate(360deg)}
+    .wheel:hover .wheel-svg{transform:rotate(12deg)}
+    .how-right{display:flex;flex-direction:column;gap:16px}
+    .bigclock-wrap{display:grid;place-items:center;background:#fff;border:1px solid #e0e0e0;border-radius:12px;box-shadow:var(--card-shadow);padding:24px}
+    .coverage{background:#fff;border:1px solid #e0e0e0;border-radius:12px;box-shadow:var(--card-shadow);padding:24px}
+    .bar{height:10px;border-radius:4px;background:#eee;overflow:hidden}
+    .bar .run{height:100%;background:linear-gradient(90deg,var(--burgundy),var(--gold));background-size:200% 100%;animation:runSweep 8s linear infinite;transition:width 1.5s cubic-bezier(0.22, 1, 0.36, 1)}
+    .row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:12px;margin:12px 0}
+    @keyframes runSweep{0%{background-position:0 0}100%{background-position:200% 0}}
+    .clock.xl{width:160px;height:160px;flex:0 0 160px}
+    .clock.xl .hand.hour{height:48px}
+    .clock.xl .hand.min{height:68px}
+    .clock.xl .hand.sec{height:76px}
+
+    .slider-band{max-width:1200px;margin:24px auto;padding:0 16px}
+    .slider{display:flex;gap:16px;overflow:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding-bottom:8px}
+    .slide{min-width:360px;max-width:360px;height:220px;border-radius:12px;background:rgba(0,0,0,0.03);scroll-snap-align:start;position:relative;box-shadow:var(--card-shadow);flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
+    .slide a{position:absolute;inset:0;display:block;z-index:1}
+    .slide-title{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);color:#fff;padding:32px 16px 16px;font-size:16px;font-weight:600;text-align:center;text-shadow:0 1px 3px rgba(0,0,0,0.5);z-index:2}
+    .industries-two{max-width:1200px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .ind-card{height:240px;border-radius:12px;position:relative;box-shadow:var(--card-shadow);overflow:hidden;background-color:rgba(0,0,0,0.03);background-size:cover;background-position:center}
+    .ind-card .slide-title{bottom:0}
+    .split-band{max-width:1200px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:65% 35%;gap:16px;align-items:stretch}
+    .split-main{border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow)}
+    .split-side{border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow);background:linear-gradient(160deg,#f7f4ef,#efe7df)}
+    .split-side .block-title{padding:12px 16px;color:var(--burgundy);font-weight:600}
+    .split-side .block-body{padding:0 12px 16px 16px;color:var(--text-2);font-size:14px}
+    @media (max-width:920px){.split-band{grid-template-columns:1fr;}}
+
+    .explore-block{background:#f5f5f7;border-top:1px solid #e6e6ea;border-bottom:1px solid #e6e6ea;margin:24px 0 0;padding:28px 0}
+    .explore-grid{max-width:1200px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+    .explore-grid h4{margin:0 0 10px 0;color:#2c2c2c;font-size:16px}
+    .explore-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+    .explore-grid a{color:#535353;text-decoration:none}
+    .explore-grid a:hover{text-decoration:underline}
+    @media (max-width:920px){.explore-grid{grid-template-columns:repeat(2,1fr)}}
+
+    /* Apple-style Scroll Reveal - Refined Smoothness */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px) scale(0.96); /* Deeper start for more dramatic rise */
+      transition: 
+        opacity 1.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+        transform 1.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Slower, heavier ease-out */
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    
+    .prefooter-image{position:relative;height:160px;background-color: rgba(0,0,0,0.03);background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;margin:24px 0 0;overflow:visible}
+    .prefooter-image:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%, rgba(251,247,243,0.15) 70%, rgba(247,243,238,0.4) 100%)}
+    .prefooter-image .social{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);margin:0;z-index:2}
+    .prefooter{max-width:1200px;margin:24px auto 0;padding:24px 16px;background:#fff;border:1px solid #e0e0e0;border-radius:12px}
+    .pregrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .pregrid h4{font-size:14px;margin-bottom:8px;color:var(--text)}
+    .pregrid ul{list-style:none}
+    .pregrid li{margin:6px 0;font-size:14px;color:var(--text-2)}
+    .pregrid a{text-decoration:none;color:var(--text-2)}
+    .pregrid a:hover{text-decoration:underline}
+
+    .social{max-width:1200px;margin:16px auto 8px;display:flex;justify-content:center;gap:14px}
+    .social .disc{width:40px;height:40px;border-radius:50%;background:var(--offwhite);border:1px solid var(--burgundy);display:grid;place-items:center;box-shadow:0 0 0 rgba(212,175,55,0)}
+    .social .disc:hover{box-shadow:0 0 12px rgba(212,175,55,0.18)}
+    .social img{width:20px;height:20px;display:block}
+
+    .lowest-footer{position:relative;background:var(--burgundy);color:#fff;padding:28px 0 10px;margin-top:0}
+    .lowest-footer .inner{max-width:1200px;margin:0 auto;padding:0 16px;font-size:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:.9}
+    .lowest-footer a{color:#fff;text-decoration:none;opacity:.85}
+    .lowest-footer a:hover{text-decoration:underline}
+
+    .ai-fab{position:fixed;right:20px;bottom:20px;background:#111;color:#fff;padding:12px 16px;border-radius:4px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:1500;font-size:14px}
+    .ai-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:flex-end;justify-content:flex-end;z-index:1500}
+    .ai-sheet{width:min(360px,90vw);background:#fff;border-top-left-radius:12px;border-bottom-left-radius:12px;box-shadow:var(--card-shadow);padding:16px;margin:0 20px 20px 0}
+    .ai-row{display:flex;flex-direction:column;gap:8px}
+    .ai-row textarea{min-height:100px;resize:vertical;padding:8px 10px;font-size:14px;border-radius:8px;border:1px solid #ccc}
+    .ai-row button{align-self:flex-start;padding:8px 16px;font-size:14px;border-radius:8px;border:none;background:#111;color:#fff;cursor:pointer}
+    .ai-output{margin-top:12px;font-size:14px;white-space:pre-wrap}
+
+    @media (max-width: 720px) {
+      .main-menu {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .hero {
+        margin: 16px;
+        padding: 24px 16px;
+      }
+
+      .hero-title {
+        font-size: 22px;
+      }
+    }
+    /* Insights Section */
+    .insights { max-width: 1200px; margin: 80px auto; padding: 0 16px; }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 { font-size: 36px; font-weight: 600; color: var(--burgundy); margin-bottom: 12px; letter-spacing: -0.02em; }
+    .section-header p { font-size: 17px; color: var(--text-2); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+    .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+    .insight-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
+    .insight-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .card-img { height: 220px; background-color: #f0f0f0; background-size: cover; background-position: center; position: relative; }
+    .card-body { padding: 28px; }
+    .card-tag { display: inline-block; font-size: 11px; font-weight: 700; color: var(--gold-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .card-body h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; line-height: 1.4; color: #111; }
+    .card-body p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+    .card-link { color: var(--burgundy); text-decoration: none; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; }
+    
+    /* Connect Section */
+    .connect { background: #fff; color: #111; padding: 100px 16px; text-align: center; position: relative; overflow: hidden; border-top: 1px solid #eee; }
+    .connect:before { display: none; }
+    .connect-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
+    .connect h2 { font-size: 48px; margin-bottom: 24px; font-weight: 700; letter-spacing: -0.03em; color: var(--burgundy); background: none; -webkit-text-fill-color: initial; }
+    .connect p { font-size: 20px; opacity: 0.8; margin-bottom: 40px; font-weight: 300; color: #444; }
+    .primary-btn { display: inline-block; padding: 16px 40px; background: #fff; color: #111; text-decoration: none; font-weight: 600; border-radius: 4px; border: 1px solid #e0e0e0; transition: transform 0.2s ease; font-size: 16px; }
+    .primary-btn:hover { transform: scale(1.05); }
+
+    /* Premium Footer */
+    .site-footer { background: #f5f5f7; color: #333; padding: 80px 0 0; font-size: 15px; border-top: 1px solid #e5e5e5; margin-top: 60px; }
+    .footer-top { max-width: 1200px; margin: 0 auto; padding: 0 16px 60px; display: grid; grid-template-columns: 1.2fr 0.9fr 0.9fr 1.2fr; gap: 40px; border-bottom: 1px solid #e5e5e5; }
+    .footer-col h4 { color: #111; font-size: 15px; margin-bottom: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.9; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 16px; }
+    .footer-col a { color: #555; text-decoration: none; transition: all 0.2s; font-size: 15px; }
+    .footer-col a:hover { color: var(--burgundy); padding-left: 4px; }
+    .footer-brand { font-size: 32px; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.02em; color: var(--burgundy); }
+    .footer-desc { color: #666; line-height: 1.7; margin-bottom: 24px; max-width: 320px; font-size: 15px; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 32px 16px; display: flex; justify-content: space-between; align-items: center; color: #666; font-size: 14px; }
+    .footer-social { display: flex; gap: 16px; margin-top: 24px; }
+    .footer-social a { 
+      color: #333; opacity: 0.7; transition: all 0.3s ease; 
+      width: 40px; height: 40px; border-radius: 50%; background: #e5e5e5;
+      display: grid; place-items: center;
+    }
+    .footer-social a:hover { opacity: 1; background: var(--burgundy); color: #fff; transform: translateY(-3px); }
+    .footer-social svg { width: 20px; height: 20px; }
+    
+    .newsletter-form { display: flex; gap: 10px; margin-top: 20px; }
+    .newsletter-input { 
+      background: #fff; border: 1px solid #ddd; 
+      padding: 12px 16px; border-radius: 8px; color: #333; flex: 1; font-size: 15px; outline: none; 
+      transition: border-color 0.3s;
+    }
+    .newsletter-input:focus { border-color: var(--burgundy); background: #fff; }
+    .newsletter-btn { 
+      background: var(--burgundy); color: #fff; border: none; padding: 12px 24px; 
+      border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 15px; 
+      transition: all 0.3s; white-space: nowrap; 
+    }
+    .newsletter-btn:hover { background: #8a2520; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(138, 37, 32, 0.3); }
+    
+    @media (max-width: 1024px) { .footer-top { gap: 24px; } }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 20px; text-align: center; } }
+
+    /* About Us Section Styles */
+    .about-section {
+      padding: 100px 24px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .founder-message {
+      padding: 40px;
+      background: #f9f9f9;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      box-shadow: var(--card-shadow);
+    }
+    .founder-quote {
+      font-size: 24px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--burgundy);
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+    .founder-text {
+      font-size: 16px;
+      color: var(--text-2);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .founder-sig {
+      display: flex;
+      flex-direction: column;
+    }
+    .sig-name {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 18px;
+    }
+    .sig-title {
+      font-size: 14px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .about-content {
+      padding-top: 20px;
+    }
+    .about-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--burgundy);
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+    .about-content p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-2);
+      margin-bottom: 24px;
+    }
+    .brand-statement {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 32px;
+      border-top: 1px solid #eee;
+      padding-top: 24px;
+    }
+    
+    @media (max-width: 900px) {
+      .about-container { grid-template-columns: 1fr; gap: 40px; }
+      .about-section { padding: 60px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="clock" id="hdr-clock">
+        <div class="hand hour" id="h"></div>
+        <div class="hand min" id="m"></div>
+        <div class="hand sec" id="s"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="logo" data-i18n-key="brandName">HARVICS</div>
+      <div class="language-switcher">
+        <select id="language-select">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+        <a href="#login" class="login-link" data-i18n-key="login">Login</a>
+        <button class="search-toggle" id="open-search" aria-label="Search">🔍</button>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul class="main-menu">
+        <li><a href="#about" data-i18n-key="navAbout">About Us</a></li>
+        <li class="has-mega"><a href="textiles.html" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
+        <li><a href="fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
+        <li><a href="sourcing.html" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
+        <li><a href="#minerals" data-i18n-key="navMinerals">Minerals</a></li>
+        <li><a href="commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
+        <li><a href="industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
+        <li><a href="#finance" data-i18n-key="navFinance">Finance & HPay</a></li>
+        <li><a href="#ai" data-i18n-key="navAI">AI & Technology</a></li>
+        <li><a href="#realestate" data-i18n-key="navRealEstate">Real Estate</a></li>
+        <li><a href="#oilgas" data-i18n-key="navOilGas">Oil & Gas</a></li>
+      </ul>
+    </nav>
+    <div class="mega" id="mega">
+      <div class="mega-ctr" id="mega-ctr"></div>
+    </div>
+  </header>
+  <div class="curtain" id="mega-overlay"></div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-slides" id="hero-slides">
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-0A7YwYhZhWw?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-Ej2FQy1W7z4?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-m0ZBWRYYq7o?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-VmBToKkQ8ac?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
+      </div>
+      <div class="hero-text reveal">
+        <div class="hero-col hero-left">
+          <div class="hero-brand">Harvics Global Ventures</div>
+          <div class="hero-slogan">Your global business partner for sourcing and supply chain solutions.</div>
+        </div>
+        <div class="hero-col hero-right" style="text-align:right">
+          <h1 class="hero-title" style="color:var(--burgundy)">EXPLORING<br/>ACROSS<br/>HEMISPHERES</h1>
+        </div>
+      </div>
+    </section>
+
+    <!-- HARVICS Global Ventures Section -->
+    <section class="harvics-ventures-section" style="position:relative; z-index:10; min-height:80vh; display:flex; align-items:center; overflow:hidden; background:#000;">
+      <!-- Background Image -->
+      <div style="position:absolute; inset:0; background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80'); background-size:cover; background-position:center; z-index:0;"></div>
+      
+      <!-- Overlay Gradient -->
+      <div style="position:absolute; inset:0; background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%); z-index:1;"></div>
+      
+      <!-- Gold Wave Top -->
+      <div style="position:absolute; top:0; left:0; right:0; height:60px; overflow:hidden; z-index:2; transform:rotate(180deg);">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height:100%; width:100%;">
+          <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke:none; fill:var(--gold); opacity:0.6;"></path>
+        </svg>
+      </div>
+
+      <!-- Content -->
+      <div style="position:relative; z-index:3; max-width:1200px; margin:0 auto; padding:0 24px; width:100%;">
+        <div style="max-width:600px;">
+          <h2 style="font-size:clamp(3rem, 5vw, 4.5rem); font-weight:800; color:#fff; line-height:1.1; margin-bottom:24px; text-transform:uppercase; letter-spacing:0.02em;">
+            Harvics<br>
+            <span style="color:var(--gold);">Global</span><br>
+            Ventures
+          </h2>
+          <p style="font-size:1.2rem; color:rgba(255,255,255,0.9); line-height:1.6; max-width:480px;">
+            Connecting markets, empowering industries, and delivering excellence across the globe.
+          </p>
+        </div>
+      </div>
+
+      <!-- Gold Wave Bottom -->
+      <div style="position:absolute; bottom:0; left:0; right:0; height:80px; overflow:hidden; z-index:2;">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height:100%; width:100%;">
+          <path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke:none; fill:var(--gold); opacity:0.8;"></path>
+        </svg>
+      </div>
+    </section>
+    
+
+
+    <!-- Feature Page 1: Global Network -->
+    <section class="feature-page" id="global-network" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2000&q=80')">
+      <div class="feature-overlay"></div>
+      <div class="feature-content reveal">
+        <h2 class="feature-title">Global Connectivity.</h2>
+        <p class="feature-desc reveal-delay-1">Bridging continents with a seamless logistics network that never sleeps. We move the world forward.</p>
+        <a href="sourcing.html" class="feature-btn reveal reveal-delay-2">Learn more</a>
+      </div>
+    </section>
+
+    <!-- Feature Page 2: Premium Textiles -->
+    <section class="feature-page" id="premium-textiles" style="background-image: url('https://images.unsplash.com/photo-1621251977717-382627447913?auto=format&fit=crop&w=2000&q=80')">
+      <div class="feature-overlay"></div>
+      <div class="feature-content reveal">
+        <h2 class="feature-title">Masterful Textiles.</h2>
+        <p class="feature-desc reveal-delay-1">Woven with precision, designed for luxury. Our fabrics set the standard for international excellence.</p>
+        <a href="textiles.html" class="feature-btn reveal reveal-delay-2">Discover Collection</a>
+      </div>
+    </section>
+
+    <!-- Feature Page 3: Industrial Power -->
+    <section class="feature-page" id="industrial-power" style="background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=2000&q=80')">
+      <div class="feature-overlay"></div>
+      <div class="feature-content reveal">
+        <h2 class="feature-title">Industrial Force.</h2>
+        <p class="feature-desc reveal-delay-1">Powering the backbone of modern infrastructure with robust raw materials and machinery.</p>
+        <a href="industrial.html" class="feature-btn reveal reveal-delay-2">View Solutions</a>
+      </div>
+    </section>
+    
+    <!-- About Us Section -->
+    <section class="about-section reveal" id="about">
+      <div class="about-container">
+        <!-- Founder's Message -->
+        <div class="founder-message">
+          <div class="founder-quote">
+            “Global supply chains were never built for today’s complexity. Harvics was created to change that.”
+          </div>
+          <p class="founder-text">
+            With HARVICS OS, we bring intelligence, clarity, and precision to how energy, goods, and capital move across global markets — enabling enterprises to operate with confidence.
+          </p>
+          <div class="founder-sig">
+            <span class="sig-name">— Mian Muhammad Usman</span>
+            <span class="sig-title">Founder & CEO, Harvics</span>
+          </div>
+        </div>
+        
+        <!-- About Content -->
+        <div class="about-content">
+          <h2 class="about-title">About Us</h2>
+          <p>
+            Harvics is an AI-native sourcing and supply-chain intelligence company operating across energy, oil & gas, industrial goods, technology, real-estate-linked assets, and financial solutions.
+          </p>
+          <p>
+            Powered by <strong>HARVICS OS</strong>, our proprietary operating system, we connect origins, logistics, markets, and capital into a single intelligent framework. This enables enterprises to source smarter, manage risk, and execute at global scale with clarity and control.
+          </p>
+          <p>
+            Harvics operates as an intelligence layer, not a traditional intermediary — built for precision, resilience, and long-term value.
+          </p>
+          <p class="brand-statement">Harvics. Intelligent supply chains, engineered for the future.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="howwework reveal" id="howwework">
+      <div class="wheel">
+        <svg class="wheel-svg" viewBox="0 0 320 320">
+          <defs>
+            <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6C1D18"/>
+              <stop offset="1" stop-color="#D4AF37"/>
+            </linearGradient>
+          </defs>
+          <circle cx="160" cy="160" r="130" fill="none" stroke="url(#wg)" stroke-width="22"/>
+          <circle cx="160" cy="160" r="102" fill="#fff"/>
+          <text x="160" y="150" font-size="16" fill="#333" text-anchor="middle" data-i18n-key="whEnd">End‑to‑end</text>
+          <text x="160" y="170" font-size="16" fill="#333" text-anchor="middle" data-i18n-key="whSup">supply chain</text>
+          <text x="160" y="190" font-size="16" fill="#333" text-anchor="middle" data-i18n-key="whMgmt">management</text>
+          <text x="160" y="26" font-size="12" fill="#6E6E73" text-anchor="middle" data-i18n-key="whSrc">Sourcing</text>
+          <text x="285" y="166" font-size="12" fill="#6E6E73" text-anchor="middle" data-i18n-key="whDsg">Design</text>
+          <text x="160" y="304" font-size="12" fill="#6E6E73" text-anchor="middle" data-i18n-key="whMfg">Manufacturing</text>
+          <text x="35" y="166" font-size="12" fill="#6E6E73" text-anchor="middle" data-i18n-key="whCmp">Compliance</text>
+          <text x="230" y="280" font-size="12" fill="#6E6E73" text-anchor="middle" data-i18n-key="whLog">DC & Transport</text>
+          <text x="90" y="40" font-size="12" fill="#6E6E73" text-anchor="middle" data-i18n-key="whRet">Retail</text>
+        </svg>
+      </div>
+      <div class="how-right">
+        <div class="bigclock-wrap">
+          <div class="clock xl" id="big-clock">
+            <div class="hand hour" id="bh"></div>
+            <div class="hand min" id="bm"></div>
+            <div class="hand sec" id="bs"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+        <div class="coverage">
+          <h3 style="margin-bottom:12px;font-weight:600;color:var(--text)" data-i18n-key="covTitle">Supply Chain Coverage</h3>
+          <div class="row">
+            <div style="color:var(--text-2);font-size:14px" data-i18n-key="covSol">Supply Chain Solutions</div>
+            <div class="bar"><div class="run" style="width:0" data-width="82%"></div></div>
+          </div>
+          <div class="row">
+            <div style="color:var(--text-2);font-size:14px" data-i18n-key="covImp">Importer / Wholesaler</div>
+            <div class="bar"><div class="run" style="width:0" data-width="64%"></div></div>
+          </div>
+          <div class="row">
+            <div style="color:var(--text-2);font-size:14px" data-i18n-key="covSup">Supplier</div>
+            <div class="bar"><div class="run" style="width:0" data-width="72%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Company Gallery Section -->
+    <section class="company-gallery reveal" id="gallery">
+      <div class="gallery-header">
+        <h2 class="gallery-title">Life at Harvics</h2>
+        <p class="gallery-desc">From our design studios to our global logistics centers, explore the world of Harvics.</p>
+      </div>
+      <div class="gallery-grid">
+        <!-- Gallery Item 1 -->
+        <div class="gallery-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="office" alt="Corporate Headquarters">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Corporate Headquarters</div>
+          </div>
+        </div>
+        <!-- Gallery Item 2 -->
+        <div class="gallery-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="textiles" alt="Design Studio">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Design Studio</div>
+          </div>
+        </div>
+        <!-- Gallery Item 3 -->
+        <div class="gallery-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="logistics" alt="Global Logistics">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Global Logistics</div>
+          </div>
+        </div>
+        <!-- Gallery Item 4 -->
+        <div class="gallery-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="manufacturing" alt="Manufacturing Units">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Manufacturing Units</div>
+          </div>
+        </div>
+        <!-- Gallery Item 5 -->
+        <div class="gallery-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="team" alt="Our Team">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Our Team</div>
+          </div>
+        </div>
+        <!-- Gallery Item 6 -->
+        <div class="gallery-item">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="partnership" alt="Partnership Meetings">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Partnership Meetings</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="industries-two page reveal" id="industries-two">
+      <div class="ind-card" id="ind-fmcg" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80');"><a href="fmcg.html"></a><div class="slide-title">FMCG</div></div>
+      <div class="ind-card" id="ind-textiles" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80');"><a href="textiles.html"></a><div class="slide-title">Textiles & Apparels</div></div>
+    </section>
+    
+
+    
+
+    <section class="split-band reveal" id="industries-split">
+      <div class="split-main">
+        <div class="slider" data-dir="1">
+          <div class="slide" data-bg-key="industrial" style="background-size: cover; background-position: center;"><a href="#industrial"></a><div class="slide-title">Industrial</div></div>
+          <div class="slide" data-bg-key="textiles" style="background-size: cover; background-position: center;"><a href="#textiles"></a><div class="slide-title">Textiles</div></div>
+          <div class="slide" data-bg-key="fmcg" style="background-size: cover; background-position: center;"><a href="#fmcg"></a><div class="slide-title">FMCG</div></div>
+        </div>
+      </div>
+      <div class="split-side">
+        <div class="block-title">Industries</div>
+        <div class="block-body">
+          Diverse global coverage across FMCG, Textiles, and Industrial categories with compliance‑first sourcing and reliable delivery.
+        </div>
+      </div>
+    </section>
+    
+    <section class="slider-band" id="sliderB">
+      <div class="slider" data-dir="1">
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-0A7YwYhZhWw?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#sourcing"></a><div class="slide-title">Sourcing & Supply Chain</div></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-VmBToKkQ8ac?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#fmcg"></a><div class="slide-title">FMCG</div></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-P-J4kbEIEk0?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#textiles"></a><div class="slide-title">Textiles & Apparels</div></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-8srjIDuaHLc?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#industrial"></a><div class="slide-title">Industrial Solutions</div></div>
+      </div>
+    </section>
+
+    <section class="slider-band" id="sliderA">
+      <div class="slider" data-dir="1">
+        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-cjUOhrBquqc?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#silk-curtains"></a><div class="slide-title">Silk Curtains</div></div>
+        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-m8wsQ_8cd2M?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#towels"></a><div class="slide-title">Towels</div></div>
+        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-1522771753035-48498225e6ab?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#bedding"></a><div class="slide-title">Bedding</div></div>
+        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#home-textiles"></a><div class="slide-title">Home Textiles</div></div>
+      </div>
+    </section>
+
+    <!-- Dynamic Product Showcase -->
+    <section class="products-showcase reveal" id="industries">
+      <div class="section-header">
+        <h2 data-i18n-key="shPort">Global Product Portfolio</h2>
+        <p data-i18n-key="shPortSub">Explore our diverse range of sourcing and supply chain solutions.</p>
+      </div>
+      
+      <div id="industry-showcase" class="industry-grid">
+        <!-- Will be populated by JS -->
+      </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section class="insights reveal" id="insights">
+      <div class="section-header">
+        <h2 data-i18n-key="shIns">Harvics Insights</h2>
+        <p data-i18n-key="shInsSub">Latest news and industry updates from our global team</p>
+      </div>
+      <div class="insight-grid">
+        <div class="insight-card">
+          <div class="card-img" data-bg-key="strategy" style="background-size: cover; background-position: center;"></div>
+          <div class="card-body">
+            <span class="card-tag">Industry News</span>
+            <h3>Global Supply Chain Trends 2024</h3>
+            <p>Explore the latest shifts in global logistics and sourcing strategies.</p>
+            <a href="#insights" class="card-link">Read More →</a>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="card-img" data-bg-key="textiles" style="background-size: cover; background-position: center;"></div>
+          <div class="card-body">
+            <span class="card-tag">Innovation</span>
+            <h3>Sustainable Textiles</h3>
+            <p>How eco-friendly fabrics are reshaping the fashion industry.</p>
+            <a href="#insights" class="card-link">Read More →</a>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="card-img" data-bg-key="office" style="background-size: cover; background-position: center;"></div>
+          <div class="card-body">
+            <span class="card-tag">Corporate</span>
+            <h3>Harvics Expands to Europe</h3>
+            <p>New logistics hubs opening in key European markets.</p>
+            <a href="#insights" class="card-link">Read More →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section class="connect reveal" id="connect">
+      <div class="connect-inner">
+        <h2 data-i18n-key="shConn">Ready to Scale Your Business?</h2>
+        <p data-i18n-key="shConnSub">Join thousands of global partners who trust Harvics for their sourcing and supply chain needs.</p>
+        <a href="#contact" class="primary-btn" data-i18n-key="btnStart">Get Started Today</a>
+      </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-col">
+          <div class="footer-brand" data-i18n-key="brandName">HARVICS</div>
+          <p class="footer-desc" data-i18n-key="footerDesc">Your trusted global partner for sourcing, manufacturing, and supply chain solutions. Connecting markets, delivering excellence.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="LinkedIn" title="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="#" aria-label="Instagram" title="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" aria-label="Twitter" title="X (Twitter)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+            <a href="#" aria-label="Facebook" title="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n-key="ftInd">Industries</h4>
+          <ul>
+            <li><a href="#textiles" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
+            <li><a href="#fmcg" data-i18n-key="navFmcg">FMCG</a></li>
+            <li><a href="#industrial" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
+            <li><a href="#minerals" data-i18n-key="navMinerals">Minerals & Mining</a></li>
+            <li><a href="#commodities" data-i18n-key="navCommodities">Commodities</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n-key="ftCo">Company</h4>
+          <ul>
+            <li><a href="#about" data-i18n-key="navAbout">About Us</a></li>
+            <li><a href="#careers" data-i18n-key="ftCar">Careers</a></li>
+            <li><a href="#sustainability" data-i18n-key="ftSus">Sustainability</a></li>
+            <li><a href="#news" data-i18n-key="ftNews">News & Insights</a></li>
+            <li><a href="#contact" data-i18n-key="ftCont">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n-key="ftStay">Stay Updated</h4>
+          <p class="footer-desc" data-i18n-key="ftSub">Subscribe to our newsletter for the latest market trends.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" aria-label="Email" data-i18n-key="emailPlaceholder">
+            <button type="submit" class="newsletter-btn" data-i18n-key="btnJoin">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; <span id="year"></span> <span data-i18n-key="ftCopy">Harvics Global Ventures. All rights reserved.</span></div>
+        <div style="display:flex;gap:24px">
+          <a href="#" data-i18n-key="ftPriv">Privacy Policy</a>
+          <a href="#" data-i18n-key="ftTerms">Terms of Service</a>
+          <a href="#" data-i18n-key="ftMap">Sitemap</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="ai-fab" id="ai-fab">Ask AI</div>
+  </main>
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-panel">
+      <input class="search-input" id="search-input" type="text" placeholder="Search">
+    </div>
+  </div>
+  
+  <div class="ai-overlay" id="ai-overlay">
+    <div class="ai-sheet">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-weight:600">Harvics AI Assistant</div>
+        <button id="ai-close" style="border:none;background:transparent;font-size:20px;line-height:1;cursor:pointer">×</button>
+      </div>
+      <div class="ai-row">
+        <textarea id="ai-input" placeholder="Ask something about your products or ideas"></textarea>
+        <button id="ai-send">Ask AI</button>
+        <div class="ai-output" id="ai-output"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Logic moved to script.js
+  </script>
+  <script src="product-data.js"></script>
+  <script src="slider-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
