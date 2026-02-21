@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids - HARVICS</title>
+  <style>
+    :root{
+      --burgundy:#6C1D18;
+      --burgundy-deep:#5A1815;
+      --gold:#D4AF37;
+      --gold-bright:#EED27A;
+      --offwhite:#FDFBF7;
+      --text:#5A1815;
+      --text-2:#8B2E2E;
+      --divider:#E6E0D4;
+      --card-shadow:0 8px 16px rgba(108,29,24,0.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;background:var(--offwhite);color:var(--text)}
+    header{
+      background:rgba(253,251,247,0.85);
+      backdrop-filter:saturate(180%) blur(25px);
+      -webkit-backdrop-filter:saturate(180%) blur(25px);
+      position:sticky;top:0;z-index:1000;color:var(--burgundy);
+      border-bottom:1px solid rgba(108,29,24,0.05);
+      box-shadow: 0 4px 30px rgba(108, 29, 24, 0.04);
+    }
+    .top-bar{max-width:1200px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .clock{width:44px;height:44px;border-radius:50%;background:var(--offwhite);box-shadow:inset 0 1px 2px rgba(108,29,24,0.12);border:1px solid var(--divider);display:block;position:relative;flex:0 0 44px}
+    .clock:before{content:"";position:absolute;inset:2px;border-radius:50%;border:1px solid var(--gold);opacity:0.8}
+    .clock .hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom;background:#5A1815;z-index:2}
+    .hand.hour{width:2px;height:10px;border-radius:2px;opacity:1}
+    .hand.min{width:2px;height:14px;border-radius:2px;opacity:0.9}
+    .hand.sec{width:1px;height:16px;background:var(--burgundy);border-radius:2px;opacity:0.8}
+    .clock .dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:var(--gold);border-radius:50%;z-index:3}
+    .clock .numeral{display:none}
+    .logo{font-weight:700;letter-spacing:0.08em;color:var(--gold-bright)}
+    .language-switcher{display:flex;align-items:center;gap:8px;font-size:13px}
+    .language-switcher select{padding:0 4px;font-size:13px;border:none;background:transparent;color:var(--burgundy);appearance:none}
+    .language-switcher .login-link{padding:0;font-size:13px;border:none;background:transparent;text-decoration:none;color:var(--burgundy)}
+    .language-switcher .login-link:hover{text-decoration:underline}
+    .main-nav{background:transparent;border-top:1px solid rgba(108,29,24,0.08)}
+    .main-menu{max-width:1200px;margin:0 auto;list-style:none;display:flex;align-items:center;gap:20px;padding:0 16px}
+    .main-menu>li{position:relative}
+    .main-menu>li>a{display:block;padding:12px 0;text-decoration:none;color:rgba(108,29,24,0.78);font-size:12px;letter-spacing:0.02em;font-weight:500;transition:opacity .2s ease}
+    .main-menu>li>a:hover{opacity:.9}
+    .mega{position:absolute;left:0;right:0;top:100%;background:rgba(253,251,247,0.95);backdrop-filter:saturate(200%) blur(32px);-webkit-backdrop-filter:saturate(200%) blur(32px);border-bottom:1px solid rgba(108,29,24,0.05);box-shadow:0 14px 30px rgba(108,29,24,0.12);transform-origin:top;transform:translateY(-18px);opacity:0;transition:transform .36s cubic-bezier(.16,1,.3,1), opacity .30s ease-out;pointer-events:none;will-change:transform,opacity}
+    .mega.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .mega-ctr{max-width:1200px;margin:0 auto;padding:18px 16px 20px 16px;position:relative;min-height:220px}
+    .mega-ctr .group{display:flex;align-items:center;gap:16px;white-space:nowrap;padding:12px 4px;border-bottom:1px solid var(--divider)}
+    .mega-ctr .group:last-child{border-bottom:none}
+    .mega-ctr .g-head{min-width:160px;font-size:14px;color:rgba(108,29,24,0.62);font-weight:300;letter-spacing:.02em}
+    .mega-ctr .g-items{display:flex;gap:10px;flex-wrap:nowrap}
+    .mega-ctr .g-items a{display:inline-block;padding:5px 12px;border-radius:4px;background:var(--offwhite);border:1px solid rgba(107,15,26,0.22);color:var(--text);text-decoration:none;font-size:12px;font-weight:300}
+    .mega-ctr .g-items a:hover{border-color:rgba(107,15,26,0.40);background:rgba(108,29,24,0.05);color:var(--burgundy)}
+    .curtain{position:fixed;left:0;right:0;top:var(--header-h,96px);bottom:0;background:linear-gradient(180deg,rgba(253,251,247,0.8),rgba(253,251,247,0.6));backdrop-filter:saturate(120%) blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease}
+    .curtain.open{opacity:1;pointer-events:auto}
+
+    /* Page Layout Styles */
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 32px;
+    }
+
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    /* Filters */
+    .filter-group {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--divider);
+      padding-bottom: 16px;
+    }
+
+    .filter-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .filter-list {
+      list-style: none;
+    }
+
+    .filter-list li {
+      margin-bottom: 8px;
+    }
+
+    .filter-list a {
+      text-decoration: none;
+      color: var(--text-2);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .filter-list a:hover {
+      color: var(--burgundy);
+      text-decoration: underline;
+    }
+
+    .count {
+      color: var(--text-2);
+      font-size: 12px;
+    }
+
+    /* Product Grid */
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--offwhite);
+      border: 1px solid var(--divider);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(108,29,24,0.12);
+    }
+
+    .product-image {
+      height: 280px;
+      background: var(--offwhite);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .product-price {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* AI Panel Mini */
+    .ai-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--burgundy);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(108,29,24,0.2);
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 2000;
+    }
+
+    /* Footer - Original Creamish/Burgundy/Gold Theme */
+    .site-footer { background: var(--offwhite); color: var(--burgundy); padding: 80px 0 0; font-size: 15px; border-top: 4px solid var(--gold); margin-top: 0; }
+    .footer-top { max-width: 1200px; margin: 0 auto; padding: 0 16px 60px; display: grid; grid-template-columns: 1.2fr 0.9fr 0.9fr 1.2fr; gap: 40px; border-bottom: 1px solid var(--gold); }
+    .footer-col h4 { color: var(--burgundy); font-size: 15px; margin-bottom: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 1; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 16px; }
+    .footer-col a { color: var(--burgundy); text-decoration: none; transition: all 0.2s; font-size: 15px; opacity: 0.8; }
+    .footer-col a:hover { color: var(--gold); padding-left: 4px; opacity: 1; }
+    .footer-brand { font-size: 32px; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.02em; color: var(--burgundy); }
+    .footer-desc { color: var(--burgundy); line-height: 1.7; margin-bottom: 24px; max-width: 320px; font-size: 15px; opacity: 0.8; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 32px 16px; display: flex; justify-content: space-between; align-items: center; color: var(--burgundy); font-size: 14px; opacity: 0.8; }
+    .footer-social { display: flex; gap: 16px; margin-top: 24px; }
+    .footer-social a { 
+      color: var(--burgundy); opacity: 0.7; transition: all 0.3s ease; 
+      width: 40px; height: 40px; border-radius: 50%; background: transparent; border: 1px solid var(--burgundy);
+      display: grid; place-items: center;
+    }
+    .footer-social a:hover { opacity: 1; background: var(--burgundy); color: var(--gold); border-color: var(--burgundy); transform: translateY(-3px); }
+    .footer-social svg { width: 20px; height: 20px; }
+    
+    .newsletter-form { display: flex; gap: 10px; margin-top: 20px; }
+    .newsletter-input { 
+      background: var(--offwhite); border: 1px solid var(--burgundy); 
+      padding: 12px 16px; border-radius: 8px; color: var(--burgundy); flex: 1; font-size: 15px; outline: none; 
+      transition: border-color 0.3s;
+    }
+    .newsletter-input:focus { border-color: var(--gold); background: var(--offwhite); }
+    .newsletter-btn { 
+      background: var(--burgundy); color: var(--gold); border: none; padding: 12px 24px; 
+      border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 15px; 
+      transition: all 0.3s; white-space: nowrap; 
+    }
+    .newsletter-btn:hover { background: var(--gold); color: var(--burgundy); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); }
+    
+    @media (max-width: 1024px) { .footer-top { gap: 24px; } }
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
+    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 20px; text-align: center; } }
+    .success-message { color: #4BB543; font-size: 14px; margin-top: 10px; display: flex; align-items: center; gap: 8px; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="top-bar">
+      <div class="clock" id="hdr-clock">
+        <div class="hand hour" id="h"></div>
+        <div class="hand min" id="m"></div>
+        <div class="hand sec" id="s"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="logo" data-i18n-key="brandName">HARVICS</div>
+      <div class="language-switcher">
+        <select id="language-select">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+        <a href="#login" class="login-link" data-i18n-key="login">Login</a>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul class="main-menu">
+        <li><a href="index.html#about" data-i18n-key="navAbout">About Us</a></li>
+        <li><a href="textiles.html" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
+        <li><a href="fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
+        <li><a href="sourcing.html" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
+        <li><a href="index.html#minerals" data-i18n-key="navMinerals">Minerals</a></li>
+        <li><a href="commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
+        <li><a href="industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
+        <li><a href="index.html#finance" data-i18n-key="navFinance">Finance & HPay</a></li>
+        <li><a href="index.html#ai" data-i18n-key="navAI">AI & Technology</a></li>
+        <li><a href="index.html#realestate" data-i18n-key="navRealEstate">Real Estate</a></li>
+        <li><a href="index.html#oilgas" data-i18n-key="navOilGas">Oil & Gas</a></li>
+      </ul>
+    </nav>
+    <div class="mega" id="mega"><div class="mega-ctr" id="mega-ctr"></div></div>
+  </header>
+  <div class="curtain" id="mega-overlay"></div>
+
+  <div class="container">
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar">
+      <div class="filter-group">
+        <div class="filter-title">Category</div>
+        <ul class="filter-list">
+          <li><a href="#">Boys <span class="count">(120)</span></a></li>
+          <li><a href="#">Girls <span class="count">(145)</span></a></li>
+          <li><a href="#">Baby <span class="count">(80)</span></a></li>
+          <li><a href="#">School Uniform <span class="count">(45)</span></a></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Size</div>
+        <ul class="filter-list">
+          <li><a href="#">0-3 Months</a></li>
+          <li><a href="#">3-6 Months</a></li>
+          <li><a href="#">1-2 Years</a></li>
+          <li><a href="#">3-5 Years</a></li>
+          <li><a href="#">6-9 Years</a></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Material</div>
+        <ul class="filter-list">
+          <li><a href="#">Cotton</a></li>
+          <li><a href="#">Organic Cotton</a></li>
+          <li><a href="#">Polyester</a></li>
+          <li><a href="#">Linen</a></li>
+          <li><a href="#">Wool</a></li>
+          <li><a href="#">Leather (Genuine / PU / Vegan)</a></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Manufacturing</div>
+        <ul class="filter-list">
+          <li><a href="#">Hand-stitched</a></li>
+          <li><a href="#">Machine-made</a></li>
+          <li><a href="#">Sustainable / Eco-friendly</a></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Market Positioning</div>
+        <ul class="filter-list">
+          <li><a href="#">Economy</a></li>
+          <li><a href="#">Mid-range</a></li>
+          <li><a href="#">Premium / Luxury</a></li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">Region</div>
+        <ul class="filter-list">
+          <li><a href="#">Europe</a></li>
+          <li><a href="#">GCC</a></li>
+          <li><a href="#">Asia</a></li>
+          <li><a href="#">Africa</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <h1 class="page-title">Kids Clothing & Accessories</h1>
+      
+      <div class="product-grid" id="kids-product-grid">
+        <!-- Products loaded via JS -->
+      </div>
+    </main>
+  </div>
+
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-brand" data-i18n-key="brandName">HARVICS</div>
+        <p class="footer-desc" data-i18n-key="footerDesc">Your trusted global partner for sourcing, manufacturing, and supply chain solutions. Connecting markets, delivering excellence.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn" title="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="#" aria-label="Instagram" title="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter" title="X (Twitter)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Facebook" title="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n-key="ftInd">Industries</h4>
+        <ul>
+          <li><a href="textiles.html" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
+          <li><a href="fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
+          <li><a href="industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
+          <li><a href="index.html#minerals" data-i18n-key="navMinerals">Minerals & Mining</a></li>
+          <li><a href="commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n-key="ftCo">Company</h4>
+        <ul>
+          <li><a href="index.html#about" data-i18n-key="navAbout">About Us</a></li>
+          <li><a href="index.html#careers" data-i18n-key="ftCar">Careers</a></li>
+          <li><a href="index.html#sustainability" data-i18n-key="ftSus">Sustainability</a></li>
+          <li><a href="index.html#news" data-i18n-key="ftNews">News & Insights</a></li>
+          <li><a href="index.html#contact" data-i18n-key="ftCont">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n-key="ftStay">Stay Updated</h4>
+        <p class="footer-desc" data-i18n-key="ftSub">Subscribe to our newsletter for the latest market trends.</p>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Your email address" aria-label="Email" data-i18n-key="emailPlaceholder">
+          <button type="submit" class="newsletter-btn" data-i18n-key="btnJoin">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; <span id="year">2025</span> <span data-i18n-key="ftCopy">Harvics Global Ventures. All rights reserved.</span></div>
+      <div style="display:flex;gap:24px">
+        <a href="#" data-i18n-key="ftPriv">Privacy Policy</a>
+        <a href="#" data-i18n-key="ftTerms">Terms of Service</a>
+        <a href="#" data-i18n-key="ftMap">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="product-data.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render Kids Products
+      const grid = document.getElementById('kids-product-grid');
+      if (grid && productCatalog.textiles && productCatalog.textiles.kids) {
+          grid.innerHTML = productCatalog.textiles.kids.map(product => {
+              // Get high-quality image from product-data.js helper
+              const imageUrl = getProductImage(product.keywords || product.name);
+              return `
+              <div class="product-card">
+                  <div class="product-image" style="background-image: url('${imageUrl}'); background-size: cover; background-position: center;"></div>
+                  <div class="product-info">
+                      <div class="product-name">${product.name}</div>
+                      <div class="product-price">${product.price}</div>
+                  </div>
+              </div>
+          `}).join('');
+      }
+    });
+  </script>
+
+  <div class="ai-fab" id="ai-fab">Ask AI</div>
+
+  <!-- AI Panel (Hidden by default, shown on click) -->
+  <div class="ai-panel" id="ai-panel-overlay" style="display:none; position:fixed; bottom:80px; right:24px; width:320px; z-index:2000; box-shadow: 0 4px 20px rgba(108,29,24,0.2);">
+    <div class="ai-panel-title">Harvics AI Assistant <span style="float:right; cursor:pointer;" id="close-ai">×</span></div>
+    <div class="ai-panel-note">Ask our intelligence layer about products, styles, or availability.</div>
+    <div class="ai-row">
+      <textarea id="ai-input" placeholder="Ask something about your products or ideas"></textarea>
+      <button id="ai-send">Ask AI</button>
+      <div class="ai-output" id="ai-output"></div>
+    </div>
+  </div>
+
+  <script>
+    const intelligenceLayer = (function () {
+      const messages = {
+        en: {
+          brandName: "HARVICS",
+          languageLabel: "Language",
+          login: "Login",
+          navAbout: "About Us",
+          navTextiles: "Textiles & Apparels",
+          navFmcg: "FMCG",
+          navSourcing: "Sourcing Solutions",
+          navMinerals: "Minerals",
+          navCommodities: "Commodities",
+          navIndustrial: "Industrial Solutions",
+          navFinance: "Finance & HPay",
+          navAI: "AI & Technology",
+          navRealEstate: "Real Estate",
+          navOilGas: "Oil & Gas",
+          catMen: "Men",
+          catLadies: "Ladies",
+          catLingerie: "Lingerie",
+          catKids: "Kids",
+          catHomeTextiles: "Home Textiles",
+          catKitchen: "Kitchen",
+          catTowels: "Towels",
+          catShoes: "Shoes",
+          catXyz: "XYZ",
+        },
+        fr: {
+          brandName: "HARVICS",
+          languageLabel: "Langue",
+          login: "Connexion",
+          navAbout: "À propos",
+          navTextiles: "Textile et habillement",
+          navFmcg: "FMCG",
+          navSourcing: "Approvisionnement",
+          navMinerals: "Minéraux",
+          navCommodities: "Produits de base",
+          navIndustrial: "Solutions industrielles",
+          navFinance: "Finance & HPay",
+          navAI: "IA & Technologie",
+          navRealEstate: "Immobilier",
+          navOilGas: "Pétrole & Gaz",
+          catMen: "Hommes",
+          catLadies: "Femmes",
+          catLingerie: "Lingerie",
+          catKids: "Enfants",
+          catHomeTextiles: "Linge de maison",
+          catKitchen: "Cuisine",
+          catTowels: "Serviettes",
+          catShoes: "Chaussures",
+          catXyz: "Autres",
+        }
+      };
+
+      let currentLocale = "en";
+      const megaData = {
+        en: {
+          navTextiles: [
+            {t:"Men's Apparel", items:["Suits & Blazers","Shirts & Polos","Jeans & Trousers","Ethnic & Traditional","Jackets & Outerwear","Innerwear & Sleepwear","Workwear & Uniforms"]},
+            {t:"Women's Apparel", items:["Dresses & Formal","Tops & Tunics","Jeans & Skirts","Ethnic & Sarees","Abayas & Modest","Lingerie & Nightwear","Jackets & Coats"]},
+            {t:"Home & Leather", items:["Bedding & Towels","Curtains & Rugs","Table Linen","Leather Bags & Luggage","Leather Accessories","Leather Jackets"]},
+            {t:"Fashion & Sports", items:["Fashion Accessories","Jewelry & Watches","Sports Apparel","Sports Footwear","Team Jerseys"]},
+            {t:"Footwear", items:["Men's Formal","Men's Casual","Women's Heels & Flats","Boots & Sandals","Traditional Shoes"]},
+            {t:"Kids & Baby", items:["Kids Clothing (2-12Y)","Baby Clothing (0-24M)","Baby Shoes","Kids Shoes","School Uniforms"]},
+            {t:"Material & Mfg", items:["Cotton / Organic","Polyester / Linen","Wool / Leather","Hand-stitched","Machine-made","Sustainable"]},
+            {t:"Market & Region", items:["Economy","Mid-range","Premium / Luxury","Europe","GCC","Asia","Africa"]}
+          ],
+          navFmcg: [
+            {t:"Staples & Grains", items:["Rice (Basmati/IRRI)","Wheat & Flour","Pulses & Lentils","Oats & Millet","Sugar & Salt"]},
+            {t:"Edible Oils & Spices", items:["Cooking Oils","Ghee & Butter","Whole Spices","Ground Spices","Spice Mixes"]},
+            {t:"Packaged Foods", items:["Ready-to-Cook","Ready-to-Eat","Canned Foods","Snacks & Biscuits","Chocolates & Candy"]},
+            {t:"Dairy & Beverages", items:["Milk & Yogurt","Cheese & Butter","Juices & Nectars","Tea & Coffee","Carbonated Drinks"]},
+            {t:"Personal Care", items:["Oral Care","Skin Care","Hair Care","Grooming & Perfumes","Baby Care"]},
+            {t:"Home & Hygiene", items:["Laundry Care","Dishwashing","Surface Cleaners","Air Fresheners","Insecticides"]},
+            {t:"Wellness & Pet", items:["Vitamins & Supplements","Protein Powders","Pet Food","Pet Hygiene"]},
+            {t:"FMCG Filters", items:["Market (Mass/Premium)","Dietary (Halal/Organic)","Region (EU/USA)","Private Label"]}
+          ],
+          navSourcing: [
+            {t:"Manufacturing", items:["OEM / ODM Manufacturing","Private Label Development","Tooling & Mold Fabrication"]},
+            {t:"Quality & Compliance", items:["Quality Control & Inspection","Compliance & Certifications","Social & Ethical Audits"]},
+            {t:"Logistics & Dist", items:["Global Logistics","Warehousing","Customs Brokerage","Last-Mile Delivery"]},
+            {t:"Strategy & Consulting", items:["Procurement Strategy","Market Entry","Cost Reduction","Spend Analytics"]},
+            {t:"Sustainability", items:["Green Supply Chain","Carbon Footprint","Ethical Labor","ESG Reporting"]},
+            {t:"Tech & Innovation", items:["AI Supplier Matching","Blockchain Traceability","Digital Platforms"]},
+            {t:"Govt & Industrial", items:["Infrastructure Sourcing","EPC Support","Public Sector Contracts"]}
+          ],
+          navMinerals: [
+            {t:"Base Metals & Ores", items:["Iron Ore","Copper","Bauxite"]},
+            {t:"Precious & Strategic", items:["Gold","Lithium","Rare Earth Elements"]},
+            {t:"Industrial & Stone", items:["Industrial Minerals","Marbles"]}
+          ],
+          navCommodities: [
+            {t:"Energy (Backbone)", items:["Crude Oil (Brent/WTI)","Natural Gas (LNG)","Coal (Thermal/Met)","Refined Products (Diesel/Jet)"]},
+            {t:"Metals (Ind+Monetary)", items:["Gold & Silver","Copper & Aluminum","Iron Ore & Steel","Rare Earths"]},
+            {t:"Agri Staples", items:["Wheat & Flour","Rice (Basmati/Irri)","Corn (Maize)","Soybeans","Sugar"]},
+            {t:"Edible Oils & Softs", items:["Palm & Soybean Oil","Sunflower Oil","Coffee & Cocoa"]},
+            {t:"Industrial & Chem", items:["Fertilizers (Urea/DAP)","Phosphate Rock","Sulphur","Industrial Salt"]},
+            {t:"Protein & Feed", items:["Beef (Frozen/Chilled)","Poultry (Chicken)","Fish & Seafood","Soybean Meal"]},
+            {t:"Strategic & Future", items:["Lithium (EV Batteries)","Nickel (Batteries)"]}
+          ],
+          navIndustrial: [
+            {t:"Machinery & Heavy Equip", items:["Machinery Supply","Heavy Mechanical Machines","Mining Equipment"]},
+            {t:"Materials & Chemicals", items:["Industrial Chemicals","Construction Materials","Packaging Solutions"]},
+            {t:"Systems & Automation", items:["Automation Systems","Renewable Energy Equipment","Electrical Solutions"]},
+            {t:"Safety & Wear", items:["Industrial Uniforms","Safety Gear"]}
+          ],
+          navFinance: [
+            {t:"Trade & Project", items:["Trade Finance","Letters of Credit","Project Financing"]},
+            {t:"Payments & Digital", items:["Digital Payments","Cross-Border Transactions","Merchant Services"]},
+            {t:"Investment & Trading", items:["Investment Services","Stock Trading","Currency Trading","Metal Trading","Digital Currency Trading","Trading Platform"]}
+          ],
+          navAI: [
+            {t:"Enterprise Solutions", items:["AI Business Solutions","ERP Systems","E-Commerce Platforms"]},
+            {t:"Data & Supply Chain", items:["Smart Supply Chain","Data Analytics","SaaS Products"]},
+            {t:"Future Tech", items:["Automation Solutions","Blockchain Solutions"]}
+          ],
+          navRealEstate: [
+            {t:"Projects", items:["Residential Projects","Commercial Projects"]},
+            {t:"Industrial & Land", items:["Industrial Warehousing","Land Development"]},
+            {t:"Services", items:["Property Management"]}
+          ],
+          navOilGas: [
+            {t:"Trading & Products", items:["Crude Oil Trading","LNG","Refinery Products"]},
+            {t:"Infrastructure", items:["Storage & Distribution","Energy Infrastructure"]},
+            {t:"Processing", items:["Petrochemicals"]}
+          ],
+          navAbout: [
+            {t:"Company", items:["Story","Leadership","Values"]},
+            {t:"Careers", items:["Open roles","Culture","Internships"]},
+            {t:"Press", items:["News","Media kit","Events"]},
+            {t:"Contact", items:["Global offices","Email","Support"]}
+          ],
+          default: [
+            {t:"Overview", items:["Overview","Solutions","Contact"]},
+            {t:"Industries", items:["FMCG","Textiles","Industrial"]},
+            {t:"Resources", items:["Compliance","Quality","Logistics"]},
+            {t:"Get Started", items:["Request quote","Talk to sales","FAQs"]}
+          ]
+        },
+        fr: {
+          navTextiles: [
+            {t:"Hommes", items:["Chemises","Jean","Manteaux"]},
+            {t:"Femmes", items:["Robes","Hauts","Jean"]},
+            {t:"Linge de maison", items:["Literie","Serviettes","Cuisine"]},
+            {t:"Chaussures", items:["Décontractées","Formelles","Enfants"]}
+          ],
+          navFmcg: [
+            {t:"Soin personnel", items:["Soins de la peau","Cheveux","Bucco‑dentaire"]},
+            {t:"Maison", items:["Nettoyage","Lessive","Papier"]},
+            {t:"Aliments & Boissons", items:["Snacks","Boissons","Produits de base"]},
+            {t:"Emballage", items:["Bouteilles","Sachets","Étiquettes"]}
+          ],
+          navSourcing: [
+            {t:"Intégration fournisseurs", items:["Audit","Conformité","Contrats"]},
+            {t:"Qualité", items:["Plans QA","Tests labo","AQL"]},
+            {t:"Production", items:["Lignes","Inspection","Reporting"]},
+            {t:"Logistique", items:["Fret","Douanes","eLogistique"]}
+          ],
+          navMinerals: [
+            {t:"Métaux", items:["Cuivre","Aluminium","Acier"]},
+            {t:"Non‑métaux", items:["Calcaire","Gypse","Silice"]},
+            {t:"Vrac", items:["Granulats","Clinker","Charbon"]},
+            {t:"Tests & Cert", items:["Essais","SGS","Bureau Veritas"]}
+          ],
+          navCommodities: [
+            {t:"Agri", items:["Céréales","Oléagineux","Sucre"]},
+            {t:"Énergie", items:["Charbon","GNL","Carburants"]},
+            {t:"Métaux", items:["Métaux de base","Précieux"]},
+            {t:"Risque & Finance", items:["Couverture","Crédoc","Assurance"]}
+          ],
+          navIndustrial: [
+            {t:"Machines", items:["CNC","Machines textile","Compresseurs"]},
+            {t:"Automatisation", items:["PLC","Robotique","Capteurs"]},
+            {t:"Sécurité", items:["EPI","Verrouillage","Incendie"]},
+            {t:"MRO", items:["Roulements","Courroies","Outils"]}
+          ],
+          navFinance: [
+            {t:"Financement du commerce", items:["Crédoc","SBLC","Forfaitage"]},
+            {t:"HPay", items:["Portefeuilles","Paiements","Passerelle"]},
+            {t:"Facturation", items:["Factures","Rapprochement","Rapports"]},
+            {t:"Risque", items:["KYC","AML","Score"]}
+          ],
+          navAI: [
+            {t:"Solutions IA", items:["Prévision","Vision","Chat"]},
+            {t:"Données", items:["Pipelines","Entrepôts","APIs"]},
+            {t:"Intégration", items:["ERP","E‑commerce","Mobile"]},
+            {t:"Support", items:["SLAs","Formation","Docs"]}
+          ],
+          navRealEstate: [
+            {t:"Commercial", items:["Bureaux","Retail","Mixte"]},
+            {t:"Résidentiel", items:["Appartements","Villas","Communauté"]},
+            {t:"Industriel", items:["Entrepôts","Parcs","ZES"]},
+            {t:"Services", items:["FM","Location","Conseil"]}
+          ],
+          navOilGas: [
+            {t:"Amont", items:["Exploration","Forage","OSV"]},
+            {t:"Milieu", items:["Pipelines","Stockage","Terminaux"]},
+            {t:"Aval", items:["Raffinage","Trading","Distribution"]},
+            {t:"Services", items:["EPC","HSE","Inspection"]}
+          ],
+          navAbout: [
+            {t:"Entreprise", items:["Histoire","Direction","Valeurs"]},
+            {t:"Carrières", items:["Postes","Culture","Stages"]},
+            {t:"Presse", items:["Actualités","Kit média","Événements"]},
+            {t:"Contact", items:["Bureaux","Email","Support"]}
+          ],
+          default: [
+            {t:"Vue d’ensemble", items:["Aperçu","Solutions","Contact"]},
+            {t:"Secteurs", items:["FMCG","Textile","Industriel"]},
+            {t:"Ressources", items:["Conformité","Qualité","Logistique"]},
+            {t:"Commencer", items:["Demander un devis","Parler aux ventes","FAQ"]}
+          ]
+        }
+      };
+
+      function applyText() {
+        const dict = messages[currentLocale] || messages.en;
+        const elements = document.querySelectorAll("[data-i18n-key]");
+        elements.forEach(function (el) {
+          const key = el.getAttribute("data-i18n-key");
+          if (dict[key]) {
+            el.textContent = dict[key];
+          }
+        });
+      }
+
+      function setLocale(locale) {
+        if (messages[locale]) {
+          currentLocale = locale;
+          applyText();
+          if (window.__renderMegaLastKey) window.__renderMega(window.__renderMegaLastKey);
+        }
+      }
+
+      function askAi(promptText) {
+        return fetch("http://localhost:8004/api/ask-ai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: promptText || "" })
+        })
+          .then(async function (response) {
+            if (!response.ok) {
+              const errData = await response.json().catch(() => ({}));
+              throw new Error(errData.detail || "Request failed");
+            }
+            return response.json();
+          })
+          .then(function (data) {
+            return data.answer || "";
+          })
+          .catch(function (err) {
+            console.error("AI Error:", err);
+            return "Connection Error: " + err.message;
+          });
+      }
+
+      return {
+        setLocale: setLocale,
+        askAi: askAi,
+        getLocale: function(){ return currentLocale; },
+        getMegaData: function(){ return megaData[currentLocale] || megaData.en; }
+      };
+    })();
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const select = document.getElementById("language-select");
+      if (select) {
+        select.addEventListener("change", function () {
+          intelligenceLayer.setLocale(select.value);
+        });
+      }
+      intelligenceLayer.setLocale("en");
+
+      (function(){
+        function addRoman(clockEl){
+          if(!clockEl) return;
+          const labels=["XII","I","II","III","IV","V","VI","VII","VIII","IX","X","XI"];
+          const radius=Math.max(12, Math.floor(clockEl.offsetWidth/2)-18);
+          labels.forEach(function(txt, i){
+            const el=document.createElement("span");
+            el.className="numeral";
+            el.textContent=txt;
+            const angle=(i/12)*360;
+            el.style.transform=`translate(-50%,-50%) rotate(${angle}deg) translate(0,-${radius}px) rotate(${-angle}deg)`;
+            clockEl.appendChild(el);
+          });
+        }
+        const hdrClock=document.getElementById("hdr-clock");
+        addRoman(hdrClock);
+        const h=document.getElementById("h");
+        const m=document.getElementById("m");
+        const s=document.getElementById("s");
+        function tick(){
+          const now=new Date();
+          const hh=((now.getHours()%12)/12)*360+(now.getMinutes()/60)*30;
+          const mm=((now.getMinutes())/60)*360;
+          const ss=((now.getSeconds())/60)*360;
+          h.style.transform=`translate(-50%,0) rotate(${hh}deg)`;
+          m.style.transform=`translate(-50%,0) rotate(${mm}deg)`;
+          s.style.transform=`translate(-50%,0) rotate(${ss}deg)`;
+        }
+        tick(); setInterval(tick,1000);
+      })();
+
+      const mega=document.getElementById("mega");
+      const megaCtr=document.getElementById("mega-ctr");
+      const curtain=document.getElementById("mega-overlay");
+      const navLis=document.querySelectorAll(".main-menu > li");
+      function renderMega(key){
+        const data = intelligenceLayer.getMegaData();
+        const blocks = data[key] || data.default;
+        megaCtr.innerHTML = blocks.map(function(b){
+          return '<div class="group"><div class="g-head">'+b.t+'</div><div class="g-items">'+b.items.map(function(it){return '<a href="#">'+it+'</a>';}).join('')+'</div></div>';
+        }).join('');
+      }
+      window.__renderMega = renderMega;
+      function openMega(key){ window.__renderMegaLastKey=key; renderMega(key); mega.classList.add("open"); curtain.classList.add("open"); }
+      function closeMega(){ mega.classList.remove("open"); curtain.classList.remove("open"); }
+      navLis.forEach(function(li){
+        li.addEventListener("mouseenter",function(){
+          const a=li.querySelector("a"); const t=a && a.getAttribute("data-i18n-key"); if(t){ openMega(t); }
+        });
+        li.addEventListener("focusin",function(){
+          const a=li.querySelector("a"); const t=a && a.getAttribute("data-i18n-key"); if(t){ openMega(t); }
+        });
+      });
+      let closeTimer; function scheduleClose(){ closeTimer=setTimeout(closeMega,120); } function cancelClose(){ if(closeTimer){ clearTimeout(closeTimer); closeTimer=null; } }
+      document.querySelector("header").addEventListener("mouseleave",scheduleClose);
+      document.querySelector("header").addEventListener("mouseenter",cancelClose);
+      curtain.addEventListener("mouseenter",closeMega);
+
+      // AI Panel Logic
+      const aiFab = document.getElementById("ai-fab");
+      const aiPanel = document.getElementById("ai-panel-overlay");
+      const closeAi = document.getElementById("close-ai");
+      
+      if(aiFab && aiPanel && closeAi) {
+        aiFab.addEventListener("click", () => {
+          aiPanel.style.display = "block";
+          aiFab.style.display = "none";
+        });
+        closeAi.addEventListener("click", () => {
+          aiPanel.style.display = "none";
+          aiFab.style.display = "block";
+        });
+      }
+
+      const input = document.getElementById("ai-input");
+      const button = document.getElementById("ai-send");
+      const output = document.getElementById("ai-output");
+
+      if (button && input && output) {
+        button.addEventListener("click", function () {
+          const promptText = input.value.trim();
+          if (!promptText) {
+            output.textContent = "Please type something to ask.";
+            return;
+          }
+          button.disabled = true;
+          output.textContent = "Thinking...";
+          intelligenceLayer
+            .askAi(promptText)
+            .then(function (answer) {
+              output.textContent = answer;
+            })
+            .finally(function () {
+              button.disabled = false;
+            });
+        });
+      }
+
+      // Newsletter Logic
+      const newsletterForms = document.querySelectorAll('.newsletter-form');
+      newsletterForms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const input = form.querySelector('input');
+          const btn = form.querySelector('button');
+          
+          if (input.value.trim() !== "") {
+            const originalText = btn.textContent;
+            btn.textContent = "✓";
+            btn.style.background = "#4CAF50";
+            btn.style.color = "#fff";
+            input.value = "";
+            
+            // Create success message
+            let msg = form.nextElementSibling;
+            if (!msg || !msg.classList.contains('success-message')) {
+                msg = document.createElement('div');
+                msg.className = 'success-message';
+                msg.textContent = 'Subscribed successfully!';
+                form.parentNode.insertBefore(msg, form.nextSibling);
+            }
+            
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.style.background = "";
+              btn.style.color = "";
+              if(msg) msg.remove();
+            }, 3000);
+          }
+        });
+      });
+    });
+  </script>
