@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance & HPay — Trade Finance — Forfaiting • Harvics</title>
+  <link rel="stylesheet" href="/root.css">
+</head>
+<body>
+  <div id="site-shell"></div>
+  <main id="page-content">
+    <nav style="max-width:1200px;margin:24px auto 0;padding:0 16px;font-size:13px;color:var(--text-2)">
+      <a href="/index.html" style="color:var(--burgundy)">Home</a>
+      <span style="opacity:.6"> / </span>
+      <a href="/index.html#finance" style="color:var(--burgundy)">Finance & HPay</a>
+      <span style="opacity:.6"> / </span>
+      <span>Trade Finance</span>
+      <span style="opacity:.6"> / </span>
+      <strong style="color:var(--burgundy)">Forfaiting</strong>
+    </nav>
+    <section class="catalog-hero tint">
+      <div style="max-width:1200px;margin:0 auto;padding:48px 24px;">
+        <h1 style="font-size:clamp(1.8rem,4vw,2.6rem);color:var(--burgundy);font-weight:700;letter-spacing:0.02em;">Forfaiting — Trade Finance</h1>
+        <p id="catalog-desc" style="max-width:720px;color:var(--text);opacity:0.85"></p>
+        <div style="margin-top:16px;display:flex;gap:12px">
+          <a href="/contact.html" style="padding:10px 14px;border:1px solid var(--gold);color:var(--burgundy);text-decoration:none">Request Quote</a>
+          <a href="/index.html#finance" style="padding:10px 14px;border:1px solid var(--divider);color:var(--burgundy);text-decoration:none">Back to Finance & HPay</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="/script.js"></script>
+  <script>
+  (function(){
+    const ctx = { key: "navFinance", section: "Trade Finance", item: "Forfaiting" };
+    if (typeof window.injectPageDescription === "function") {
+      window.injectPageDescription(ctx);
+    }
+  })();
+  </script>
+</body>
+</html>

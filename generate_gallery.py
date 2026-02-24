@@ -17,14 +17,14 @@ def generate_gallery():
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Image Gallery - Mapping Tool</title>
         <style>
-            body { font-family: sans-serif; padding: 20px; background: #FDFBF7; color: #5A1815; }
-            h1 { text-align: center; margin-bottom: 20px; color: #6C1D18; }
+            body { font-family: sans-serif; padding: 20px; background: #f6f1e8; color: #2b0610; }
+            h1 { text-align: center; margin-bottom: 20px; color: #5a0f1a; }
             .controls {
                 text-align: center;
                 margin-bottom: 30px;
                 position: sticky;
                 top: 0;
-                background: #FDFBF7;
+                background: #FFFFFF;
                 padding: 10px;
                 z-index: 100;
                 border-bottom: 1px solid #E6E0D4;
@@ -32,13 +32,13 @@ def generate_gallery():
             button {
                 padding: 10px 20px;
                 font-size: 16px;
-                background: #6C1D18;
+                background: #5a0f1a;
                 color: white;
                 border: none;
                 border-radius: 5px;
                 cursor: pointer;
             }
-            button:hover { background: #5A1815; }
+            button:hover { background: #5a0f1a; }
             textarea {
                 width: 100%;
                 height: 100px;
@@ -51,10 +51,10 @@ def generate_gallery():
                 gap: 20px; 
             }
             .card { 
-                background: #FDFBF7; 
+                background: #FFFFFF; 
                 padding: 10px; 
                 border-radius: 8px; 
-                box-shadow: 0 2px 5px rgba(108,29,24,0.1); 
+                box-shadow: 0 2px 5px rgba(90,15,26,0.10); 
                 text-align: center;
                 display: flex;
                 flex-direction: column;
@@ -79,7 +79,7 @@ def generate_gallery():
             .filename { 
                 font-size: 12px; 
                 word-break: break-all; 
-                color: #8B2E2E;
+                color: #6a2234;
                 margin-bottom: 5px;
             }
             select {

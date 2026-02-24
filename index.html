@@ -3,19 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HARVICS</title>
+  <title>Harvics Global Ventures</title>
+  <link rel="stylesheet" href="root.css">
   <style>
-    :root{
-      --burgundy:#6C1D18;
-      --burgundy-deep:#5A1815;
-      --gold:#D4AF37;
-∏      --gold-bright:#EED27A;
-      --offwhite:#FDFBF7;
-      --text:#5A1815;
-      --text-2:#8B2E2E;
-      --divider:#E6E0D4;
-      --card-shadow:0 8px 16px rgba(108,29,24,0.08);
-    }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -29,15 +19,12 @@
     }
 
     header {
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: saturate(180%) blur(25px);
-      -webkit-backdrop-filter: saturate(180%) blur(25px);
+      background: var(--offwhite);
       position: sticky;
       top: 0;
       z-index: 1000;
       color: var(--burgundy);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 30px rgba(108, 29, 24, 0.04);
+      border-bottom: 1px solid var(--divider);
     }
 
     .top-bar {
@@ -53,10 +40,10 @@
     .clock {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
+      border-radius: 0;
       background: var(--offwhite);
-      box-shadow: inset 0 1px 2px rgba(108,29,24,0.12);
-      border: 1px solid #ececec;
+      box-shadow: none;
+      border: 1px solid var(--divider);
       display: block;
       position: relative;
       flex: 0 0 44px;
@@ -65,7 +52,7 @@
       content: "";
       position: absolute;
       inset: 2px;
-      border-radius: 50%;
+      border-radius: 0;
       border: 1px solid var(--gold);
       opacity: 0.8;
     }
@@ -74,7 +61,7 @@
       bottom: 50%;
       left: 50%;
       transform-origin: bottom;
-      background: #5A1815;
+      background: var(--text);
       z-index: 2;
     }
     .hand.hour {width:2px;height:10px;border-radius:2px;opacity:1}
@@ -88,10 +75,9 @@
       width: 4px;
       height: 4px;
       background: var(--gold);
-      border-radius: 50%;
+      border-radius: 0;
       z-index: 3;
     }
-    .clock .numeral {display:none}
 
     .logo {
       font-weight: 700;
@@ -100,10 +86,10 @@
     }
 
     .search-btn{display:flex;align-items:center;gap:8px}
-    .search-toggle{width:30px;height:30px;border-radius:4px;border:1px solid rgba(107,15,26,0.35);background:transparent;color:var(--burgundy);display:grid;place-items:center;cursor:pointer}
-    .search-overlay{position:fixed;inset:0;background:rgba(108,29,24,0.4);display:none;align-items:center;justify-content:center;z-index:1200}
-    .search-panel{width:min(720px,90vw);background:var(--offwhite);border-radius:12px;box-shadow:var(--card-shadow);padding:16px}
-    .search-input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--divider);font-size:16px}
+    .search-toggle{width:30px;height:30px;border-radius:0;border:1px solid var(--divider);background:var(--offwhite);color:var(--burgundy);display:grid;place-items:center;cursor:pointer}
+    .search-overlay{position:fixed;inset:0;background:var(--offwhite);display:none;align-items:center;justify-content:center;z-index:1200}
+    .search-panel{width:min(720px,90vw);background:var(--offwhite);border-radius:0;box-shadow:var(--card-shadow);padding:16px;border:1px solid var(--divider)}
+    .search-input{width:100%;padding:12px 14px;border-radius:2px;border:1px solid var(--divider);font-size:16px;background:var(--offwhite)}
 
     .language-switcher {
       display: flex;
@@ -112,14 +98,14 @@
       font-size: 13px;
     }
 
-    .language-switcher select{padding:0 4px;font-size:13px;border:none;background:transparent;color:var(--burgundy);appearance:none}
-    .language-switcher .login-link{padding:0;font-size:13px;border:none;background:transparent;text-decoration:none;color:var(--burgundy)}
+    .language-switcher select{padding:8px 10px;font-size:13px;border:1px solid var(--divider);background:var(--offwhite);color:var(--burgundy);appearance:none}
+    .language-switcher .login-link{padding:0;font-size:13px;border:none;background:var(--offwhite);text-decoration:none;color:var(--burgundy)}
     .language-switcher .login-link:hover{text-decoration:underline}
-    .search-toggle{width:auto;height:auto;border:none;background:transparent;color:var(--burgundy);cursor:pointer;font-size:16px;line-height:1}
+    .search-toggle{width:auto;height:auto;border:1px solid var(--divider);background:var(--offwhite);color:var(--burgundy);cursor:pointer;font-size:16px;line-height:1}
 
     .main-nav {
-      background: transparent;
-      border-top: 1px solid rgba(108,29,24,0.08);
+      background: var(--offwhite);
+      border-top: 1px solid var(--divider);
     }
 
     .main-menu {
@@ -132,17 +118,7 @@
       padding: 0 16px;
     }
 
-    .mega{position:absolute;left:0;right:0;top:100%;background:rgba(253,251,247,0.95);backdrop-filter:saturate(200%) blur(32px);-webkit-backdrop-filter:saturate(200%) blur(32px);border-bottom:1px solid rgba(108,29,24,0.05);box-shadow:0 14px 30px rgba(108,29,24,0.12);transform-origin:top;transform:translateY(-18px);opacity:0;transition:transform .36s cubic-bezier(.16,1,.3,1), opacity .30s ease-out;pointer-events:none;will-change:transform,opacity}
-    .mega.open{transform:translateY(0);opacity:1;pointer-events:auto}
-    .mega-ctr{max-width:1200px;margin:0 auto;padding:18px 16px 20px 16px;position:relative;min-height:220px}
-    .mega-ctr .group{display:flex;align-items:center;gap:16px;white-space:nowrap;padding:12px 4px;border-bottom:1px solid var(--divider)}
-    .mega-ctr .group:last-child{border-bottom:none}
-    .mega-ctr .g-head{min-width:160px;font-size:14px;color:rgba(108,29,24,0.62);font-weight:300;letter-spacing:.02em}
-    .mega-ctr .g-items{display:flex;gap:10px;flex-wrap:nowrap}
-    .mega-ctr .g-items a{display:inline-block;padding:5px 0;margin-right:12px;color:var(--text-2);text-decoration:none;font-size:13px;font-weight:400;border:none;background:transparent}
-    .mega-ctr .g-items a:hover{color:var(--burgundy);text-decoration:underline;background:transparent}
-    .curtain{position:fixed;left:0;right:0;top:var(--header-h,96px);bottom:0;background:linear-gradient(180deg,rgba(253,251,247,0.8),rgba(253,251,247,0.6));backdrop-filter:saturate(120%) blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease}
-    .curtain.open{opacity:1;pointer-events:auto}
+    
 
     .main-menu > li {
       position: relative;
@@ -152,7 +128,7 @@
       display: block;
       padding: 12px 0;
       text-decoration: none;
-      color: rgba(108,29,24,0.78);
+      color: var(--text);
       font-size: 12px;
       letter-spacing: 0.02em;
       font-weight: 500;
@@ -170,7 +146,7 @@
       min-width: 220px;
       background: var(--offwhite);
       border: 1px solid var(--divider);
-      border-radius: 4px;
+      border-radius: 2px;
       list-style: none;
       padding: 8px 0;
       margin: 0;
@@ -232,11 +208,11 @@
     .gallery-item {
       position: relative;
       height: 400px; /* Tall portrait style */
-      border-radius: 16px;
+      border-radius: 0;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(108,29,24,0.08);
+      box-shadow: 0 4px 20px rgba(90,15,26,0.10);
       cursor: pointer;
-      background-color: rgba(108,29,24,0.03); /* Very low opacity grey */
+      background-color: var(--bg-secondary);
     }
     .gallery-item img {
       width: 100%;
@@ -250,7 +226,7 @@
     .gallery-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(108,29,24,0) 60%, rgba(108,29,24,0.7) 100%);
+      background: linear-gradient(180deg, rgba(90,15,26,0) 60%, rgba(90,15,26,0.55) 100%);
       opacity: 0;
       transition: opacity 0.4s ease;
       display: flex;
@@ -278,7 +254,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background-color: rgba(108,29,24,0.03); /* Fallback color */
+      background-color: var(--bg-secondary);
       background-size: cover;
       background-position: center;
       background-attachment: fixed; /* Parallax Effect */
@@ -288,7 +264,7 @@
     .feature-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(108,29,24,0.5) 0%, rgba(108,29,24,0.3) 50%, rgba(108,29,24,0.7) 100%);
+      background: linear-gradient(180deg, rgba(90,15,26,0.28) 0%, rgba(90,15,26,0.14) 50%, rgba(90,15,26,0.34) 100%);
       z-index: 1;
     }
     .feature-content {
@@ -304,7 +280,7 @@
       margin-bottom: 24px;
       letter-spacing: -0.03em;
       line-height: 1.1;
-      text-shadow: 0 4px 12px rgba(108,29,24,0.3);
+      text-shadow: 0 4px 12px rgba(90,15,26,0.22);
     }
     .feature-desc {
       font-size: clamp(1.1rem, 2vw, 1.5rem);
@@ -313,7 +289,7 @@
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.6;
-      text-shadow: 0 2px 4px rgba(108,29,24,0.3);
+      text-shadow: 0 2px 4px rgba(90,15,26,0.18);
     }
 
     .feature-btn {
@@ -322,16 +298,19 @@
       padding: 12px 28px;
       font-size: 1.1rem;
       font-weight: 500;
-      color: var(--burgundy);
-      background: var(--offwhite);
-      border-radius: 4px;
+      color: #ffffff;
+      background: var(--burgundy);
+      border-radius: 2px;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 0 4px 12px rgba(108,29,24,0.2);
+      transition: none;
+      box-shadow: none;
+      border: 1px solid var(--burgundy);
     }
     .feature-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(108,29,24,0.3);
+      transform: none;
+      box-shadow: none;
+      background: var(--burgundy-deep);
+      border-color: var(--burgundy-deep);
     }
     /* Staggered Reveal */
     .reveal-delay-1 { transition-delay: 0.1s; }
@@ -358,7 +337,7 @@
     .hero-slide {
       position: absolute;
       inset: 0;
-      background-color: rgba(108,29,24,0.03); /* Fallback color */
+      background-color: var(--bg-secondary);
       background-size: cover;
       background-position: center;
       opacity: 0;
@@ -379,9 +358,10 @@
     .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--divider); padding-bottom: 12px; }
     .category-title { font-size: 28px; font-weight: 600; color: var(--burgundy); }
     .category-link { font-size: 14px; color: var(--gold); text-decoration: none; font-weight: 500; }
+    .category-link:hover { color: var(--burgundy-deep); text-decoration: underline; }
     .product-carousel { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
-    .showcase-card { background: var(--offwhite); border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
-    .showcase-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(108,29,24,0.1); }
+    .showcase-card { background: var(--offwhite); border-radius: 0; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+    .showcase-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(90,15,26,0.12); border-color: var(--burgundy-deep); }
     .showcase-img { height: 200px; background-size: cover; background-position: center; }
     .showcase-info { padding: 16px; }
     .showcase-name { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
@@ -389,18 +369,17 @@
     @media (max-width: 768px) { .products-showcase { padding: 40px 20px; } .product-carousel { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 480px) { .product-carousel { grid-template-columns: 1fr; } }
 
-    /* Smooth overlay for text readability */
     .hero:after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(108,29,24,0.4) 0%, rgba(108,29,24,0.2) 50%, rgba(108,29,24,0.1) 100%);
+      background: none;
       z-index: 1;
     }
     .hero-text {
       position: relative;
       z-index: 2; /* Bring text above overlay */
-      color: var(--offwhite);
+      color: var(--burgundy);
     }
     
     .hero-text {max-width:1200px;width:100%;margin:0 auto;padding:72px 16px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
@@ -429,41 +408,42 @@
     /* legacy hero grid removed */
     
     .about-split{position:relative;max-width:1200px;margin:0 auto;padding:72px 16px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
-    .about-split:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(107,15,26,0.025) 0 2px,transparent 2px 28px);animation:stripePan 24s linear infinite;pointer-events:none}
-    @keyframes stripePan{0%{background-position:0 0}100%{background-position:240px 0}}
+    .about-split:before{display:none}
     .about-name{font-size:88px;line-height:0.86;color:var(--gold-bright);font-weight:800;letter-spacing:.06em}
     .about-col h3{margin:0 0 8px 0;color:var(--burgundy)}
     .about-col p{margin:0 0 16px 0;color:var(--text-2);font-size:15px}
     @media (max-width:880px){.about-split{grid-template-columns:1fr}.about-name{font-size:72px}}
 
     .howwework{max-width:1200px;margin:24px auto;padding:24px 16px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .wheel{display:grid;place-items:center;background:var(--offwhite);border:1px solid var(--divider);border-radius:12px;box-shadow:var(--card-shadow);padding:24px}
-    .wheel-svg{width:320px;height:320px;transition:transform 2.5s cubic-bezier(0.25, 1, 0.5, 1)}
-    .howwework.active .wheel-svg{transform:rotate(360deg)}
-    .wheel:hover .wheel-svg{transform:rotate(12deg)}
+    .wheel{display:grid;place-items:center;background:var(--offwhite);border:1px solid var(--divider);border-radius:0;box-shadow:var(--card-shadow);padding:24px}
+    .wheel-svg{width:320px;height:320px}
     .how-right{display:flex;flex-direction:column;gap:16px}
-    .bigclock-wrap{display:grid;place-items:center;background:var(--offwhite);border:1px solid var(--divider);border-radius:12px;box-shadow:var(--card-shadow);padding:24px}
-    .coverage{background:var(--offwhite);border:1px solid var(--divider);border-radius:12px;box-shadow:var(--card-shadow);padding:24px}
-    .bar{height:10px;border-radius:4px;background:var(--divider);overflow:hidden}
-    .bar .run{height:100%;background:linear-gradient(90deg,var(--burgundy),var(--gold));background-size:200% 100%;animation:runSweep 8s linear infinite;transition:width 1.5s cubic-bezier(0.22, 1, 0.36, 1)}
+    .bigclock-wrap{display:grid;place-items:center;background:var(--offwhite);border:1px solid var(--divider);border-radius:0;box-shadow:var(--card-shadow);padding:24px}
+    .coverage{background:var(--offwhite);border:1px solid var(--divider);border-radius:0;box-shadow:var(--card-shadow);padding:24px}
+    .bar{height:10px;border-radius:0;background:var(--divider);overflow:hidden}
+    .bar .run{height:100%;background:var(--divider)}
     .row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:12px;margin:12px 0}
-    @keyframes runSweep{0%{background-position:0 0}100%{background-position:200% 0}}
+    
     .clock.xl{width:160px;height:160px;flex:0 0 160px}
     .clock.xl .hand.hour{height:48px}
     .clock.xl .hand.min{height:68px}
     .clock.xl .hand.sec{height:76px}
 
     .slider-band{max-width:1200px;margin:24px auto;padding:0 16px}
-    .slider{display:flex;gap:16px;overflow:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding-bottom:8px}
-    .slide{min-width:360px;max-width:360px;height:220px;border-radius:12px;background:rgba(108,29,24,0.03);scroll-snap-align:start;position:relative;box-shadow:var(--card-shadow);flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
+    .slider{display:none}
+    .slider{display:flex;gap:16px;overflow:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding:8px}
+    .slide{min-width:420px;max-width:420px;height:240px;border-radius:0;background:var(--offwhite);scroll-snap-align:start;position:relative;box-shadow:var(--card-shadow);flex-shrink:0;background-size:cover;background-position:center;overflow:hidden;border:1px solid var(--divider)}
     .slide a{position:absolute;inset:0;display:block;z-index:1}
-    .slide-title{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top, rgba(108,29,24,0.8) 0%, rgba(108,29,24,0.4) 60%, transparent 100%);color:var(--offwhite);padding:32px 16px 16px;font-size:16px;font-weight:600;text-align:center;text-shadow:0 1px 3px rgba(108,29,24,0.5);z-index:2}
+    .slide-title{position:absolute;left:0;right:0;bottom:0;background:var(--offwhite);color:var(--text);padding:12px 16px;font-size:16px;font-weight:600;text-align:center;border-top:1px solid var(--divider);z-index:2}
+    .slide:hover{border-color:var(--burgundy-deep)}
+    .slide:hover .slide-title{background:var(--burgundy);color:#ffffff;border-top-color:var(--burgundy)}
     .industries-two{max-width:1200px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .ind-card{height:240px;border-radius:12px;position:relative;box-shadow:var(--card-shadow);overflow:hidden;background-color:rgba(108,29,24,0.03);background-size:cover;background-position:center}
+    .ind-card{height:240px;border-radius:0;position:relative;box-shadow:var(--card-shadow);overflow:hidden;background-color:var(--offwhite);background-size:cover;background-position:center;border:1px solid var(--divider)}
+    .ind-card:hover{border-color:var(--burgundy-deep)}
     .ind-card .slide-title{bottom:0}
-    .split-band{max-width:1200px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:65% 35%;gap:16px;align-items:stretch}
-    .split-main{border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow)}
-    .split-side{border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow);background:linear-gradient(160deg,#f7f4ef,#efe7df)}
+    .split-band{max-width:1200px;margin:64px auto;padding:0 16px;display:grid;grid-template-columns:65% 35%;gap:40px;align-items:stretch}
+    .split-main{border-radius:0;overflow:hidden;box-shadow:var(--card-shadow);border:1px solid var(--divider);background:var(--offwhite);padding:16px}
+    .split-side{border-radius:0;overflow:hidden;box-shadow:var(--card-shadow);background:var(--offwhite);border:1px solid var(--divider);padding:16px}
     .split-side .block-title{padding:12px 16px;color:var(--burgundy);font-weight:600}
     .split-side .block-body{padding:0 12px 16px 16px;color:var(--text-2);font-size:14px}
     @media (max-width:920px){.split-band{grid-template-columns:1fr;}}
@@ -477,26 +457,17 @@
     @media (max-width:920px){.explore-grid{grid-template-columns:repeat(2,1fr)}}
 
     /* Apple-style Scroll Reveal - Refined Smoothness */
-    .reveal {
-      opacity: 0;
-      transform: translateY(60px) scale(0.96); /* Deeper start for more dramatic rise */
-      transition: 
-        opacity 1.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
-        transform 1.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Slower, heavier ease-out */
-      will-change: opacity, transform;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal{opacity:1}
+    .reveal.active{opacity:1}
+    .reveal-delay-1{}
+    .reveal-delay-2{}
+    .reveal-delay-3{}
     
-    .prefooter-image{position:relative;height:160px;background-color: rgba(108,29,24,0.03);background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;margin:24px 0 0;overflow:visible}
-    .prefooter-image:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%, rgba(251,247,243,0.15) 70%, rgba(247,243,238,0.4) 100%)}
+    .prefooter-image{position:relative;height:160px;background-color:var(--bg-secondary);background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80');background-size:cover;background-position:center;margin:24px 0 0;overflow:visible}
+    .prefooter-image{background-color:var(--bg-secondary);background-image:none}
+    .prefooter-image:after{display:none}
     .prefooter-image .social{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);margin:0;z-index:2}
-    .prefooter{max-width:1200px;margin:24px auto 0;padding:24px 16px;background:var(--offwhite);border:1px solid var(--divider);border-radius:12px}
+    .prefooter{max-width:1200px;margin:24px auto 0;padding:24px 16px;background:var(--offwhite);border:1px solid var(--divider);border-radius:0}
     .pregrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .pregrid h4{font-size:14px;margin-bottom:8px;color:var(--text)}
     .pregrid ul{list-style:none}
@@ -505,21 +476,22 @@
     .pregrid a:hover{text-decoration:underline}
 
     .social{max-width:1200px;margin:16px auto 8px;display:flex;justify-content:center;gap:14px}
-    .social .disc{width:40px;height:40px;border-radius:50%;background:var(--offwhite);border:1px solid var(--burgundy);display:grid;place-items:center;box-shadow:0 0 0 rgba(212,175,55,0)}
-    .social .disc:hover{box-shadow:0 0 12px rgba(212,175,55,0.18)}
+    .social .disc{width:40px;height:40px;border-radius:0;background:var(--offwhite);border:1px solid var(--divider);display:grid;place-items:center;box-shadow:none}
+    .social .disc:hover{box-shadow:none}
     .social img{width:20px;height:20px;display:block}
 
-    .lowest-footer{position:relative;background:var(--burgundy);color:var(--offwhite);padding:28px 0 10px;margin-top:0}
+    .lowest-footer{position:relative;background:var(--offwhite);color:var(--text);padding:28px 0 10px;margin-top:0;border-top:1px solid var(--divider)}
     .lowest-footer .inner{max-width:1200px;margin:0 auto;padding:0 16px;font-size:12px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:.9}
-    .lowest-footer a{color:var(--offwhite);text-decoration:none;opacity:.85}
+    .lowest-footer a{color:var(--text);text-decoration:underline;text-decoration-color:var(--divider);opacity:1}
     .lowest-footer a:hover{text-decoration:underline}
 
-    .ai-fab{position:fixed;right:20px;bottom:20px;background:var(--burgundy);color:var(--offwhite);padding:12px 16px;border-radius:4px;cursor:pointer;box-shadow:0 4px 12px rgba(108,29,24,0.2);z-index:1500;font-size:14px}
-    .ai-overlay{position:fixed;inset:0;background:rgba(108,29,24,0.4);display:none;align-items:flex-end;justify-content:flex-end;z-index:1500}
-    .ai-sheet{width:min(360px,90vw);background:var(--offwhite);border-top-left-radius:12px;border-bottom-left-radius:12px;box-shadow:var(--card-shadow);padding:16px;margin:0 20px 20px 0}
+    .ai-fab{position:fixed;right:20px;bottom:20px;background:var(--offwhite);color:var(--text);padding:12px 16px;border-radius:2px;cursor:pointer;box-shadow:none;z-index:1500;font-size:14px;border:1px solid var(--divider)}
+    .ai-fab:hover{border-color:var(--burgundy-deep)}
+    .ai-overlay{position:fixed;inset:0;background:var(--offwhite);display:none;align-items:flex-end;justify-content:flex-end;z-index:1500}
+    .ai-sheet{width:min(360px,90vw);background:var(--offwhite);border-top-left-radius:0;border-bottom-left-radius:0;box-shadow:var(--card-shadow);padding:16px;margin:0 20px 20px 0;border:1px solid var(--divider)}
     .ai-row{display:flex;flex-direction:column;gap:8px}
-    .ai-row textarea{min-height:100px;resize:vertical;padding:8px 10px;font-size:14px;border-radius:8px;border:1px solid var(--divider)}
-    .ai-row button{align-self:flex-start;padding:8px 16px;font-size:14px;border-radius:8px;border:none;background:var(--burgundy);color:var(--offwhite);cursor:pointer}
+    .ai-row textarea{min-height:100px;resize:vertical;padding:8px 10px;font-size:14px;border-radius:2px;border:1px solid var(--divider)}
+    .ai-row button{align-self:flex-start;padding:8px 16px;font-size:14px;border-radius:2px;border:1px solid var(--divider);background:var(--offwhite);color:var(--text);cursor:pointer}
     .ai-output{margin-top:12px;font-size:14px;white-space:pre-wrap}
 
     @media (max-width: 720px) {
@@ -539,12 +511,12 @@
     }
     /* Insights Section */
     .insights { max-width: 1200px; margin: 80px auto; padding: 0 16px; }
-    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header { text-align: center; margin-bottom: 64px; }
     .section-header h2 { font-size: 36px; font-weight: 600; color: var(--burgundy); margin-bottom: 12px; letter-spacing: -0.02em; }
     .section-header p { font-size: 17px; color: var(--text-2); max-width: 600px; margin: 0 auto; line-height: 1.6; }
     .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
-    .insight-card { background: var(--offwhite); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(108,29,24,0.06); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
-    .insight-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(108,29,24,0.12); }
+    .insight-card { background: var(--offwhite); border-radius: 0; overflow: hidden; box-shadow: none; transition: none; cursor: pointer; border: 1px solid var(--divider); }
+    .insight-card:hover { transform: none; box-shadow: none; }
     .card-img { height: 220px; background-color: var(--divider); background-size: cover; background-position: center; position: relative; }
     .card-body { padding: 28px; }
     .card-tag { display: inline-block; font-size: 11px; font-weight: 700; color: var(--gold-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
@@ -558,46 +530,9 @@
     .connect-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
     .connect h2 { font-size: 48px; margin-bottom: 24px; font-weight: 700; letter-spacing: -0.03em; color: var(--burgundy); background: none; -webkit-text-fill-color: initial; }
     .connect p { font-size: 20px; opacity: 0.8; margin-bottom: 40px; font-weight: 300; color: var(--text-2); }
-    .primary-btn { display: inline-block; padding: 16px 40px; background: var(--offwhite); color: var(--text); text-decoration: none; font-weight: 600; border-radius: 4px; border: 1px solid var(--divider); transition: transform 0.2s ease; font-size: 16px; }
-    .primary-btn:hover { transform: scale(1.05); }
+    .primary-btn { display: inline-block; padding: 16px 40px; background: var(--burgundy); color: #ffffff; text-decoration: none; font-weight: 600; border-radius: 2px; border: 1px solid var(--burgundy); transition: none; font-size: 16px; }
+    .primary-btn:hover { transform: none; background: var(--burgundy-deep); border-color: var(--burgundy-deep); }
 
-    /* Footer - Original Creamish/Burgundy/Gold Theme */
-    .site-footer { background: var(--offwhite); color: var(--burgundy); padding: 80px 0 0; font-size: 15px; border-top: 4px solid var(--gold); margin-top: 0; }
-    .footer-top { max-width: 1200px; margin: 0 auto; padding: 0 16px 60px; display: grid; grid-template-columns: 1.2fr 0.9fr 0.9fr 1.2fr; gap: 40px; border-bottom: 1px solid var(--gold); }
-    .footer-col h4 { color: var(--burgundy); font-size: 15px; margin-bottom: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 1; }
-    .footer-col ul { list-style: none; padding: 0; margin: 0; }
-    .footer-col li { margin-bottom: 16px; }
-    .footer-col a { color: var(--burgundy); text-decoration: none; transition: all 0.2s; font-size: 15px; opacity: 0.8; }
-    .footer-col a:hover { color: var(--gold); padding-left: 4px; opacity: 1; }
-    .footer-brand { font-size: 32px; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.02em; color: var(--burgundy); }
-    .footer-desc { color: var(--burgundy); line-height: 1.7; margin-bottom: 24px; max-width: 320px; font-size: 15px; opacity: 0.8; }
-    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 32px 16px; display: flex; justify-content: space-between; align-items: center; color: var(--burgundy); font-size: 14px; opacity: 0.8; }
-    .footer-social { display: flex; gap: 16px; margin-top: 24px; }
-    .footer-social a { 
-      color: var(--burgundy); opacity: 0.7; transition: all 0.3s ease; 
-      width: 40px; height: 40px; border-radius: 50%; background: transparent; border: 1px solid var(--burgundy);
-      display: grid; place-items: center;
-    }
-    .footer-social a:hover { opacity: 1; background: var(--burgundy); color: var(--gold); border-color: var(--burgundy); transform: translateY(-3px); }
-    .footer-social svg { width: 20px; height: 20px; }
-    
-    .newsletter-form { display: flex; gap: 10px; margin-top: 20px; }
-    .newsletter-input { 
-      background: var(--offwhite); border: 1px solid var(--burgundy); 
-      padding: 12px 16px; border-radius: 8px; color: var(--burgundy); flex: 1; font-size: 15px; outline: none; 
-      transition: border-color 0.3s;
-    }
-    .newsletter-input:focus { border-color: var(--gold); background: var(--offwhite); }
-    .newsletter-btn { 
-      background: var(--burgundy); color: var(--gold); border: none; padding: 12px 24px; 
-      border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 15px; 
-      transition: all 0.3s; white-space: nowrap; 
-    }
-    .newsletter-btn:hover { background: var(--gold); color: var(--burgundy); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); }
-    
-    @media (max-width: 1024px) { .footer-top { gap: 24px; } }
-    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
-    @media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 20px; text-align: center; } }
 
     /* About Us Section Styles */
     .about-section {
@@ -618,7 +553,7 @@
       padding: 40px;
       background: var(--offwhite);
       border-left: 4px solid var(--gold);
-      border-radius: 0 12px 12px 0;
+      border-radius: 0;
       box-shadow: var(--card-shadow);
     }
     .founder-quote {
@@ -683,53 +618,25 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="top-bar">
-      <div class="clock" id="hdr-clock">
-        <div class="hand hour" id="h"></div>
-        <div class="hand min" id="m"></div>
-        <div class="hand sec" id="s"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="logo" data-i18n-key="brandName">HARVICS</div>
-      <div class="language-switcher">
-        <select id="language-select">
-          <option value="en">English</option>
-          <option value="fr">Français</option>
-        </select>
-        <a href="#login" class="login-link" data-i18n-key="login">Login</a>
-        <button class="search-toggle" id="open-search" aria-label="Search">🔍</button>
-      </div>
-    </div>
-    <nav class="main-nav">
-      <ul class="main-menu">
-        <li><a href="#about" data-i18n-key="navAbout">About Us</a></li>
-        <li class="has-mega"><a href="textiles.html" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
-        <li><a href="fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
-        <li><a href="sourcing.html" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
-        <li><a href="#minerals" data-i18n-key="navMinerals">Minerals</a></li>
-        <li><a href="commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
-        <li><a href="industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
-        <li><a href="#finance" data-i18n-key="navFinance">Finance & HPay</a></li>
-        <li><a href="#ai" data-i18n-key="navAI">AI & Technology</a></li>
-        <li><a href="#realestate" data-i18n-key="navRealEstate">Real Estate</a></li>
-        <li><a href="#oilgas" data-i18n-key="navOilGas">Oil & Gas</a></li>
-      </ul>
-    </nav>
-    <div class="mega" id="mega">
-      <div class="mega-ctr" id="mega-ctr"></div>
-    </div>
-  </header>
-  <div class="curtain" id="mega-overlay"></div>
+  <div id="site-shell"></div>
 
-  <main>
+  <main id="page-content">
+    <span id="home" class="section-anchor"></span>
+    <span id="textiles" class="section-anchor"></span>
+    <span id="fmcg" class="section-anchor"></span>
+    <span id="commodities" class="section-anchor"></span>
+    <span id="industrial" class="section-anchor"></span>
+    <span id="minerals" class="section-anchor"></span>
+    <span id="oil-gas" class="section-anchor"></span>
+    <span id="real-estate" class="section-anchor"></span>
+    <span id="sourcing" class="section-anchor"></span>
+    <span id="finance" class="section-anchor"></span>
+    <span id="ai" class="section-anchor"></span>
+    <span id="textiles-apparel" class="section-anchor"></span>
+    <span id="textiles-apparel-mens-wear" class="section-anchor"></span>
+    <span id="textiles-apparel-mens-wear-shirts" class="section-anchor"></span>
+    <span id="textiles-apparel-mens-wear-shirts-slim-fit" class="section-anchor"></span>
     <section class="hero">
-      <div class="hero-slides" id="hero-slides">
-        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-0A7YwYhZhWw?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
-        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-Ej2FQy1W7z4?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
-        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-m0ZBWRYYq7o?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
-        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-VmBToKkQ8ac?auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center;"></div>
-      </div>
       <div class="hero-text reveal">
         <div class="hero-col hero-left">
           <div class="hero-brand">Harvics Global Ventures</div>
@@ -742,47 +649,23 @@
     </section>
 
     <!-- HARVICS Global Ventures Section -->
-    <section class="harvics-ventures-section" style="position:relative; z-index:10; min-height:80vh; display:flex; align-items:center; overflow:hidden; background:var(--burgundy-deep);">
-      <!-- Background Image -->
-      <div style="position:absolute; inset:0; background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80'); background-size:cover; background-position:center; z-index:0;"></div>
-      
-      <!-- Overlay Gradient -->
-      <div style="position:absolute; inset:0; background: linear-gradient(90deg, rgba(108,29,24,0.8) 0%, rgba(108,29,24,0.4) 50%, rgba(108,29,24,0) 100%); z-index:1;"></div>
-      
-      <!-- Gold Wave Top -->
-      <div style="position:absolute; top:0; left:0; right:0; height:60px; overflow:hidden; z-index:2; transform:rotate(180deg);">
-        <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height:100%; width:100%;">
-          <path d="M0.00,49.98 C149.99,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke:none; fill:var(--gold); opacity:0.6;"></path>
-        </svg>
-      </div>
-
-      <!-- Content -->
-      <div style="position:relative; z-index:3; max-width:1200px; margin:0 auto; padding:0 24px; width:100%;">
-        <div style="max-width:600px;">
-          <h2 style="font-size:clamp(3rem, 5vw, 4.5rem); font-weight:800; color:var(--offwhite); line-height:1.1; margin-bottom:24px; text-transform:uppercase; letter-spacing:0.02em;">
-            Harvics<br>
-            <span style="color:var(--gold);">Global</span><br>
-            Ventures
+    <section class="harvics-ventures-section tint" style="min-height:40vh;display:flex;align-items:center;">
+      <div style="max-width:1200px;margin:0 auto;padding:48px 24px;width:100%;">
+        <div style="max-width:720px;">
+          <h2 style="font-size:clamp(2rem, 4vw, 3rem);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.02em;">
+            Harvics Global Ventures
           </h2>
-          <p style="font-size:1.2rem; color:rgba(253,251,247,0.9); line-height:1.6; max-width:480px;">
-            Connecting markets, empowering industries, and delivering excellence across the globe.
+          <p style="font-size:1.05rem;color:var(--text);line-height:1.6;max-width:640px;">
+            Connecting markets and delivering sourcing, logistics, and execution with clarity and control.
           </p>
         </div>
-      </div>
-
-      <!-- Gold Wave Bottom -->
-      <div style="position:absolute; bottom:0; left:0; right:0; height:80px; overflow:hidden; z-index:2;">
-        <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height:100%; width:100%;">
-          <path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke:none; fill:var(--gold); opacity:0.8;"></path>
-        </svg>
       </div>
     </section>
     
 
 
     <!-- Feature Page 1: Global Network -->
-    <section class="feature-page" id="global-network" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2000&q=80')">
-      <div class="feature-overlay"></div>
+    <section class="feature-page tint" id="global-network">
       <div class="feature-content reveal">
         <h2 class="feature-title">Global Connectivity.</h2>
         <p class="feature-desc reveal-delay-1">Bridging continents with a seamless logistics network that never sleeps. We move the world forward.</p>
@@ -791,8 +674,7 @@
     </section>
 
     <!-- Feature Page 2: Premium Textiles -->
-    <section class="feature-page" id="premium-textiles" style="background-image: url('https://images.unsplash.com/photo-1621251977717-382627447913?auto=format&fit=crop&w=2000&q=80')">
-      <div class="feature-overlay"></div>
+    <section class="feature-page" id="premium-textiles">
       <div class="feature-content reveal">
         <h2 class="feature-title">Masterful Textiles.</h2>
         <p class="feature-desc reveal-delay-1">Woven with precision, designed for luxury. Our fabrics set the standard for international excellence.</p>
@@ -801,8 +683,7 @@
     </section>
 
     <!-- Feature Page 3: Industrial Power -->
-    <section class="feature-page" id="industrial-power" style="background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=2000&q=80')">
-      <div class="feature-overlay"></div>
+    <section class="feature-page tint" id="industrial-power">
       <div class="feature-content reveal">
         <h2 class="feature-title">Industrial Force.</h2>
         <p class="feature-desc reveal-delay-1">Powering the backbone of modern infrastructure with robust raw materials and machinery.</p>
@@ -849,21 +730,21 @@
         <svg class="wheel-svg" viewBox="0 0 320 320">
           <defs>
             <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#6C1D18"/>
-              <stop offset="1" stop-color="#D4AF37"/>
+              <stop offset="0" stop-color="var(--gold)"/>
+              <stop offset="1" stop-color="var(--gold)"/>
             </linearGradient>
           </defs>
           <circle cx="160" cy="160" r="130" fill="none" stroke="url(#wg)" stroke-width="22"/>
-          <circle cx="160" cy="160" r="102" fill="#FDFBF7"/>
-          <text x="160" y="150" font-size="16" fill="#5A1815" text-anchor="middle" data-i18n-key="whEnd">End‑to‑end</text>
-          <text x="160" y="170" font-size="16" fill="#5A1815" text-anchor="middle" data-i18n-key="whSup">supply chain</text>
-          <text x="160" y="190" font-size="16" fill="#5A1815" text-anchor="middle" data-i18n-key="whMgmt">management</text>
-          <text x="160" y="26" font-size="12" fill="#8B2E2E" text-anchor="middle" data-i18n-key="whSrc">Sourcing</text>
-          <text x="285" y="166" font-size="12" fill="#8B2E2E" text-anchor="middle" data-i18n-key="whDsg">Design</text>
-          <text x="160" y="304" font-size="12" fill="#8B2E2E" text-anchor="middle" data-i18n-key="whMfg">Manufacturing</text>
-          <text x="35" y="166" font-size="12" fill="#8B2E2E" text-anchor="middle" data-i18n-key="whCmp">Compliance</text>
-          <text x="230" y="280" font-size="12" fill="#8B2E2E" text-anchor="middle" data-i18n-key="whLog">DC & Transport</text>
-          <text x="90" y="40" font-size="12" fill="#8B2E2E" text-anchor="middle" data-i18n-key="whRet">Retail</text>
+          <circle cx="160" cy="160" r="102" fill="var(--offwhite)"/>
+          <text x="160" y="150" font-size="16" fill="var(--text)" text-anchor="middle" data-i18n-key="whEnd">End‑to‑end</text>
+          <text x="160" y="170" font-size="16" fill="var(--text)" text-anchor="middle" data-i18n-key="whSup">supply chain</text>
+          <text x="160" y="190" font-size="16" fill="var(--text)" text-anchor="middle" data-i18n-key="whMgmt">management</text>
+          <text x="160" y="26" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whSrc">Sourcing</text>
+          <text x="285" y="166" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whDsg">Design</text>
+          <text x="160" y="304" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whMfg">Manufacturing</text>
+          <text x="35" y="166" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whCmp">Compliance</text>
+          <text x="230" y="280" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whLog">DC & Transport</text>
+          <text x="90" y="40" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whRet">Retail</text>
         </svg>
       </div>
       <div class="how-right">
@@ -946,8 +827,8 @@
     </section>
 
     <section class="industries-two page reveal" id="industries-two">
-      <div class="ind-card" id="ind-fmcg" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80');"><a href="fmcg.html"></a><div class="slide-title">FMCG</div></div>
-      <div class="ind-card" id="ind-textiles" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80');"><a href="textiles.html"></a><div class="slide-title">Textiles & Apparels</div></div>
+      <div class="ind-card" id="ind-fmcg" data-bg-key="fmcg"><a href="fmcg.html"></a><div class="slide-title">FMCG</div></div>
+      <div class="ind-card" id="ind-textiles" data-bg-key="textiles"><a href="textiles.html"></a><div class="slide-title">Textiles & Apparels</div></div>
     </section>
     
 
@@ -955,37 +836,24 @@
 
     <section class="split-band reveal" id="industries-split">
       <div class="split-main">
-        <div class="slider" data-dir="1">
-          <div class="slide" data-bg-key="industrial" style="background-size: cover; background-position: center;"><a href="#industrial"></a><div class="slide-title">Industrial</div></div>
-          <div class="slide" data-bg-key="textiles" style="background-size: cover; background-position: center;"><a href="#textiles"></a><div class="slide-title">Textiles</div></div>
-          <div class="slide" data-bg-key="fmcg" style="background-size: cover; background-position: center;"><a href="#fmcg"></a><div class="slide-title">FMCG</div></div>
+        <div class="slider" data-dir="1" data-autoplay="1" data-speed="0.8">
+          <div class="slide" data-bg-file="FMCG IMAGES/Beverages/Non-carbonated/water.png"><a href="index.html#commodities"></a><div class="slide-title">Commodities</div></div>
+          <div class="slide" data-bg-file="FMCG IMAGES/Frozen Foods/Frozen Vegitables/mixed vegetables.png"><a href="index.html#fmcg"></a><div class="slide-title">FMCG</div></div>
+          <div class="slide" data-bg-file="FMCG IMAGES/Beverages/Non-carbonated/non carbonated.png"><a href="index.html#sourcing"></a><div class="slide-title">Sourcing</div></div>
         </div>
       </div>
       <div class="split-side">
-        <div class="block-title">Industries</div>
-        <div class="block-body">
-          Diverse global coverage across FMCG, Textiles, and Industrial categories with compliance‑first sourcing and reliable delivery.
+        <div class="slider" data-dir="-1" data-autoplay="1" data-speed="0.6">
+          <div class="slide" style="min-width:320px;max-width:320px;height:200px" data-bg-file="FMCG IMAGES/Bakery/Wafer and Wafer Bars/wafer.jpg"><a href="index.html#textiles"></a><div class="slide-title">Textiles</div></div>
+          <div class="slide" style="min-width:320px;max-width:320px;height:200px" data-bg-file="FMCG IMAGES/Culinary/Seasoning,Spices and Marinade/Black pepper.png"><a href="index.html#industrial"></a><div class="slide-title">Industrial</div></div>
+          <div class="slide" style="min-width:320px;max-width:320px;height:200px" data-bg-file="FMCG IMAGES/Culinary/Seasoning,Spices and Marinade/salt -1.png"><a href="index.html#commodities"></a><div class="slide-title">Commodities</div></div>
         </div>
       </div>
     </section>
     
-    <section class="slider-band" id="sliderB">
-      <div class="slider" data-dir="1">
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-0A7YwYhZhWw?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#sourcing"></a><div class="slide-title">Sourcing & Supply Chain</div></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-VmBToKkQ8ac?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#fmcg"></a><div class="slide-title">FMCG</div></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-P-J4kbEIEk0?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#textiles"></a><div class="slide-title">Textiles & Apparels</div></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-8srjIDuaHLc?auto=format&fit=crop&w=800&q=80'); background-size: cover;"><a href="#industrial"></a><div class="slide-title">Industrial Solutions</div></div>
-      </div>
-    </section>
+    <section class="slider-band" id="sliderB" style="display:none"></section>
 
-    <section class="slider-band" id="sliderA">
-      <div class="slider" data-dir="1">
-        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-cjUOhrBquqc?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#silk-curtains"></a><div class="slide-title">Silk Curtains</div></div>
-        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-m8wsQ_8cd2M?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#towels"></a><div class="slide-title">Towels</div></div>
-        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-1522771753035-48498225e6ab?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#bedding"></a><div class="slide-title">Bedding</div></div>
-        <div class="slide" style="min-width:280px;max-width:280px;height:180px;background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&w=600&q=80'); background-size: cover;"><a href="#home-textiles"></a><div class="slide-title">Home Textiles</div></div>
-      </div>
-    </section>
+    <!-- sliderA merged into split-side -->
 
     <!-- Dynamic Product Showcase -->
     <section class="products-showcase reveal" id="industries">
@@ -1046,64 +914,6 @@
     </section>
 
 
-    <footer class="site-footer">
-      <div class="footer-top">
-        <div class="footer-col">
-          <div class="footer-brand" data-i18n-key="brandName">HARVICS</div>
-          <p class="footer-desc" data-i18n-key="footerDesc">Your trusted global partner for sourcing, manufacturing, and supply chain solutions. Connecting markets, delivering excellence.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="LinkedIn" title="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="#" aria-label="Instagram" title="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="#" aria-label="Twitter" title="X (Twitter)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-            </a>
-            <a href="#" aria-label="Facebook" title="Facebook">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            </a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h4 data-i18n-key="ftInd">Industries</h4>
-          <ul>
-            <li><a href="#textiles" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
-            <li><a href="#fmcg" data-i18n-key="navFmcg">FMCG</a></li>
-            <li><a href="#industrial" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
-            <li><a href="#minerals" data-i18n-key="navMinerals">Minerals & Mining</a></li>
-            <li><a href="#commodities" data-i18n-key="navCommodities">Commodities</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 data-i18n-key="ftCo">Company</h4>
-          <ul>
-            <li><a href="#about" data-i18n-key="navAbout">About Us</a></li>
-            <li><a href="#careers" data-i18n-key="ftCar">Careers</a></li>
-            <li><a href="#sustainability" data-i18n-key="ftSus">Sustainability</a></li>
-            <li><a href="#news" data-i18n-key="ftNews">News & Insights</a></li>
-            <li><a href="#contact" data-i18n-key="ftCont">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 data-i18n-key="ftStay">Stay Updated</h4>
-          <p class="footer-desc" data-i18n-key="ftSub">Subscribe to our newsletter for the latest market trends.</p>
-          <form class="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="Your email address" aria-label="Email" data-i18n-key="emailPlaceholder">
-            <button type="submit" class="newsletter-btn" data-i18n-key="btnJoin">Join</button>
-          </form>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>&copy; <span id="year"></span> <span data-i18n-key="ftCopy">Harvics Global Ventures. All rights reserved.</span></div>
-        <div style="display:flex;gap:24px">
-          <a href="#" data-i18n-key="ftPriv">Privacy Policy</a>
-          <a href="#" data-i18n-key="ftTerms">Terms of Service</a>
-          <a href="#" data-i18n-key="ftMap">Sitemap</a>
-        </div>
-      </div>
-    </footer>
 
     <div class="ai-fab" id="ai-fab">Ask AI</div>
   </main>

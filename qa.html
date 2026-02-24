@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA Dashboard • Harvics</title>
+  <link rel="stylesheet" href="/root.css">
+  <style>
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";background:var(--bg-primary)}
+    .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+    .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+    .card{border:1px solid var(--divider);background:var(--bg-primary);box-shadow:var(--card-shadow);padding:12px}
+    .url{font-size:12px;opacity:0.8;word-break:break-all}
+    .status{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+    .chip{font-size:12px;border:1px solid var(--divider);padding:4px 6px}
+    .chip.ok{border-color:var(--gold);color:var(--burgundy)}
+    .chip.fail{border-color:#c00;color:#c00}
+    iframe{width:100%;height:240px;border:1px solid var(--divider);background:var(--bg-secondary)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1 style="color:var(--burgundy)">QA Dashboard</h1>
+      <button id="run" style="padding:8px 12px;border:1px solid var(--gold);background:#fff;color:var(--burgundy)">Run Checks</button>
+    </div>
+    <div id="results" class="grid"></div>
+  </div>
+  <script>
+    async function loadMega(){
+      const r = await fetch('/megaData.json', { cache:'no-store' });
+      return r.json();
+    }
+    function slug(s){
+      return String(s||'').toLowerCase()
+        .replace(/'s/gi,'-s')
+        .replace(/[^\w\s-]/g,'')
+        .replace(/\s+/g,'-')
+        .replace(/-+/g,'-')
+        .replace(/^-+|-+$/g,'');
+    }
+    function buildUrls(data){
+      const urls = [];
+      for(const [key, blocks] of Object.entries(data)){
+        for(const b of blocks){
+          const section = b.t;
+          const sslug = slug(section);
+          for(const item of (b.items||[])){
+            const islug = slug(item);
+            urls.push({
+              key, section, item,
+              url: `/subpages/${key}/${sslug}/${islug}.html`
+            });
+          }
+        }
+      }
+      return urls;
+    }
+    function card(u){
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <div style="font-weight:600;color:var(--burgundy)">${u.key} — ${u.section} — ${u.item}</div>
+        <div class="url">${u.url}</div>
+        <iframe src="${u.url}" loading="lazy"></iframe>
+        <div class="status">
+          <span class="chip" data-field="header">Header</span>
+          <span class="chip" data-field="footer">Footer</span>
+          <span class="chip" data-field="products">Products</span>
+          <span class="chip" data-field="images">Images</span>
+          <span class="chip" data-field="css">CSS</span>
+          <span class="chip" data-field="palette">Palette</span>
+        </div>
+      `;
+      return div;
+    }
+    function checkFrame(frame, chips){
+      try{
+        const doc = frame.contentDocument;
+        if(!doc) return;
+        const hasHeader = !!doc.querySelector('header');
+        const hasFooter = !!doc.querySelector('footer.site-footer');
+        const products = doc.querySelectorAll('#catalog-products .product-card').length;
+        const images = Array.from(doc.querySelectorAll('.product-image')).filter(el=>{
+          const bg = getComputedStyle(el).backgroundImage || '';
+          return bg && bg !== 'none';
+        }).length;
+        const hasCSS = Array.from(doc.styleSheets||[]).some(s=>{
+          try{ return (s.href||'').includes('/root.css'); }catch(e){ return false; }
+        });
+        const bodyBg = getComputedStyle(doc.body).backgroundColor;
+        const ivoryA = 'rgb(247, 245, 242)'; // #F7F5F2
+        const ivoryB = 'rgb(239, 234, 227)'; // #EFEAE3
+        let paletteOk = (bodyBg === ivoryA || bodyBg === ivoryB);
+        const feat = doc.querySelector('.feature-btn');
+        const prim = doc.querySelector('.primary-btn');
+        function isMaroon(el){
+          if(!el) return true;
+          const bg = getComputedStyle(el).backgroundColor;
+          return bg === 'rgb(90, 15, 26)'; // #5A0F1A
+        }
+        paletteOk = paletteOk && isMaroon(feat) && isMaroon(prim);
+        chips.header.classList.add(hasHeader?'ok':'fail');
+        chips.footer.classList.add(hasFooter?'ok':'fail');
+        chips.products.classList.add(products>0?'ok':'fail');
+        chips.images.classList.add(images>0?'ok':'fail');
+        chips.css.classList.add(hasCSS?'ok':'fail');
+        chips.palette.classList.add(paletteOk?'ok':'fail');
+      }catch(e){
+        chips.header.classList.add('fail');
+        chips.footer.classList.add('fail');
+        chips.products.classList.add('fail');
+        chips.images.classList.add('fail');
+        chips.css.classList.add('fail');
+        chips.palette.classList.add('fail');
+      }
+    }
+    async function run(){
+      const data = await loadMega();
+      const urls = buildUrls(data);
+      const results = document.getElementById('results');
+      results.innerHTML = '';
+      urls.forEach(u=>{
+        const c = card(u);
+        results.appendChild(c);
+        const frame = c.querySelector('iframe');
+        const chips = {
+          header: c.querySelector('[data-field="header"]'),
+          footer: c.querySelector('[data-field="footer"]'),
+          products: c.querySelector('[data-field="products"]'),
+          images: c.querySelector('[data-field="images"]'),
+          css: c.querySelector('[data-field="css"]'),
+        };
+        frame.addEventListener('load', ()=>{
+          setTimeout(()=>checkFrame(frame, chips), 800);
+        });
+      });
+    }
+    document.getElementById('run').addEventListener('click', run);
+    run();
+  </script>
+</body>
+</html>

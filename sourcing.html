@@ -3,60 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sourcing Solutions - HARVICS</title>
+  <link rel="stylesheet" href="root.css">
+  <title>Sourcing Solutions - Harvics Global Ventures</title>
   <style>
-    :root{
-      --burgundy:#6C1D18;
-      --burgundy-deep:#5A1815;
-      --gold:#D4AF37;
-      --gold-bright:#EED27A;
-      --offwhite:#FDFBF7;
-      --text:#5A1815;
-      --text-2:#8B2E2E;
-      --divider:#E6E0D4;
-      --card-shadow:0 8px 16px rgba(108,29,24,0.08);
-    }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;background:var(--offwhite);color:var(--text)}
     header{
-      background:rgba(253,251,247,0.85);
-      backdrop-filter:saturate(180%) blur(25px);
-      -webkit-backdrop-filter:saturate(180%) blur(25px);
+      background:var(--offwhite);
       position:sticky;top:0;z-index:1000;color:var(--burgundy);
-      border-bottom:1px solid rgba(108,29,24,0.05);
-      box-shadow: 0 4px 30px rgba(108, 29, 24, 0.04);
+      border-bottom:1px solid var(--divider);
+      box-shadow:none;
     }
     .top-bar{max-width:1200px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .clock{width:44px;height:44px;border-radius:50%;background:var(--offwhite);box-shadow:inset 0 1px 2px rgba(108,29,24,0.12);border:1px solid var(--divider);display:block;position:relative;flex:0 0 44px}
-    .clock:before{content:"";position:absolute;inset:2px;border-radius:50%;border:1px solid var(--gold);background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="16" font-family="serif" font-size="12" fill="%235A1815" text-anchor="middle">XII</text><text x="78" y="54" font-family="serif" font-size="10" fill="%235A1815" text-anchor="middle">III</text><text x="50" y="92" font-family="serif" font-size="12" fill="%235A1815" text-anchor="middle">VI</text><text x="22" y="54" font-family="serif" font-size="10" fill="%235A1815" text-anchor="middle">IX</text><text x="67" y="24" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">I</text><text x="80" y="38" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">II</text><text x="78" y="70" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">IV</text><text x="66" y="84" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">V</text><text x="34" y="84" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">VII</text><text x="22" y="70" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">VIII</text><text x="20" y="38" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">X</text><text x="34" y="24" font-family="serif" font-size="8" fill="%235A1815" text-anchor="middle">XI</text></svg>');background-size:cover;opacity:0.8}
-    .clock .hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom;background:#5A1815;z-index:2}
+    .clock{width:44px;height:44px;border-radius:0;background:var(--offwhite);box-shadow:none;border:1px solid var(--divider);display:block;position:relative;flex:0 0 44px}
+    .clock:before{content:"";position:absolute;inset:2px;border-radius:0;border:1px solid var(--gold);opacity:0.8}
+    .clock .hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom;background:var(--burgundy);z-index:2}
     .hand.hour{width:2px;height:10px;border-radius:2px;opacity:1}
     .hand.min{width:2px;height:14px;border-radius:2px;opacity:0.9}
     .hand.sec{width:1px;height:16px;background:var(--burgundy);border-radius:2px;opacity:0.8}
-    .clock .dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:var(--gold);border-radius:50%;z-index:3}
-    .clock .numeral{display:none}
+    .clock .dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:4px;height:4px;background:var(--gold);border-radius:0;z-index:3}
     .logo{font-weight:700;letter-spacing:0.08em;color:var(--gold-bright)}
     .language-switcher{display:flex;align-items:center;gap:8px;font-size:13px}
     .language-switcher select{padding:0 4px;font-size:13px;border:none;background:transparent;color:var(--burgundy);appearance:none}
     .language-switcher .login-link{padding:0;font-size:13px;border:none;background:transparent;text-decoration:none;color:var(--burgundy)}
     .language-switcher .login-link:hover{text-decoration:underline}
-    .main-nav{background:transparent;border-top:1px solid rgba(108,29,24,0.08)}
+    .main-nav{background:transparent;border-top:1px solid var(--divider)}
     .main-menu{max-width:1200px;margin:0 auto;list-style:none;display:flex;align-items:center;gap:20px;padding:0 16px}
     .main-menu>li{position:relative}
-    .main-menu>li>a{display:block;padding:12px 0;text-decoration:none;color:rgba(108,29,24,0.78);font-size:12px;letter-spacing:0.02em;font-weight:500;transition:opacity .2s ease}
+    .main-menu>li>a{display:block;padding:12px 0;text-decoration:none;color:var(--burgundy);font-size:12px;letter-spacing:0.02em;font-weight:500;transition:opacity .2s ease}
     .main-menu>li>a:hover{opacity:.9}
-    .mega{position:absolute;left:0;right:0;top:100%;background:rgba(253,251,247,0.95);backdrop-filter:saturate(200%) blur(32px);-webkit-backdrop-filter:saturate(200%) blur(32px);border-bottom:1px solid rgba(108,29,24,0.05);box-shadow:0 14px 30px rgba(108,29,24,0.12);transform-origin:top;transform:translateY(-18px);opacity:0;transition:transform .36s cubic-bezier(.16,1,.3,1), opacity .30s ease-out;pointer-events:none;will-change:transform,opacity}
-    .mega.open{transform:translateY(0);opacity:1;pointer-events:auto}
-    .mega-ctr{max-width:1200px;margin:0 auto;padding:18px 16px 20px 16px;position:relative;min-height:220px}
-    .mega-ctr .group{display:flex;align-items:center;gap:16px;white-space:nowrap;padding:12px 4px;border-bottom:1px solid var(--divider)}
-    .mega-ctr .group:last-child{border-bottom:none}
-    .mega-ctr .g-head{min-width:160px;font-size:14px;color:rgba(108,29,24,0.62);font-weight:300;letter-spacing:.02em}
-    .mega-ctr .g-items{display:flex;gap:10px;flex-wrap:nowrap}
-    .mega-ctr .g-items a{display:inline-block;padding:5px 0;margin-right:12px;color:var(--text-2);text-decoration:none;font-size:13px;font-weight:400;border:none;background:transparent}
-    .mega-ctr .g-items a:hover{color:var(--burgundy);text-decoration:underline;background:transparent}
-    .curtain{position:fixed;left:0;right:0;top:var(--header-h,96px);bottom:0;background:linear-gradient(180deg,rgba(253,251,247,0.8),rgba(253,251,247,0.6));backdrop-filter:saturate(120%) blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease}
-    .curtain.open{opacity:1;pointer-events:auto}
-
     /* Page Layout Styles */
     .container {
       max-width: 1200px;
@@ -152,7 +127,7 @@
     .service-card {
       background: var(--offwhite);
       border: 1px solid var(--divider);
-      border-radius: 12px;
+      border-radius: 0;
       overflow: hidden;
       transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       box-shadow: var(--card-shadow);
@@ -163,17 +138,17 @@
 
     .service-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 32px rgba(108,29,24,0.12);
+      box-shadow: 0 12px 32px rgba(90,15,26,0.12);
     }
 
     .service-header {
       padding: 24px;
-      background: linear-gradient(135deg, var(--burgundy) 0%, #4a1210 100%); /* Fallback */
+      background: var(--offwhite);
       border-bottom: 1px solid var(--divider);
       position: relative;
       background-size: cover;
       background-position: center;
-      color: white;
+      color: var(--burgundy);
       z-index: 1;
       min-height: 140px;
       display: flex;
@@ -181,36 +156,25 @@
       justify-content: flex-end;
     }
     
-    .service-header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(60, 10, 10, 0.4);
-      z-index: -1;
-    }
-
     .service-icon {
       font-size: 32px;
       margin-bottom: 16px;
       display: block;
-      text-shadow: 0 2px 8px rgba(108,29,24,0.5);
     }
 
     .service-title {
       font-size: 18px;
       font-weight: 600;
-      color: #fff;
+      color: var(--burgundy);
       margin-bottom: 8px;
-      text-shadow: 0 2px 4px rgba(108,29,24,0.5);
     }
     
     .service-subtitle {
       font-size: 13px;
-      color: rgba(255,255,255,0.85);
+      color: var(--text);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-weight: 600;
-      text-shadow: 0 1px 3px rgba(108,29,24,0.5);
     }
 
     .service-body {
@@ -246,15 +210,16 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      background: var(--burgundy);
-      color: #fff;
+      background: var(--offwhite);
+      color: var(--burgundy);
       padding: 12px 20px;
-      border-radius: 4px;
+      border-radius: 2px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(108,29,24,0.2);
+      box-shadow: none;
       font-size: 14px;
       font-weight: 500;
       z-index: 2000;
+      border: 1px solid var(--divider);
     }
     
     /* AI Overlay */
@@ -262,7 +227,7 @@
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(108,29,24,0.4);
+        background: var(--offwhite);
         z-index: 2100;
         align-items: center;
         justify-content: center;
@@ -270,8 +235,9 @@
     .ai-sheet {
       width: min(360px,90vw);
       background: var(--offwhite);
-      border-radius: 12px;
-      box-shadow: var(--card-shadow);
+      border-radius: 2px;
+      box-shadow: none;
+      border: 1px solid var(--divider);
       padding: 16px;
       margin: 0 20px 20px 0;
     }
@@ -285,17 +251,17 @@
       resize: vertical;
       padding: 8px 10px;
       font-size: 14px;
-      border-radius: 8px;
+      border-radius: 2px;
       border: 1px solid var(--divider);
     }
     .ai-row button {
       align-self: flex-start;
       padding: 8px 16px;
       font-size: 14px;
-      border-radius: 8px;
-      border: none;
-      background: var(--burgundy);
-      color: #fff;
+      border-radius: 2px;
+      border: 1px solid var(--divider);
+      background: var(--offwhite);
+      color: var(--burgundy);
       cursor: pointer;
     }
     .ai-output {
@@ -323,7 +289,7 @@
     .footer-social { display: flex; gap: 16px; margin-top: 24px; }
     .footer-social a { 
       color: var(--burgundy); opacity: 0.7; transition: all 0.3s ease; 
-      width: 40px; height: 40px; border-radius: 50%; background: transparent; border: 1px solid var(--burgundy);
+      width: 40px; height: 40px; border-radius: 0; background: transparent; border: 1px solid var(--burgundy);
       display: grid; place-items: center;
     }
     .footer-social a:hover { opacity: 1; background: var(--burgundy); color: var(--gold); border-color: var(--burgundy); transform: translateY(-3px); }
@@ -332,13 +298,13 @@
     .newsletter-form { display: flex; gap: 10px; margin-top: 20px; }
     .newsletter-input { 
       background: var(--offwhite); border: 1px solid var(--burgundy); 
-      padding: 12px 16px; border-radius: 8px; color: var(--burgundy); flex: 1; font-size: 15px; outline: none; 
+      padding: 12px 16px; border-radius: 2px; color: var(--burgundy); flex: 1; font-size: 15px; outline: none; 
       transition: border-color 0.3s;
     }
     .newsletter-input:focus { border-color: var(--gold); background: var(--offwhite); }
     .newsletter-btn { 
-      background: var(--burgundy); color: var(--gold); border: none; padding: 12px 24px; 
-      border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 15px; 
+      background: var(--offwhite); color: var(--burgundy); border: 1px solid var(--divider); padding: 12px 24px; 
+      border-radius: 2px; cursor: pointer; font-weight: 600; font-size: 15px; 
       transition: all 0.3s; white-space: nowrap; 
     }
     .newsletter-btn:hover { background: var(--gold); color: var(--burgundy); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); }
@@ -350,43 +316,10 @@
   </style>
 </head>
 <body>
+  <div id="site-shell"></div>
 
-  <header>
-    <div class="top-bar">
-      <div class="clock" id="hdr-clock">
-        <div class="hand hour" id="h"></div>
-        <div class="hand min" id="m"></div>
-        <div class="hand sec" id="s"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="logo" data-i18n-key="brandName">HARVICS</div>
-      <div class="language-switcher">
-        <select id="language-select">
-          <option value="en">English</option>
-          <option value="fr">Français</option>
-        </select>
-        <a href="#login" class="login-link" data-i18n-key="login">Login</a>
-      </div>
-    </div>
-    <nav class="main-nav">
-      <ul class="main-menu">
-        <li><a href="index.html#about" data-i18n-key="navAbout">About Us</a></li>
-        <li><a href="textiles.html" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
-        <li><a href="fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
-        <li class="has-mega"><a href="sourcing.html" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
-        <li><a href="index.html#minerals" data-i18n-key="navMinerals">Minerals</a></li>
-        <li><a href="commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
-        <li><a href="industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
-        <li><a href="index.html#finance" data-i18n-key="navFinance">Finance & HPay</a></li>
-        <li><a href="index.html#ai" data-i18n-key="navAI">AI & Technology</a></li>
-        <li><a href="index.html#realestate" data-i18n-key="navRealEstate">Real Estate</a></li>
-        <li><a href="index.html#oilgas" data-i18n-key="navOilGas">Oil & Gas</a></li>
-      </ul>
-    </nav>
-    <div class="mega" id="mega"><div class="mega-ctr" id="mega-ctr"></div></div>
-  </header>
-  <div class="curtain" id="mega-overlay"></div>
-
+  <main id="page-content">
+  <script>try{window.injectLandingBanner&&window.injectLandingBanner()}catch(e){}</script>
   <div class="container">
     <!-- SIDEBAR FILTERS -->
     <aside class="sidebar">
@@ -401,16 +334,17 @@
     <!-- MAIN CONTENT -->
     <main class="content">
       <h1 class="page-title">Global Sourcing Solutions</h1>
-      <p class="page-subtitle">HARVICS delivers integrated sourcing ecosystems — from supplier discovery to final delivery — across multi-industry verticals worldwide.</p>
+      <p class="page-subtitle">Harvics delivers integrated sourcing ecosystems — from supplier discovery to final delivery — across multi-industry verticals worldwide.</p>
       
       <div id="services-container">
         <!-- Populated by JS -->
       </div>
     </main>
   </div>
+  </main>
 
   <!-- AI FAB -->
-  <div class="ai-fab" id="ai-fab">Ask HARVICS AI</div>
+  <div class="ai-fab" id="ai-fab">Ask Harvics AI</div>
   
   <div class="ai-overlay" id="ai-overlay">
     <div class="ai-sheet">
@@ -428,63 +362,6 @@
 
   <script src="product-data.js"></script>
   <script src="script.js"></script>
-
-    <footer class="site-footer">
-      <div class="footer-top">
-        <div class="footer-col">
-          <div class="footer-brand" data-i18n-key="brandName">HARVICS</div>
-          <p class="footer-desc" data-i18n-key="footerDesc">Your trusted global partner for sourcing, manufacturing, and supply chain solutions. Connecting markets, delivering excellence.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="LinkedIn" title="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="#" aria-label="Instagram" title="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="#" aria-label="Twitter" title="X (Twitter)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-            </a>
-            <a href="#" aria-label="Facebook" title="Facebook">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            </a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h4 data-i18n-key="ftInd">Industries</h4>
-          <ul>
-            <li><a href="textiles.html" data-i18n-key="navTextiles">Textiles & Apparels</a></li>
-            <li><a href="fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
-            <li><a href="industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
-            <li><a href="commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 data-i18n-key="ftCo">Company</h4>
-          <ul>
-            <li><a href="sourcing.html" data-i18n-key="navSourcing">Sourcing Services</a></li>
-            <li><a href="index.html#about" data-i18n-key="navAbout">About Us</a></li>
-            <li><a href="index.html#careers" data-i18n-key="ftCar">Careers</a></li>
-            <li><a href="index.html#contact" data-i18n-key="ftCont">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4 data-i18n-key="ftStay">Stay Updated</h4>
-          <p class="footer-desc" data-i18n-key="ftSub">Subscribe to our newsletter for the latest market trends.</p>
-          <form class="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="Your email address" aria-label="Email" data-i18n-key="emailPlaceholder">
-            <button type="submit" class="newsletter-btn" data-i18n-key="btnJoin">Join</button>
-          </form>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>&copy; <span id="year">2025</span> <span data-i18n-key="ftCopy">Harvics Global Ventures. All rights reserved.</span></div>
-        <div style="display:flex;gap:24px">
-          <a href="#" data-i18n-key="ftPriv">Privacy Policy</a>
-          <a href="#" data-i18n-key="ftTerms">Terms of Service</a>
-          <a href="#" data-i18n-key="ftMap">Sitemap</a>
-        </div>
-      </div>
-    </footer>
     
   <script>
     const sourcingData = [
@@ -750,90 +627,6 @@
         `;
       }
 
-      // 3. Mega Menu Logic (Unified)
-      const mega = document.getElementById('mega');
-      const megaCtr = document.getElementById('mega-ctr');
-      const megaOverlay = document.getElementById('mega-overlay');
-      const navItems = document.querySelectorAll('.main-menu > li');
-      const header = document.querySelector('header');
-
-      // Detailed Sourcing Menu Data (Matching other pages)
-      const navSourcing = [
-        {t:"Manufacturing", items:["OEM / ODM Manufacturing","Private Label Development","Tooling & Mold Fabrication"]},
-        {t:"Quality & Compliance", items:["Quality Control & Inspection","Compliance & Certifications","Social & Ethical Audits"]},
-        {t:"Logistics & Dist", items:["Global Logistics","Warehousing","Customs Brokerage","Last-Mile Delivery"]},
-        {t:"Strategy & Consulting", items:["Procurement Strategy","Market Entry","Cost Reduction","Spend Analytics"]},
-        {t:"Sustainability", items:["Green Supply Chain","Carbon Footprint","Ethical Labor","ESG Reporting"]},
-        {t:"Tech & Innovation", items:["AI Supplier Matching","Blockchain Traceability","Digital Platforms"]},
-        {t:"Govt & Industrial", items:["Infrastructure Sourcing","EPC Support","Public Sector Contracts"]}
-      ];
-
-      navItems.forEach(item => {
-        const link = item.querySelector('a');
-        // Check if it's the Sourcing link
-        if (link.getAttribute('href').includes('sourcing')) {
-           item.addEventListener('mouseenter', () => {
-             renderMegaMenu(navSourcing);
-             mega.classList.add('open');
-             megaOverlay.classList.add('open');
-           });
-        } else {
-           // For other items, we hide it
-           item.addEventListener('mouseenter', () => {
-             mega.classList.remove('open');
-             megaOverlay.classList.remove('open');
-           });
-        }
-      });
-
-      header.addEventListener('mouseleave', () => {
-        mega.classList.remove('open');
-        megaOverlay.classList.remove('open');
-      });
-
-      function renderMegaMenu(data) {
-        megaCtr.innerHTML = '';
-        data.forEach(group => {
-          const groupDiv = document.createElement('div');
-          groupDiv.className = 'group';
-          
-          const titleDiv = document.createElement('div');
-          titleDiv.className = 'g-head';
-          titleDiv.textContent = group.t;
-          
-          const itemsDiv = document.createElement('div');
-          itemsDiv.className = 'g-items';
-          
-          group.items.forEach(item => {
-            const a = document.createElement('a');
-            a.href = `sourcing.html#${item.toLowerCase().replace(/ /g, '-').replace(/[\/\&]/g, '')}`; 
-            a.textContent = item;
-            itemsDiv.appendChild(a);
-          });
-          
-          groupDiv.appendChild(titleDiv);
-          groupDiv.appendChild(itemsDiv);
-          megaCtr.appendChild(groupDiv);
-        });
-      }
-
-      // Clock Logic
-      function updateClock() {
-        const now = new Date();
-        const h = now.getHours() % 12;
-        const m = now.getMinutes();
-        const s = now.getSeconds();
-        const hDeg = (h * 30) + (0.5 * m);
-        const mDeg = (m * 6) + (0.1 * s);
-        const sDeg = s * 6;
-        
-        document.getElementById('h').style.transform = `translateX(-50%) rotate(${hDeg}deg)`;
-        document.getElementById('m').style.transform = `translateX(-50%) rotate(${mDeg}deg)`;
-        document.getElementById('s').style.transform = `translateX(-50%) rotate(${sDeg}deg)`;
-      }
-      setInterval(updateClock, 1000);
-      updateClock();
-
       // AI Logic
       const aiFab = document.getElementById('ai-fab');
       const aiOverlayPanel = document.getElementById('ai-overlay');
@@ -857,23 +650,20 @@
         aiSend.textContent = 'Thinking...';
         aiSend.disabled = true;
         
-        // Simulate AI response for Sourcing
-        setTimeout(() => {
-          let response = "HARVICS Sourcing AI: ";
-          if(q.toLowerCase().includes('supplier') || q.toLowerCase().includes('factory')) {
-             response += "We have a vetted network of over 500+ manufacturers across Asia and Europe. We can help you identify pre-qualified suppliers for your specific needs.";
-          } else if(q.toLowerCase().includes('logistics') || q.toLowerCase().includes('shipping')) {
-             response += "Our logistics team handles everything from EXW to DDP. We coordinate air, sea, and rail freight with customs clearance included.";
-          } else if(q.toLowerCase().includes('quality') || q.toLowerCase().includes('inspection')) {
-             response += "We offer comprehensive QA services including pre-production checks, in-line inspection, and pre-shipment verification to ensure zero defects.";
-          } else {
-             response += "We offer end-to-end sourcing solutions including manufacturing, quality assurance, logistics, and strategic consulting. How can we assist with your project?";
-          }
-          
-          aiOutput.textContent = response;
-          aiSend.textContent = 'Ask AI';
-          aiSend.disabled = false;
-        }, 1500);
+        let response = "Harvics Sourcing AI: ";
+        if(q.toLowerCase().includes('supplier') || q.toLowerCase().includes('factory')) {
+           response += "We have a vetted network of over 500+ manufacturers across Asia and Europe. We can help you identify pre-qualified suppliers for your specific needs.";
+        } else if(q.toLowerCase().includes('logistics') || q.toLowerCase().includes('shipping')) {
+           response += "Our logistics team handles everything from EXW to DDP. We coordinate air, sea, and rail freight with customs clearance included.";
+        } else if(q.toLowerCase().includes('quality') || q.toLowerCase().includes('inspection')) {
+           response += "We offer comprehensive QA services including pre-production checks, in-line inspection, and pre-shipment verification to ensure zero defects.";
+        } else {
+           response += "We offer end-to-end sourcing solutions including manufacturing, quality assurance, logistics, and strategic consulting. How can we assist with your project?";
+        }
+
+        aiOutput.textContent = response;
+        aiSend.textContent = 'Ask AI';
+        aiSend.disabled = false;
       });
     });
     

@@ -10,13 +10,30 @@ const productCatalog = {
       { name: "Formal Suit (3-piece)", keywords: "suit,men", price: "$120 - $250" },
       { name: "Casual Denim Shirt", keywords: "denim,shirt,men", price: "$25 - $45" },
       { name: "Polo T-Shirt", keywords: "polo,shirt,men", price: "$15 - $30" },
-      { name: "Leather Jacket", keywords: "leather,jacket,men", price: "$80 - $150" }
+      { name: "Leather Jacket", keywords: "leather,jacket,men", price: "$80 - $150" },
+      { name: "Chinos (Skinny/Slim/Tapered)", keywords: "chinos,men", price: "$25 - $55" },
+      { name: "Jeans (Skinny to Loose)", keywords: "jeans,men", price: "$30 - $70" },
+      { name: "Merino Knitwear", keywords: "merino,knitwear,men", price: "$35 - $90" },
+      { name: "Blazer (Linen/Moleskin/Jersey)", keywords: "blazer,men", price: "$80 - $180" },
+      { name: "Wool Overcoat", keywords: "overcoat,wool,men", price: "$120 - $260" },
+      { name: "Parkas with Stormwear", keywords: "parka,stormwear,men", price: "$90 - $200" },
+      { name: "Easy-Iron Shirts (3-pack)", keywords: "shirts,pack,men", price: "$40 - $80" },
+      { name: "Technical Sportswear", keywords: "sportswear,technical,men", price: "$25 - $60" },
+      { name: "Trainers & Boots", keywords: "trainers,boots,men", price: "$45 - $120" },
+      { name: "Loungewear & Pyjamas", keywords: "loungewear,pyjamas,men", price: "$20 - $60" },
+      { name: "Fleece Dressing Gown", keywords: "dressing-gown,men", price: "$35 - $75" }
     ],
     women: [
       { name: "Evening Gown", keywords: "gown,dress,women", price: "$150 - $300" },
       { name: "Summer Floral Dress", keywords: "floral,dress,women", price: "$35 - $60" },
       { name: "Silk Blouse", keywords: "silk,blouse,women", price: "$40 - $70" },
-      { name: "Designer Handbag", keywords: "handbag,fashion", price: "$50 - $120" }
+      { name: "Designer Handbag", keywords: "handbag,fashion", price: "$50 - $120" },
+      { name: "Balcony/Plunge Bras", keywords: "bra,lingerie,women", price: "$25 - $60" },
+      { name: "Seamless & Cotton Knickers", keywords: "knickers,lingerie,women", price: "$10 - $30" },
+      { name: "Shapewear (Slips/Bodysuits)", keywords: "shapewear,lingerie,women", price: "$20 - $50" },
+      { name: "Sports Bras (High Support)", keywords: "sports-bra,lingerie,women", price: "$25 - $55" },
+      { name: "Tights & Socks", keywords: "tights,socks,women", price: "$8 - $25" },
+      { name: "Nightwear & Loungewear", keywords: "nightwear,loungewear,women", price: "$20 - $60" }
     ],
     kids: [
       { name: "Boys Cotton T-Shirt", keywords: "boy,tshirt", price: "$10 - $20" },
@@ -127,6 +144,126 @@ const productCatalog = {
     strategic: [
       { name: "Lithium Carbonate", keywords: "lithium,battery", price: "Market Price" },
       { name: "Nickel Ore", keywords: "nickel,ore", price: "Market Price" }
+    ]
+  },
+  
+  // 9. MINERALS
+  minerals: {
+    metals: [
+      { name: "Iron Ore", keywords: "iron,ore,mining", price: "Market Price" },
+      { name: "Copper Ore", keywords: "copper,ore,mining", price: "Market Price" },
+      { name: "Aluminum Ingot", keywords: "aluminum,metal,industrial", price: "Market Price" },
+      { name: "Zinc Concentrate", keywords: "zinc,metal", price: "Market Price" }
+    ],
+    energy: [
+      { name: "Thermal Coal", keywords: "coal,mine", price: "Market Price" },
+      { name: "Uranium Ore", keywords: "uranium,ore", price: "Market Price" },
+      { name: "Lithium Carbonate", keywords: "lithium,battery", price: "Market Price" }
+    ],
+    precious: [
+      { name: "Gold Bullion", keywords: "gold,bars", price: "Market Price" },
+      { name: "Silver Ingots", keywords: "silver,metal", price: "Market Price" },
+      { name: "Platinum Bar", keywords: "platinum,metal", price: "Market Price" }
+    ],
+    industrial: [
+      { name: "Construction Sand", keywords: "sand,industrial", price: "Market Price" },
+      { name: "Aggregate Gravel", keywords: "gravel,industrial", price: "Market Price" },
+      { name: "Limestone Blocks", keywords: "limestone,industrial", price: "Market Price" }
+    ]
+  },
+  
+  // 5. OIL & GAS
+  oilgas: {
+    upstream: [
+      { name: "Exploration Surveys", keywords: "rig,ocean,exploration", price: "Project Basis" },
+      { name: "Drilling Services", keywords: "rig,drilling,ocean", price: "Project Basis" },
+      { name: "OSV Chartering", keywords: "osv,ship,tanker", price: "Daily Rate" }
+    ],
+    midstream: [
+      { name: "Pipeline EPC", keywords: "pipeline,industrial,construction", price: "Project Basis" },
+      { name: "Storage Tank Farms", keywords: "storage,tank,industrial", price: "Project Basis" },
+      { name: "Marine Terminals Ops", keywords: "terminal,ship,port", price: "Project Basis" }
+    ],
+    downstream: [
+      { name: "Refinery Operations", keywords: "refinery,industrial", price: "Project Basis" },
+      { name: "Trading & Offtake", keywords: "trading,fuel,truck", price: "Market Terms" },
+      { name: "Distribution Network", keywords: "distribution,truck,logistics", price: "Project Basis" }
+    ],
+    services: [
+      { name: "EPC Projects", keywords: "epc,construction,industrial", price: "Project Basis" },
+      { name: "HSE Compliance Audits", keywords: "hse,safety,inspection", price: "Per Audit" },
+      { name: "Inspection & Certification", keywords: "inspection,industrial", price: "Per Inspection" }
+    ]
+  },
+  
+  // 6. REAL ESTATE
+  realestate: {
+    commercial: [
+      { name: "Grade-A Office Leasing", keywords: "office,building", price: "Per Sq Ft" },
+      { name: "Retail Mall Spaces", keywords: "retail,building", price: "Per Sq Ft" },
+      { name: "Mixed-Use Development", keywords: "mixed-use,building", price: "Project Basis" }
+    ],
+    residential: [
+      { name: "Premium Apartments", keywords: "apartments,building", price: "Per Unit" },
+      { name: "Luxury Villas", keywords: "villas,building", price: "Per Unit" },
+      { name: "Community Housing", keywords: "community,building", price: "Per Unit" }
+    ],
+    industrial: [
+      { name: "Warehouses", keywords: "warehouses,industrial,building", price: "Per Sq Ft" },
+      { name: "Industrial Parks", keywords: "parks,industrial,building", price: "Project Basis" },
+      { name: "SEZ Facilities", keywords: "sez,industrial,building", price: "Project Basis" }
+    ],
+    services: [
+      { name: "Facilities Management (FM)", keywords: "fm,industrial", price: "Monthly" },
+      { name: "Leasing Advisory", keywords: "leasing,office", price: "Retainer" }
+    ]
+  },
+  
+  // 7. FINANCE & HPAY
+  finance: {
+    tradeFinance: [
+      { name: "Letter of Credit (LC)", keywords: "lc,finance,bank", price: "Bank Terms" },
+      { name: "Standby LC (SBLC)", keywords: "sblc,finance,bank", price: "Bank Terms" },
+      { name: "Forfaiting", keywords: "forfaiting,finance,bank", price: "Bank Terms" }
+    ],
+    hpay: [
+      { name: "Digital Wallets", keywords: "wallets,finance", price: "Per Account" },
+      { name: "Payments Processing", keywords: "payments,finance", price: "Per Transaction" },
+      { name: "Payment Gateway", keywords: "gateway,finance", price: "Monthly" }
+    ],
+    invoicing: [
+      { name: "Bills & Invoices", keywords: "bills,invoice,finance", price: "Per Document" },
+      { name: "Reconciliation", keywords: "reconciliation,finance", price: "Monthly" },
+      { name: "Reports & Analytics", keywords: "reports,analytics,finance", price: "Monthly" }
+    ],
+    risk: [
+      { name: "KYC Compliance", keywords: "kyc,compliance,finance", price: "Per Check" },
+      { name: "AML Screening", keywords: "aml,compliance,finance", price: "Per Check" },
+      { name: "Risk Scoring", keywords: "scoring,finance,analytics", price: "Per Profile" }
+    ]
+  },
+  
+  // 8. AI & TECHNOLOGY
+  ai: {
+    solutions: [
+      { name: "Forecasting Models", keywords: "forecasting,ai", price: "Project Basis" },
+      { name: "Computer Vision", keywords: "vision,ai", price: "Project Basis" },
+      { name: "Conversational Chat", keywords: "chat,ai", price: "Monthly" }
+    ],
+    data: [
+      { name: "Data Pipelines", keywords: "pipelines,data,ai", price: "Project Basis" },
+      { name: "Data Warehouses", keywords: "warehouses,data,ai", price: "Project Basis" },
+      { name: "Data APIs", keywords: "apis,data,ai", price: "Monthly" }
+    ],
+    integration: [
+      { name: "ERP Integration", keywords: "erp,integration,ai", price: "Project Basis" },
+      { name: "E‑commerce Integration", keywords: "e-commerce,integration,ai", price: "Project Basis" },
+      { name: "Mobile Apps", keywords: "mobile,integration,ai", price: "Project Basis" }
+    ],
+    support: [
+      { name: "SLAs", keywords: "slas,support,ai", price: "Monthly" },
+      { name: "Training & Enablement", keywords: "training,support,ai", price: "Per Session" },
+      { name: "Documentation", keywords: "docs,support,ai", price: "Included" }
     ]
   },
   
@@ -280,10 +417,10 @@ const UNSPLASH_MAP = {
     'mining': 'H6d6jIaO9WE',
 
     // --- COMMODITIES ---
-    'rig': 'Ej2FQy1W7z4', // Oil Rig
+    'rig': 'Ej2FQy1W7z4',
     'ocean': 'Ej2FQy1W7z4',
     'gas': 'Ej2FQy1W7z4',
-    'tanker': '0A7YwYhZhWw', // Ship
+    'tanker': '0A7YwYhZhWw',
     'ship': '0A7YwYhZhWw',
     'coal': 'H6d6jIaO9WE',
     'mine': 'H6d6jIaO9WE',
@@ -296,6 +433,15 @@ const UNSPLASH_MAP = {
     'aluminum': 'H6d6jIaO9WE',
     'steel': 'H6d6jIaO9WE',
     'construction': 'H6d6jIaO9WE',
+    'pipeline': 'H6d6jIaO9WE',
+    'storage': 'H6d6jIaO9WE',
+    'terminal': '0A7YwYhZhWw',
+    'port': '0A7YwYhZhWw',
+    'refinery': 'H6d6jIaO9WE',
+    'distribution': '0A7YwYhZhWw',
+    'epc': 'H6d6jIaO9WE',
+    'hse': 'tE6th1h6Bfk',
+    'inspection': 'tE6th1h6Bfk',
     'field': '_rXmtIMnOT8', // Wheat field
     'soybean': '_rXmtIMnOT8',
     'sugar': '_rXmtIMnOT8',
@@ -340,6 +486,64 @@ const UNSPLASH_MAP = {
     'fmcg': '1542838132-92c53300491e', // FMCG Generic
     'textiles': '1523381210434-271e8be1f52b', // Textiles Generic
     'industrial': '1504917595217-d4dc5ebe6122', // Industrial Power
+    'office': '1497366216548-37526070297c',
+    'retail': '1497366216548-37526070297c',
+    'mixed-use': '1486406146926-c627a92ad1ab',
+    'apartments': '1486406146926-c627a92ad1ab',
+    'villas': '1486406146926-c627a92ad1ab',
+    'community': '1486406146926-c627a92ad1ab',
+    'warehouses': '1504917595217-d4dc5ebe6122',
+    'parks': '1504917595217-d4dc5ebe6122',
+    'sez': '1504917595217-d4dc5ebe6122',
+    'leasing': '1516321318423-f06f85e504b3',
+    'fm': '1504917595217-d4dc5ebe6122',
+    // --- M&S style apparel keywords ---
+    'chinos': '1454165804606-c3d57bc86b40',
+    'merino': '1454165804606-c3d57bc86b40',
+    'blazer': '1486406146926-c627a92ad1ab',
+    'overcoat': '1486406146926-c627a92ad1ab',
+    'parka': '1565514020176-db5928a57342',
+    'stormwear': '1565514020176-db5928a57342',
+    'sportswear': '1565514020176-db5928a57342',
+    'trainers': '1516321318423-f06f85e504b3',
+    'boots': '1516321318423-f06f85e504b3',
+    'loungewear': '1596524430623-6ce64b9c546a',
+    'pyjamas': '1596524430623-6ce64b9c546a',
+    'dressing-gown': '1596524430623-6ce64b9c546a',
+    'bra': '1516321318423-f06f85e504b3',
+    'knickers': '1516321318423-f06f85e504b3',
+    'shapewear': '1516321318423-f06f85e504b3',
+    'sports-bra': '1516321318423-f06f85e504b3',
+    'tights': '1516321318423-f06f85e504b3',
+    'nightwear': '1596524430623-6ce64b9c546a',
+    
+    // --- FINANCE & HPAY ---
+    'lc': '1524661135-423995f22d0b',
+    'sblc': '1524661135-423995f22d0b',
+    'forfaiting': '1524661135-423995f22d0b',
+    'wallets': '1516321318423-f06f85e504b3',
+    'payments': '1516321318423-f06f85e504b3',
+    'gateway': '1516321318423-f06f85e504b3',
+    'bills': '1596524430623-6ce64b9c546a',
+    'reconciliation': '1524661135-423995f22d0b',
+    'reports': '1524661135-423995f22d0b',
+    'kyc': '1516321318423-f06f85e504b3',
+    'aml': '1516321318423-f06f85e504b3',
+    'scoring': '1524661135-423995f22d0b',
+    
+    // --- AI & TECHNOLOGY ---
+    'forecasting': '1454165804606-c3d57bc86b40',
+    'vision': '1565514020176-db5928a57342',
+    'chat': '1516321318423-f06f85e504b3',
+    'pipelines': '1565514020176-db5928a57342',
+    'warehouses': '1504917595217-d4dc5ebe6122',
+    'apis': '1516321318423-f06f85e504b3',
+    'erp': '1486406146926-c627a92ad1ab',
+    'e-commerce': '1486406146926-c627a92ad1ab',
+    'mobile': '1596524430623-6ce64b9c546a',
+    'slas': '1516321318423-f06f85e504b3',
+    'training': '1596524430623-6ce64b9c546a',
+    'docs': '1596524430623-6ce64b9c546a',
     'building': '1486406146926-c627a92ad1ab', // Modern Building
     'map': '1524661135-423995f22d0b', // World Map
     'email': '1596524430623-6ce64b9c546a', // Typing
@@ -406,7 +610,7 @@ function getProductImage(keywords) {
 function renderProductGrid(containerId, products) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    
+    container.classList.add('product-grid');
     container.innerHTML = products.map(product => {
         const imageUrl = getProductImage(product.keywords);
         return `

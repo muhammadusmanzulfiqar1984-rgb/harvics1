@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvics Catalog</title>
+  <link rel="stylesheet" href="root.css">
+</head>
+<body>
+  <div id="site-shell"></div>
+  <main id="page-content">
+    <div id="catalog-root"></div>
+  </main>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (typeof initCatalogPage === 'function') initCatalogPage();
+    });
+  </script>
+</body>
+</html>
