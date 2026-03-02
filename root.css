@@ -264,6 +264,8 @@ header .language-switcher select{
 }
 /* Keep nav links calm — no lift on hover */
 .main-menu>li>a{
+  display:block;
+  padding:16px 0;
   transition: opacity 180ms var(--ease-out), border-color 180ms var(--ease-out) !important;
   color:var(--burgundy) !important;
   font-size:13px;
@@ -285,14 +287,14 @@ header .language-switcher select{
 }
 
 .clock{
-  width:44px;
-  height:44px;
+  width:56px;
+  height:56px;
   border-radius:0;
   border:1px solid var(--divider);
   background:var(--bg-primary);
   display:block;
   position:relative;
-  flex:0 0 44px;
+  flex:0 0 56px;
 }
 
 .clock:before{
@@ -312,9 +314,9 @@ header .language-switcher select{
   z-index:2;
 }
 
-.hand.hour{width:2px;height:10px;border-radius:2px;opacity:1}
-.hand.min{width:2px;height:14px;border-radius:2px;opacity:0.9}
-.hand.sec{width:1px;height:16px;border-radius:2px;opacity:0.85}
+.hand.hour{width:2px;height:14px;border-radius:2px;opacity:1}
+.hand.min{width:2px;height:20px;border-radius:2px;opacity:0.9}
+.hand.sec{width:1px;height:22px;border-radius:2px;opacity:0.85}
 
 .clock .dot{
   position:absolute;

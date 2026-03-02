@@ -83,6 +83,7 @@ function getInlineLayout() {
       <li><a href="/index.html#sourcing" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
       <li><a href="/index.html#finance" data-i18n-key="navFinance">Finance &amp; HPay</a></li>
       <li><a href="/index.html#ai" data-i18n-key="navAI">AI &amp; Technology</a></li>
+      <li><a href="/qa.html" data-i18n-key="navQA">Q&amp;A</a></li>
     </ul>
   </nav>
   <div class="header-debug-line"></div>
