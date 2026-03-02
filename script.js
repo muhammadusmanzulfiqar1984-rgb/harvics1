@@ -2876,12 +2876,8 @@ function setHeroLocalBackground(){
   const hero = document.querySelector('section.hero');
   if(!hero) return;
   const candidates = [
-    "/HILOCORP EDITED PICTURED /EXPLORING SHIP.jpg",
-    "/HILOCORP EDITED PICTURED /EXPLORING SHIP.jpeg",
-    "/HILOCORP EDITED PICTURED /EXPLORING SHIP.png",
-    "/HILOCORP%20EDITED%20PICTURED%20/EXPLORING%20SHIP.jpg",
-    "/HILOCORP%20EDITED%20PICTURED%20/EXPLORING%20SHIP.jpeg",
-    "/HILOCORP%20EDITED%20PICTURED%20/EXPLORING%20SHIP.png"
+    "FMCG%20IMAGES/Product%20Photos/1759696963916.jpg",
+    "FMCG%20IMAGES/Product%20Photos/1759697222105.jpg"
   ];
   let i = 0;
   function tryNext(){

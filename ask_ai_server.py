@@ -28,7 +28,7 @@ class Handler(BaseHTTPRequestHandler):
             dir_arg = (params.get("dir") or params.get("folder") or [""])[0]
             # Allow only within project root
             project_root = os.path.abspath("/Users/shahtabraiz/Desktop/HARVICS SUPREME ")
-            base_dir = os.path.abspath(os.path.join(project_root, dir_arg or "HILOCORP EDITED PICTURED "))
+            base_dir = os.path.abspath(os.path.join(project_root, dir_arg or "FMCG IMAGES"))
             if not base_dir.startswith(project_root):
                 self._send_json({"ok": False, "error": "Invalid directory"}, 400)
                 return
