@@ -130,7 +130,7 @@ header .top-bar{
   gap:16px !important;
   max-width:1200px !important;
   margin:0 auto !important;
-  padding:8px 16px !important;
+  padding:14px 24px !important;
 }
 header .logo{color:var(--burgundy) !important;font-weight:700 !important;letter-spacing:0.08em !important}
 
@@ -372,8 +372,8 @@ header .language-switcher .login-link{
 header .language-switcher .login-link:hover{text-decoration:underline}
 
 header .clock{
-  width:42px !important;
-  height:42px !important;
+  width:56px !important;
+  height:56px !important;
   border:1px solid var(--divider) !important;
   background:var(--bg-primary) !important;
   box-shadow:none !important;
@@ -390,7 +390,7 @@ header .clock::before{
 header .clock .numeral{
   display:block !important;
   color:var(--gold);
-  font-size:5px !important;
+  font-size:8px !important;
 }
 
 header .clock .hand{background:var(--gold) !important}
@@ -548,26 +548,27 @@ section[id]{scroll-margin-top:80px}
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(245, 241, 232, 0.3); /* Ivory with transparency */
+  background: transparent;
   color: var(--burgundy);
-  border: 1px solid var(--gold);
+  border: none;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  font-size: 24px;
+  border-radius: 0;
+  font-size: 32px;
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(4px);
+  backdrop-filter: none;
 }
 
 .hero-nav button:hover {
-  background: var(--burgundy);
-  color: var(--gold);
-  border-color: var(--burgundy);
+  background: transparent;
+  color: var(--burgundy-deep);
+  transform: translateY(-50%) scale(1.1);
+  border: none;
 }
 
 .hero-prev { left: 24px; }
@@ -575,28 +576,28 @@ section[id]{scroll-margin-top:80px}
 
 .hero-dots {
   position: absolute;
-  bottom: 24px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 12px;
+  gap: 8px;
   z-index: 10;
 }
 
 .hero-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(195, 163, 94, 0.5); /* Gold with transparency */
+  width: 32px;
+  height: 4px;
+  border-radius: 0;
+  background: rgba(195, 163, 94, 0.4); /* Gold with transparency */
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid var(--gold);
+  border: none;
 }
 
 .hero-dot.active {
   background: var(--burgundy);
-  transform: scale(1.2);
-  border-color: var(--burgundy);
+  transform: none;
+  border-color: transparent;
 }
 
 .hero-overlay{
