@@ -53,6 +53,11 @@ TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} • Harvics</title>
   <link rel="stylesheet" href="/root.css">
+  <link rel="stylesheet" href="root.css">
+  <link rel="stylesheet" href="../root.css">
+  <link rel="stylesheet" href="../../root.css">
+  <link rel="stylesheet" href="../../../root.css">
+  <link rel="stylesheet" href="../../../../root.css">
 </head>
 <body>
   <div id="site-shell"></div>
@@ -77,13 +82,23 @@ TEMPLATE = """<!DOCTYPE html>
       </div>
     </section>
   </main>
-  <script src="/script.js"></script>
   <script>
   (function(){{
-    const ctx = {{ key: "{key}", section: "{section}", item: "{item}" }};
-    if (typeof window.injectPageDescription === "function") {{
-      window.injectPageDescription(ctx);
+    var paths = ["/script.js","../script.js","../../script.js","../../../script.js","./script.js"];
+    var i = 0;
+    function load(){{
+      if (i >= paths.length) return;
+      var s = document.createElement("script");
+      s.src = paths[i++];
+      s.onload = function(){{
+        if (typeof window.injectPageDescription === "function") {{
+          window.injectPageDescription({{ key: "{key}", section: "{section}", item: "{item}" }});
+        }}
+      }};
+      s.onerror = load;
+      document.body.appendChild(s);
     }}
+    load();
   }})();
   </script>
 </body>
@@ -100,6 +115,11 @@ TEMPLATE_L5_EMPTY = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} • Harvics</title>
   <link rel="stylesheet" href="/root.css">
+  <link rel="stylesheet" href="root.css">
+  <link rel="stylesheet" href="../root.css">
+  <link rel="stylesheet" href="../../root.css">
+  <link rel="stylesheet" href="../../../root.css">
+  <link rel="stylesheet" href="../../../../root.css">
 </head>
 <body>
   <div id="site-shell"></div>
@@ -125,7 +145,20 @@ TEMPLATE_L5_EMPTY = """<!DOCTYPE html>
       </div>
     </section>
   </main>
-  <script src="/script.js"></script>
+  <script>
+  (function(){{
+    var paths = ["/script.js","../script.js","../../script.js","../../../script.js","./script.js"];
+    var i = 0;
+    function load(){{
+      if (i >= paths.length) return;
+      var s = document.createElement("script");
+      s.src = paths[i++];
+      s.onerror = load;
+      document.body.appendChild(s);
+    }}
+    load();
+  }})();
+  </script>
 </body>
 </html>
 """

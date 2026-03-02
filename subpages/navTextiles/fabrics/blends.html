@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Textiles & Apparels — Fabrics — Blends • Harvics</title>
   <link rel="stylesheet" href="/root.css">
+  <link rel="stylesheet" href="root.css">
+  <link rel="stylesheet" href="../root.css">
+  <link rel="stylesheet" href="../../root.css">
+  <link rel="stylesheet" href="../../../root.css">
+  <link rel="stylesheet" href="../../../../root.css">
 </head>
 <body>
   <div id="site-shell"></div>
@@ -29,13 +34,23 @@
       </div>
     </section>
   </main>
-  <script src="/script.js"></script>
   <script>
   (function(){
-    const ctx = { key: "navTextiles", section: "Fabrics", item: "Blends" };
-    if (typeof window.injectPageDescription === "function") {
-      window.injectPageDescription(ctx);
+    var paths = ["/script.js","../script.js","../../script.js","../../../script.js","./script.js"];
+    var i = 0;
+    function load(){
+      if (i >= paths.length) return;
+      var s = document.createElement("script");
+      s.src = paths[i++];
+      s.onload = function(){
+        if (typeof window.injectPageDescription === "function") {
+          window.injectPageDescription({ key: "navTextiles", section: "Fabrics", item: "Blends" });
+        }
+      };
+      s.onerror = load;
+      document.body.appendChild(s);
     }
+    load();
   })();
   </script>
 </body>

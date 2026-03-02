@@ -458,6 +458,7 @@ const UNSPLASH_MAP = {
     'pile': 'H6d6jIaO9WE',
     'sulphur': 'H6d6jIaO9WE',
     'yellow': 'H6d6jIaO9WE',
+    'agri': '_rXmtIMnOT8',
     'beef': 'uDnW85d_N7w', // Meat/Food
     'steak': 'uDnW85d_N7w',
     'poultry': 'uDnW85d_N7w',
@@ -476,27 +477,37 @@ const UNSPLASH_MAP = {
     'curtains': 'cjUOhrBquqc', // Silk/Curtains
     'bedding': '1522771753035-48498225e6ab', // Bedding
     'towels': 'm8wsQ_8cd2M', // Towels stack
-    'office': '1497366216548-37526070297c', // Corporate Office
-    'meeting': '1556761175-5973dc0f32e7', // Business Meeting
-    'strategy': '1454165804606-c3d57bc86b40', // Global Strategy
-    'logistics': '0A7YwYhZhWw', // Container Ship
-    'manufacturing': '1565514020176-db5928a57342', // Manufacturing
-    'team': '1522071820081-009f0129c71c', // Diverse Team
-    'partnership': '1521791136064-7986c2920216', // Partnership
-    'fmcg': '1542838132-92c53300491e', // FMCG Generic
-    'textiles': '1523381210434-271e8be1f52b', // Textiles Generic
-    'industrial': '1504917595217-d4dc5ebe6122', // Industrial Power
-    'office': '1497366216548-37526070297c',
-    'retail': '1497366216548-37526070297c',
+    'office': 'corporate office',
+    'meeting': 'business meeting,boardroom',
+    'strategy': 'global strategy,world map',
+    'logistics': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Supply%20chain%20Solutions.png',
+    'manufacturing': 'manufacturing,factory,machinery',
+    'team': 'diverse team,people,coworking',
+    'partnership': 'partnership,handshake,business',
+    'fmcg': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/FMCG%201.png',
+    'textiles': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Apparels.png',
+    'industrial': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Industrial%20solutions.png',
+    // --- CATEGORY ALIASES (TOP 10) ---
+    'commodities': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Industries.png',
+    'minerals': 'minerals,ore,rock',
+    'oil-gas': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Oil%20and%20Gas.png',
+    'real estate': 'modern building,architecture',
+    'sourcing': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Supply%20chain%20Solutions.png',
+    'finance': 'finance,analytics,charts',
+    'ai': 'ai,technology',
+    'metals': 'metals,steel',
+    'buildings': 'modern building,architecture',
+    'office': 'corporate office',
+    'retail': 'retail,shopping,mall',
     'mixed-use': '1486406146926-c627a92ad1ab',
     'apartments': '1486406146926-c627a92ad1ab',
     'villas': '1486406146926-c627a92ad1ab',
     'community': '1486406146926-c627a92ad1ab',
-    'warehouses': '1504917595217-d4dc5ebe6122',
-    'parks': '1504917595217-d4dc5ebe6122',
-    'sez': '1504917595217-d4dc5ebe6122',
-    'leasing': '1516321318423-f06f85e504b3',
-    'fm': '1504917595217-d4dc5ebe6122',
+    'warehouses': 'warehouse,logistics',
+    'parks': 'industrial park',
+    'sez': 'industrial zone',
+    'leasing': 'leasing,contract',
+    'fm': 'facilities management',
     // --- M&S style apparel keywords ---
     'chinos': '1454165804606-c3d57bc86b40',
     'merino': '1454165804606-c3d57bc86b40',
@@ -532,25 +543,35 @@ const UNSPLASH_MAP = {
     'scoring': '1524661135-423995f22d0b',
     
     // --- AI & TECHNOLOGY ---
-    'forecasting': '1454165804606-c3d57bc86b40',
-    'vision': '1565514020176-db5928a57342',
-    'chat': '1516321318423-f06f85e504b3',
-    'pipelines': '1565514020176-db5928a57342',
-    'warehouses': '1504917595217-d4dc5ebe6122',
-    'apis': '1516321318423-f06f85e504b3',
-    'erp': '1486406146926-c627a92ad1ab',
-    'e-commerce': '1486406146926-c627a92ad1ab',
-    'mobile': '1596524430623-6ce64b9c546a',
-    'slas': '1516321318423-f06f85e504b3',
-    'training': '1596524430623-6ce64b9c546a',
-    'docs': '1596524430623-6ce64b9c546a',
-    'building': '1486406146926-c627a92ad1ab', // Modern Building
-    'map': '1524661135-423995f22d0b', // World Map
-    'email': '1596524430623-6ce64b9c546a', // Typing
-    'phone': '1516321318423-f06f85e504b3', // Communication
+    'forecasting': 'forecast,analytics,charts',
+    'vision': 'ai,computer vision',
+    'chat': 'chatbot,ai assistant',
+    'pipelines': 'data pipeline,etl',
+    'warehouses': 'warehouse,logistics',
+    'apis': 'api,developer',
+    'erp': 'erp,enterprise systems',
+    'e-commerce': 'ecommerce,online store',
+    'mobile': 'mobile app,smartphone',
+    'slas': 'sla,contract,service level',
+    'training': 'training,workshop',
+    'docs': 'documentation,writing',
+    'building': 'modern building,architecture',
+    'map': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/WORLD%20MAP.jpg',
+    'world': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/AROUND%20THE%20GLOBE%20MAP%20WITH%20NAME.png',
+    'globe': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/AROUND%20THE%20GLOBE%20MAP%20WITH%20NAME.png',
+    'services': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Services.png',
+    'about': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/WHO%20WE%20ARE%20TRAE%201.png',
+    'competence': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/OUR%20COMPETENCE.png',
+    'industry': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Industries.png',
+    'apparel': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Apparels.png',
+    'oil': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Oil%20and%20Gas.png',
+    'gas': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Oil%20and%20Gas.png',
+    'supply': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/Supply%20chain%20Solutions.png',
+    'email': 'typing,keyboard,email',
+    'phone': 'phone,communication',
 
     // --- DEFAULTS ---
-    'default': 'H6d6jIaO9WE' // Industrial Factory as generic fallback
+    'default': '/HILOCORP%20EDITED%20PICTURED%20/TRAE/WORLD%20MAP.jpg'
 };
 
 /**
@@ -569,37 +590,31 @@ const UNSPLASH_MAP = {
 
 
 function getProductImage(keywords) {
-    if (!keywords) return `https://images.unsplash.com/photo-${UNSPLASH_MAP.default}?auto=format&fit=crop&w=600&q=80`;
-    
+    const makeUrl = (token) => {
+        if (!token) return null;
+        if (token.includes('/') || token.includes('.')) return token;
+        const isPhotoId = /^\d{10,}-[a-z0-9]+$/i.test(token);
+        if (isPhotoId) return `https://images.unsplash.com/photo-${token}?auto=format&fit=crop&w=1600&q=80`;
+        return `https://source.unsplash.com/1600x1000/?${encodeURIComponent(token)}`;
+    };
+    const def = makeUrl(UNSPLASH_MAP.default) || `https://source.unsplash.com/1600x1000/?world,map`;
+    if (!keywords) return def;
     const keys = keywords.toLowerCase().split(',').map(k => k.trim());
-    
     for (const key of keys) {
         if (UNSPLASH_MAP[key]) {
-            const val = UNSPLASH_MAP[key];
-            // Check if it's a local path or Unsplash ID
-            if (val.includes('/') || val.includes('.')) {
-                return val;
-            } else {
-                return `https://images.unsplash.com/photo-${val}?auto=format&fit=crop&w=600&q=80`;
-            }
+            const val = makeUrl(UNSPLASH_MAP[key]);
+            if (val) return val;
         }
     }
-    
-    // Try partial matches
     for (const key of keys) {
         for (const mapKey in UNSPLASH_MAP) {
             if (mapKey.includes(key) || key.includes(mapKey)) {
-                 const val = UNSPLASH_MAP[mapKey];
-                 if (val.includes('/') || val.includes('.')) {
-                    return val;
-                } else {
-                    return `https://images.unsplash.com/photo-${val}?auto=format&fit=crop&w=600&q=80`;
-                }
+                const val = makeUrl(UNSPLASH_MAP[mapKey]);
+                if (val) return val;
             }
         }
     }
-    
-    return `https://images.unsplash.com/photo-${UNSPLASH_MAP.default}?auto=format&fit=crop&w=600&q=80`;
+    return def;
 }
 
 /**

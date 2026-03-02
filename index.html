@@ -17,163 +17,13 @@
       background: var(--offwhite);
       color: var(--text);
     }
-
-    header {
-      background: var(--offwhite);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      color: var(--burgundy);
-      border-bottom: 1px solid var(--divider);
-    }
-
-    .top-bar {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .clock {
-      width: 44px;
-      height: 44px;
-      border-radius: 0;
-      background: var(--offwhite);
-      box-shadow: none;
-      border: 1px solid var(--divider);
-      display: block;
-      position: relative;
-      flex: 0 0 44px;
-    }
-    .clock:before {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: 0;
-      border: 1px solid var(--gold);
-      opacity: 0.8;
-    }
-    .clock .hand {
-      position: absolute;
-      bottom: 50%;
-      left: 50%;
-      transform-origin: bottom;
-      background: var(--text);
-      z-index: 2;
-    }
-    .hand.hour {width:2px;height:10px;border-radius:2px;opacity:1}
-    .hand.min {width:2px;height:14px;border-radius:2px;opacity:0.9}
-    .hand.sec {width:1px;height:16px;background:var(--burgundy);border-radius:2px;opacity:0.8}
-    .clock .dot {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 4px;
-      height: 4px;
-      background: var(--gold);
-      border-radius: 0;
-      z-index: 3;
-    }
-
-    .logo {
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color:var(--gold-bright);
-    }
+    html, body { overflow-x: hidden; }
 
     .search-btn{display:flex;align-items:center;gap:8px}
     .search-toggle{width:30px;height:30px;border-radius:0;border:1px solid var(--divider);background:var(--offwhite);color:var(--burgundy);display:grid;place-items:center;cursor:pointer}
     .search-overlay{position:fixed;inset:0;background:var(--offwhite);display:none;align-items:center;justify-content:center;z-index:1200}
     .search-panel{width:min(720px,90vw);background:var(--offwhite);border-radius:0;box-shadow:var(--card-shadow);padding:16px;border:1px solid var(--divider)}
     .search-input{width:100%;padding:12px 14px;border-radius:2px;border:1px solid var(--divider);font-size:16px;background:var(--offwhite)}
-
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-    }
-
-    .language-switcher select{padding:8px 10px;font-size:13px;border:1px solid var(--divider);background:var(--offwhite);color:var(--burgundy);appearance:none}
-    .language-switcher .login-link{padding:0;font-size:13px;border:none;background:var(--offwhite);text-decoration:none;color:var(--burgundy)}
-    .language-switcher .login-link:hover{text-decoration:underline}
-    .search-toggle{width:auto;height:auto;border:1px solid var(--divider);background:var(--offwhite);color:var(--burgundy);cursor:pointer;font-size:16px;line-height:1}
-
-    .main-nav {
-      background: var(--offwhite);
-      border-top: 1px solid var(--divider);
-    }
-
-    .main-menu {
-      max-width: 1200px;
-      margin: 0 auto;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 0 16px;
-    }
-
-    
-
-    .main-menu > li {
-      position: relative;
-    }
-
-    .main-menu > li > a {
-      display: block;
-      padding: 12px 0;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 12px;
-      letter-spacing: 0.02em;
-      font-weight: 500;
-      transition: opacity .2s ease;
-    }
-
-    .main-menu > li > a:hover {
-      opacity: .9;
-    }
-
-    .dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      min-width: 220px;
-      background: var(--offwhite);
-      border: 1px solid var(--divider);
-      border-radius: 2px;
-      list-style: none;
-      padding: 8px 0;
-      margin: 0;
-      opacity:0;
-      transform: scaleY(.96);
-      transform-origin: top;
-      pointer-events:none;
-      z-index: 1000;
-      box-shadow: var(--card-shadow);
-      transition: transform .2s ease, opacity .2s ease;
-    }
-
-    .dropdown li a {
-      display: block;
-      padding: 8px 16px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 14px;
-    }
-
-    .dropdown li a:hover {
-      background: var(--offwhite);
-    }
-
-    .has-dropdown:hover .dropdown,
-    .has-dropdown:focus-within .dropdown {opacity:0;transform:translateY(-8px);pointer-events:none}
-    .dropdown{display:none !important}
 
     /* Company Gallery CSS */
     .company-gallery {
@@ -207,10 +57,10 @@
     }
     .gallery-item {
       position: relative;
-      height: 400px; /* Tall portrait style */
+      height: 400px;
       border-radius: 0;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(90,15,26,0.10);
+      box-shadow: none;
       cursor: pointer;
       background-color: var(--bg-secondary);
     }
@@ -226,16 +76,14 @@
     .gallery-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(90,15,26,0) 60%, rgba(90,15,26,0.55) 100%);
+      background: none;
       opacity: 0;
       transition: opacity 0.4s ease;
       display: flex;
       align-items: flex-end;
       padding: 24px;
     }
-    .gallery-item:hover .gallery-overlay {
-      opacity: 1;
-    }
+    .gallery-item:hover .gallery-overlay { opacity: 0; }
     .gallery-caption {
       color: var(--offwhite);
       font-size: 1.2rem;
@@ -249,22 +97,18 @@
     
     /* Original Feature Pages CSS */
     .feature-page {
-      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      background-color: var(--bg-secondary);
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed; /* Parallax Effect */
-      color: var(--offwhite);
+      background-color: var(--offwhite);
+      color: var(--text);
       overflow: hidden;
     }
     .feature-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(90,15,26,0.28) 0%, rgba(90,15,26,0.14) 50%, rgba(90,15,26,0.34) 100%);
+      background: none;
       z-index: 1;
     }
     .feature-content {
@@ -280,7 +124,7 @@
       margin-bottom: 24px;
       letter-spacing: -0.03em;
       line-height: 1.1;
-      text-shadow: 0 4px 12px rgba(90,15,26,0.22);
+      text-shadow: none;
     }
     .feature-desc {
       font-size: clamp(1.1rem, 2vw, 1.5rem);
@@ -289,7 +133,7 @@
       max-width: 600px;
       margin: 0 auto;
       line-height: 1.6;
-      text-shadow: 0 2px 4px rgba(90,15,26,0.18);
+      text-shadow: none;
     }
 
     .feature-btn {
@@ -318,37 +162,39 @@
     
     /* Original Hero Slider CSS */
     .hero {
-      position: sticky;
-      top: 0;
-      z-index: 0;
+      position: relative;
+      top: auto;
+      z-index: 2;
       margin: 0;
       padding: 0;
       min-height: calc(100vh - var(--header-h, 96px));
       background: none;
-      display: flex;
-      align-items: center;
+      display: block;
       overflow: hidden;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+    .hero img {
+      display:block;
+      border:0;
+      box-shadow:none;
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
     .hero-slides {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
     }
     .hero-slide {
-      position: absolute;
-      inset: 0;
-      background-color: var(--bg-secondary);
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 8s linear;
-      transform: scale(1.05);
-      will-change: opacity, transform;
-    }
-    .hero-slide.active {
-      opacity: 1;
-      transform: scale(1);
-      z-index: 1;
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      position: relative;
     }
 
     /* Product Showcase CSS */
@@ -360,8 +206,8 @@
     .category-link { font-size: 14px; color: var(--gold); text-decoration: none; font-weight: 500; }
     .category-link:hover { color: var(--burgundy-deep); text-decoration: underline; }
     .product-carousel { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
-    .showcase-card { background: var(--offwhite); border-radius: 0; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
-    .showcase-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(90,15,26,0.12); border-color: var(--burgundy-deep); }
+    .showcase-card { background: var(--offwhite); border-radius: 0; overflow: hidden; transition: transform 0.3s ease; cursor: pointer; }
+    .showcase-card:hover { transform: translateY(-5px); box-shadow: none; border-color: var(--burgundy-deep); }
     .showcase-img { height: 200px; background-size: cover; background-position: center; }
     .showcase-info { padding: 16px; }
     .showcase-name { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
@@ -369,41 +215,36 @@
     @media (max-width: 768px) { .products-showcase { padding: 40px 20px; } .product-carousel { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 480px) { .product-carousel { grid-template-columns: 1fr; } }
 
-    .hero:after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: none;
-      z-index: 1;
-    }
+    .hero:after { content: none; }
     .hero-text {
       position: relative;
-      z-index: 2; /* Bring text above overlay */
+      z-index: 2;
       color: var(--burgundy);
     }
     
     .hero-text {max-width:1200px;width:100%;margin:0 auto;padding:72px 16px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
 
     .hero-title {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--offwhite);
+      font-size: 72px;
+      line-height: 1.02;
+      margin: 0 0 12px 0;
+      font-weight: 200;
+      letter-spacing: .005em;
+      color: var(--burgundy);
     }
 
     .hero-subtitle {
       font-size: 16px;
       margin-bottom: 16px;
-      color: rgba(253,251,247,0.9);
+      color: var(--text-2);
     }
 
     .hero-note {
       font-size: 13px;
-      color: var(--offwhite);
+      color: var(--text-2);
     }
 
-    .hero-title{font-size:72px;line-height:1.02;margin:0 0 12px 0;font-weight:200;letter-spacing:.005em;color:var(--offwhite)}
-    .hero-slogan{font-size:15px;color:rgba(253,251,247,0.9);max-width:520px}
+    .hero-slogan{font-size:15px;color:var(--text-2);max-width:520px}
     .hero-brand{font-size:20px;letter-spacing:.10em;font-weight:500;color:var(--gold-bright);text-transform:uppercase;margin-bottom:8px}
     /* legacy hero grid removed */
     
@@ -414,12 +255,20 @@
     .about-col p{margin:0 0 16px 0;color:var(--text-2);font-size:15px}
     @media (max-width:880px){.about-split{grid-template-columns:1fr}.about-name{font-size:72px}}
 
-    .howwework{max-width:1200px;margin:24px auto;padding:24px 16px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .wheel{display:grid;place-items:center;background:var(--offwhite);border:1px solid var(--divider);border-radius:0;box-shadow:var(--card-shadow);padding:24px}
-    .wheel-svg{width:320px;height:320px}
+    .howwework{max-width:1200px;margin:24px auto;padding:24px 16px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+    .wheel{display:grid;place-items:center;padding:40px}
+    .wheel-svg{width:100%;max-width:460px;height:auto;display:block}
+    .wheel-svg .wheel-rotor{transform-origin:160px 160px}
+    .wheel .wheel-label{opacity:0.65;fill:var(--burgundy);font-weight:500;transition:opacity .2s ease, fill .2s ease;cursor:pointer}
+    .wheel .wheel-label.active-tab{opacity:1;fill:var(--gold)}
+    .wheel:hover .wheel-rotor{animation:wheelspin 8s linear infinite}
+    @keyframes wheelspin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
     .how-right{display:flex;flex-direction:column;gap:16px}
+    .how-tabs{padding:20px}
+    .how-tab-title{font-size:18px;font-weight:600;color:var(--burgundy);margin-bottom:8px}
+    .how-tab-text{font-size:14px;color:var(--text-2);line-height:1.6}
     .bigclock-wrap{display:grid;place-items:center;background:var(--offwhite);border:1px solid var(--divider);border-radius:0;box-shadow:var(--card-shadow);padding:24px}
-    .coverage{background:var(--offwhite);border:1px solid var(--divider);border-radius:0;box-shadow:var(--card-shadow);padding:24px}
+    .coverage{padding:24px}
     .bar{height:10px;border-radius:0;background:var(--divider);overflow:hidden}
     .bar .run{height:100%;background:var(--divider)}
     .row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:12px;margin:12px 0}
@@ -456,9 +305,51 @@
     .explore-grid a:hover{text-decoration:underline}
     @media (max-width:920px){.explore-grid{grid-template-columns:repeat(2,1fr)}}
 
-    /* Apple-style Scroll Reveal - Refined Smoothness */
-    .reveal{opacity:1}
-    .reveal.active{opacity:1}
+    html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+    html,body{height:100%}
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-20%;
+      pointer-events:none;
+      opacity:0.06;
+      mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='140'%20height='140'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='.9'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='140'%20height='140'%20filter='url(%23n)'%20opacity='.45'/%3E%3C/svg%3E");
+      background-size:180px 180px;
+      transform:translate3d(0,0,0);
+      animation:grainMove 6.5s steps(10) infinite;
+      z-index:1100;
+    }
+    @keyframes grainMove{
+      0%{transform:translate3d(-2%, -1%, 0)}
+      20%{transform:translate3d(-3%, 2%, 0)}
+      40%{transform:translate3d(1%, -3%, 0)}
+      60%{transform:translate3d(3%, 1%, 0)}
+      80%{transform:translate3d(-1%, 3%, 0)}
+      100%{transform:translate3d(-2%, -1%, 0)}
+    }
+    body{perspective:1200px;perspective-origin:50% 20%}
+    #page-content > section{
+      scroll-snap-align:start;
+      scroll-margin-top:var(--header-h, 96px);
+    }
+    footer.site-footer{scroll-snap-align:start;scroll-margin-top:var(--header-h, 96px)}
+
+    [data-scroll-zoom="1"]{
+      --sz: 1;
+      --szy: 0px;
+      --tilt-x: 0px;
+      --tilt-y: 0px;
+      --tilt-rx: 0deg;
+      --tilt-ry: 0deg;
+      transform: translate3d(var(--tilt-x), calc(var(--szy) + var(--tilt-y)), 0) rotateX(var(--tilt-rx)) rotateY(var(--tilt-ry)) scale(var(--sz));
+      transform-style:preserve-3d;
+      will-change:transform;
+      transition: transform 220ms var(--ease-out);
+    }
+
+    .reveal{opacity:1;transform:none;transition:none}
+    .reveal.is-visible{opacity:1;transform:none}
     .reveal-delay-1{}
     .reveal-delay-2{}
     .reveal-delay-3{}
@@ -485,8 +376,6 @@
     .lowest-footer a{color:var(--text);text-decoration:underline;text-decoration-color:var(--divider);opacity:1}
     .lowest-footer a:hover{text-decoration:underline}
 
-    .ai-fab{position:fixed;right:20px;bottom:20px;background:var(--offwhite);color:var(--text);padding:12px 16px;border-radius:2px;cursor:pointer;box-shadow:none;z-index:1500;font-size:14px;border:1px solid var(--divider)}
-    .ai-fab:hover{border-color:var(--burgundy-deep)}
     .ai-overlay{position:fixed;inset:0;background:var(--offwhite);display:none;align-items:flex-end;justify-content:flex-end;z-index:1500}
     .ai-sheet{width:min(360px,90vw);background:var(--offwhite);border-top-left-radius:0;border-bottom-left-radius:0;box-shadow:var(--card-shadow);padding:16px;margin:0 20px 20px 0;border:1px solid var(--divider)}
     .ai-row{display:flex;flex-direction:column;gap:8px}
@@ -500,10 +389,7 @@
         gap: 16px;
       }
 
-      .hero {
-        margin: 16px;
-        padding: 24px 16px;
-      }
+      .hero { margin: 0; padding: 0; }
 
       .hero-title {
         font-size: 22px;
@@ -523,6 +409,59 @@
     .card-body h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; line-height: 1.4; color: var(--text); }
     .card-body p { font-size: 14px; color: var(--text-2); line-height: 1.6; margin-bottom: 16px; }
     .card-link { color: var(--burgundy); text-decoration: none; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Global subtle glassmorphism for key panels */
+    .wheel,
+    .how-tabs,
+    .coverage,
+    .insight-card,
+    .ai-sheet,
+    .social .disc,
+    .connect-inner {
+      background: rgba(245,241,232,0.78);
+      border: 1px solid rgba(195,163,94,0.6);
+      border-radius: 0;
+      box-shadow: 0 18px 36px rgba(195,163,94,0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      position:relative;
+      overflow:hidden;
+      --lgx: 0;
+      --lgy: 0;
+      transform: translate3d(calc(var(--lgx) * 6px), calc(var(--lgy) * 6px), 0);
+      box-shadow: calc(var(--lgx) * 18px) calc(var(--lgy) * 18px) 42px rgba(195,163,94,0.18);
+      will-change: transform, box-shadow;
+      transition: transform 180ms var(--ease-out), box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-out);
+    }
+    .wheel::after,
+    .how-tabs::after,
+    .coverage::after,
+    .insight-card::after,
+    .ai-sheet::after,
+    .social .disc::after,
+    .connect-inner::after{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      pointer-events:none;
+      background:
+        radial-gradient(closest-side, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%),
+        linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0) 60%);
+      mix-blend-mode:soft-light;
+      opacity:0.75;
+      transform:translate3d(calc((var(--spec, 0) - 0.5) * 120%), calc((0.5 - var(--spec, 0)) * 70%), 0) rotate(8deg);
+      will-change:transform;
+    }
+    @media (prefers-reduced-motion: reduce){
+      body::before{animation:none}
+      .wheel::after,
+      .how-tabs::after,
+      .coverage::after,
+      .insight-card::after,
+      .ai-sheet::after,
+      .social .disc::after,
+      .connect-inner::after{display:none}
+    }
     
     /* Connect Section */
     .connect { background: var(--offwhite); color: var(--text); padding: 100px 16px; text-align: center; position: relative; overflow: hidden; border-top: 1px solid var(--divider); }
@@ -533,88 +472,27 @@
     .primary-btn { display: inline-block; padding: 16px 40px; background: var(--burgundy); color: #ffffff; text-decoration: none; font-weight: 600; border-radius: 2px; border: 1px solid var(--burgundy); transition: none; font-size: 16px; }
     .primary-btn:hover { transform: none; background: var(--burgundy-deep); border-color: var(--burgundy-deep); }
 
-
-    /* About Us Section Styles */
-    .about-section {
-      padding: 100px 24px;
-      background: var(--offwhite);
-      position: relative;
-      overflow: hidden;
+    .motion-slider{background:transparent;padding:0;border:0;margin-top:0}
+    .motion-inner{max-width:none;margin:0;padding:0}
+    .motion-frame{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);height:420px;overflow:hidden;border:1px solid var(--divider);border-radius:0;background:var(--offwhite)}
+    .motion-track{display:flex;width:100%;height:100%;transition:transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);will-change:transform;transform:translate3d(0,0,0)}
+    .motion-slide{
+      flex:0 0 100%;
+      background-size:110% auto;
+      background-position:center;
+      position:relative;
+      transform:scale(1);
+      filter:brightness(0.96);
+      transition:
+        transform 1600ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1600ms cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .about-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
+    .motion-slide.is-active{
+      transform:scale(1.04);
+      filter:brightness(1.02);
     }
-    .founder-message {
-      padding: 40px;
-      background: var(--offwhite);
-      border-left: 4px solid var(--gold);
-      border-radius: 0;
-      box-shadow: var(--card-shadow);
-    }
-    .founder-quote {
-      font-size: 24px;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--burgundy);
-      margin-bottom: 24px;
-      line-height: 1.4;
-    }
-    .founder-text {
-      font-size: 16px;
-      color: var(--text-2);
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-    .founder-sig {
-      display: flex;
-      flex-direction: column;
-    }
-    .sig-name {
-      font-weight: 700;
-      color: var(--text);
-      font-size: 18px;
-    }
-    .sig-title {
-      font-size: 14px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+    .motion-caption{position:absolute;left:24px;bottom:24px;padding:10px 16px;background:var(--offwhite);border:1px solid var(--divider);color:var(--burgundy);font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
     
-    .about-content {
-      padding-top: 20px;
-    }
-    .about-title {
-      font-size: 42px;
-      font-weight: 700;
-      color: var(--burgundy);
-      margin-bottom: 32px;
-      letter-spacing: -0.02em;
-    }
-    .about-content p {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--text-2);
-      margin-bottom: 24px;
-    }
-    .brand-statement {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text);
-      margin-top: 32px;
-      border-top: 1px solid var(--divider);
-      padding-top: 24px;
-    }
-    
-    @media (max-width: 900px) {
-      .about-container { grid-template-columns: 1fr; gap: 40px; }
-      .about-section { padding: 60px 16px; }
-    }
   </style>
 </head>
 <body>
@@ -636,125 +514,145 @@
     <span id="textiles-apparel-mens-wear" class="section-anchor"></span>
     <span id="textiles-apparel-mens-wear-shirts" class="section-anchor"></span>
     <span id="textiles-apparel-mens-wear-shirts-slim-fit" class="section-anchor"></span>
-    <section class="hero">
-      <div class="hero-text reveal">
-        <div class="hero-col hero-left">
-          <div class="hero-brand">Harvics Global Ventures</div>
-          <div class="hero-slogan">Your global business partner for sourcing and supply chain solutions.</div>
+    <section class="hero frame-section hero-slider-container">
+      <div class="hero-slides">
+        <div class="hero-slide active">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/HERO%20PAGE%202%20TRAE.png" alt="Exploring across hemispheres">
         </div>
-        <div class="hero-col hero-right" style="text-align:right">
-          <h1 class="hero-title" style="color:var(--burgundy)">EXPLORING<br/>ACROSS<br/>HEMISPHERES</h1>
+        <div class="hero-slide">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/HERO%20PAGE%201%20TRAE.png" alt="Global Supply Chain">
+        </div>
+        <div class="hero-slide">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/WHO%20WE%20ARE%20TRAE%201.png" alt="Who We Are">
+        </div>
+      </div>
+      <div class="hero-overlay reveal">
+        <div class="hero-overlay-inner">
+          <div class="hero-card">
+            <div class="hero-kicker">HARVICS</div>
+            <h1 class="hero-ov-title">Intelligence‑led sourcing. Built for scale.</h1>
+            <p class="hero-ov-subtitle">A disciplined operating system for global supply chains — from strategy and development to quality, logistics and delivery.</p>
+            <div class="hero-cta">
+              <a class="hero-btn hero-btn--primary" href="/contact.html">Request Quote</a>
+              <a class="hero-btn hero-btn--secondary" href="#textiles">Explore Industries</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-nav">
+        <button class="hero-prev" aria-label="Previous Slide">&#10094;</button>
+        <button class="hero-next" aria-label="Next Slide">&#10095;</button>
+      </div>
+      <div class="hero-dots">
+        <span class="hero-dot active" data-slide="0"></span>
+        <span class="hero-dot" data-slide="1"></span>
+        <span class="hero-dot" data-slide="2"></span>
+      </div>
+    </section>
+
+    <section id="who-we-are" class="lp-section reveal">
+      <div class="lp-container lp-split">
+        <div class="lp-copy">
+          <h2 class="lp-title">Built for complex categories.</h2>
+          <p class="lp-lead">Harvics brings structure to high‑variety trade — textiles, apparel, FMCG, commodities, industrial and energy — with a single quality-first execution model.</p>
+          <div class="lp-actions">
+            <a class="lp-btn lp-btn--primary" href="/about.html">Who We Are</a>
+            <a class="lp-btn lp-btn--secondary" href="#connect">Talk to Us</a>
+          </div>
+        </div>
+        <div class="lp-media lp-media--stack">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/PRINCIPLES1.png" alt="Principles">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/WHO%20WE%20ARE1.png" alt="Who we are">
         </div>
       </div>
     </section>
 
-    <!-- HARVICS Global Ventures Section -->
-    <section class="harvics-ventures-section tint" style="min-height:40vh;display:flex;align-items:center;">
-      <div style="max-width:1200px;margin:0 auto;padding:48px 24px;width:100%;">
-        <div style="max-width:720px;">
-          <h2 style="font-size:clamp(2rem, 4vw, 3rem);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.02em;">
-            Harvics Global Ventures
-          </h2>
-          <p style="font-size:1.05rem;color:var(--text);line-height:1.6;max-width:640px;">
-            Connecting markets and delivering sourcing, logistics, and execution with clarity and control.
-          </p>
+    
+
+    
+
+
+
+    <section class="lp-bleed frame-section reveal" id="competence">
+      <img data-scroll-zoom="1" src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/OUR%20COMPETENCE.png" alt="Our Competence">
+      <div class="lp-bleed-overlay">
+        <div class="lp-container">
+          <div class="lp-bleed-card">
+            <div class="lp-eyebrow">OUR COMPETENCE</div>
+            <h2 class="lp-title">End‑to‑end coverage, without chaos.</h2>
+            <p class="lp-lead">We translate your category goals into factories, materials, compliance, inspection, freight and delivery — with consistent controls at every step.</p>
+          </div>
         </div>
       </div>
     </section>
     
 
 
-    <!-- Feature Page 1: Global Network -->
-    <section class="feature-page tint" id="global-network">
-      <div class="feature-content reveal">
-        <h2 class="feature-title">Global Connectivity.</h2>
-        <p class="feature-desc reveal-delay-1">Bridging continents with a seamless logistics network that never sleeps. We move the world forward.</p>
-        <a href="sourcing.html" class="feature-btn reveal reveal-delay-2">Learn more</a>
-      </div>
-    </section>
+    <!-- Our Competence Section (image removed as requested; content can go here later) -->
 
-    <!-- Feature Page 2: Premium Textiles -->
-    <section class="feature-page" id="premium-textiles">
-      <div class="feature-content reveal">
-        <h2 class="feature-title">Masterful Textiles.</h2>
-        <p class="feature-desc reveal-delay-1">Woven with precision, designed for luxury. Our fabrics set the standard for international excellence.</p>
-        <a href="textiles.html" class="feature-btn reveal reveal-delay-2">Discover Collection</a>
+    <section class="lp-section reveal" id="motion-test">
+      <div class="lp-container lp-section-head">
+        <div class="lp-eyebrow">INDUSTRIES</div>
+        <h2 class="lp-title">Designed to scale across categories.</h2>
+        <p class="lp-lead">A consistent UI rhythm — like Apple — with category depth — like M&amp;S.</p>
       </div>
-    </section>
-
-    <!-- Feature Page 3: Industrial Power -->
-    <section class="feature-page tint" id="industrial-power">
-      <div class="feature-content reveal">
-        <h2 class="feature-title">Industrial Force.</h2>
-        <p class="feature-desc reveal-delay-1">Powering the backbone of modern infrastructure with robust raw materials and machinery.</p>
-        <a href="industrial.html" class="feature-btn reveal reveal-delay-2">View Solutions</a>
-      </div>
-    </section>
-    
-    <!-- About Us Section -->
-    <section class="about-section reveal" id="about">
-      <div class="about-container">
-        <!-- Founder's Message -->
-        <div class="founder-message">
-          <div class="founder-quote">
-            “Global supply chains were never built for today’s complexity. Harvics was created to change that.”
+      <div class="motion-slider">
+        <div class="motion-inner">
+          <div class="motion-frame">
+            <div class="motion-track">
+              <div class="motion-slide" style="background-image:url('/HILOCORP%20EDITED%20PICTURED%20/TRAE/Apparels.png')"></div>
+              <div class="motion-slide" style="background-image:url('/HILOCORP%20EDITED%20PICTURED%20/TRAE/FMCG%201.png')"></div>
+              <div class="motion-slide" style="background-image:url('/HILOCORP%20EDITED%20PICTURED%20/TRAE/Industrial%20solutions.png')"></div>
+              <div class="motion-slide" style="background-image:url('/HILOCORP%20EDITED%20PICTURED%20/TRAE/Oil%20and%20Gas.png')"></div>
+              <div class="motion-slide" style="background-image:url('/HILOCORP%20EDITED%20PICTURED%20/TRAE/Services.png')"></div>
+              <div class="motion-slide" style="background-image:url('/HILOCORP%20EDITED%20PICTURED%20/TRAE/Supply%20chain%20Solutions.png')"></div>
+            </div>
           </div>
-          <p class="founder-text">
-            With HARVICS OS, we bring intelligence, clarity, and precision to how energy, goods, and capital move across global markets — enabling enterprises to operate with confidence.
-          </p>
-          <div class="founder-sig">
-            <span class="sig-name">— Mian Muhammad Usman</span>
-            <span class="sig-title">Founder & CEO, Harvics</span>
-          </div>
-        </div>
-        
-        <!-- About Content -->
-        <div class="about-content">
-          <h2 class="about-title">About Us</h2>
-          <p>
-            Harvics is an AI-native sourcing and supply-chain intelligence company operating across energy, oil & gas, industrial goods, technology, real-estate-linked assets, and financial solutions.
-          </p>
-          <p>
-            Powered by <strong>HARVICS OS</strong>, our proprietary operating system, we connect origins, logistics, markets, and capital into a single intelligent framework. This enables enterprises to source smarter, manage risk, and execute at global scale with clarity and control.
-          </p>
-          <p>
-            Harvics operates as an intelligence layer, not a traditional intermediary — built for precision, resilience, and long-term value.
-          </p>
-          <p class="brand-statement">Harvics. Intelligent supply chains, engineered for the future.</p>
         </div>
       </div>
     </section>
 
     <section class="howwework reveal" id="howwework">
+      <div class="how-head">
+        <div class="lp-eyebrow">HOW WE WORK</div>
+        <h2 class="lp-title">Disciplined execution, end‑to‑end.</h2>
+        <p class="lp-lead">A single operating rhythm for planning, design, compliance, sourcing, manufacturing and logistics.</p>
+      </div>
       <div class="wheel">
-        <svg class="wheel-svg" viewBox="0 0 320 320">
+        <svg class="wheel-svg" viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="var(--gold)"/>
               <stop offset="1" stop-color="var(--gold)"/>
             </linearGradient>
           </defs>
-          <circle cx="160" cy="160" r="130" fill="none" stroke="url(#wg)" stroke-width="22"/>
-          <circle cx="160" cy="160" r="102" fill="var(--offwhite)"/>
-          <text x="160" y="150" font-size="16" fill="var(--text)" text-anchor="middle" data-i18n-key="whEnd">End‑to‑end</text>
-          <text x="160" y="170" font-size="16" fill="var(--text)" text-anchor="middle" data-i18n-key="whSup">supply chain</text>
-          <text x="160" y="190" font-size="16" fill="var(--text)" text-anchor="middle" data-i18n-key="whMgmt">management</text>
-          <text x="160" y="26" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whSrc">Sourcing</text>
-          <text x="285" y="166" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whDsg">Design</text>
-          <text x="160" y="304" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whMfg">Manufacturing</text>
-          <text x="35" y="166" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whCmp">Compliance</text>
-          <text x="230" y="280" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whLog">DC & Transport</text>
-          <text x="90" y="40" font-size="12" fill="var(--text-2)" text-anchor="middle" data-i18n-key="whRet">Retail</text>
+          <g class="wheel-rotor">
+            <circle cx="160" cy="160" r="145" fill="none" stroke="url(#wg)" stroke-width="28" vector-effect="non-scaling-stroke"/>
+            <circle cx="160" cy="160" r="105" fill="var(--offwhite)"/>
+            <text x="160" y="150" font-size="16" fill="var(--text)" text-anchor="middle">End‑to‑end supply chain</text>
+            <text x="160" y="170" font-size="16" fill="var(--text)" text-anchor="middle">management journey</text>
+
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Buyer Planning" data-angle="-90">Buyer Planning</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Product Design" data-angle="-64">Product Design</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Product Development" data-angle="-38">Product development</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Vendor Compliance" data-angle="-12">Vendor compliance</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Raw Material Sourcing" data-angle="14">Raw material sourcing</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Factory Sourcing" data-angle="40">Factory sourcing</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Manufacturing Control" data-angle="66">Manufacturing control</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="DC and Transport Management" data-angle="92">DC and transport management</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Freight & consolidation" data-angle="118">Freight & consolidation</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Freight, forwarding & custons clearanance" data-angle="144">Freight, forwarding & custons clearanance</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Local transportation" data-angle="170">Local transportation</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Wholesaler" data-angle="-164">Wholesaler</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Brands retailers" data-angle="-138">Brands retailers</text>
+            <text class="wheel-label" font-size="11" text-anchor="middle" data-tab="Consumer" data-angle="-112">Consumer</text>
+          </g>
         </svg>
       </div>
       <div class="how-right">
-        <div class="bigclock-wrap">
-          <div class="clock xl" id="big-clock">
-            <div class="hand hour" id="bh"></div>
-            <div class="hand min" id="bm"></div>
-            <div class="hand sec" id="bs"></div>
-            <div class="dot"></div>
-          </div>
+        <div class="how-tabs">
+          <div class="how-tab-title" id="how-tab-title">Buyer Planning</div>
+          <p class="how-tab-text" id="how-tab-text">Buyer Planning</p>
         </div>
         <div class="coverage">
           <h3 style="margin-bottom:12px;font-weight:600;color:var(--text)" data-i18n-key="covTitle">Supply Chain Coverage</h3>
@@ -774,142 +672,36 @@
       </div>
     </section>
 
-    <!-- Company Gallery Section -->
-    <section class="company-gallery reveal" id="gallery">
-      <div class="gallery-header">
-        <h2 class="gallery-title">Life at Harvics</h2>
-        <p class="gallery-desc">From our design studios to our global logistics centers, explore the world of Harvics.</p>
-      </div>
-      <div class="gallery-grid">
-        <!-- Gallery Item 1 -->
-        <div class="gallery-item">
-          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="office" alt="Corporate Headquarters">
-          <div class="gallery-overlay">
-            <div class="gallery-caption">Corporate Headquarters</div>
-          </div>
-        </div>
-        <!-- Gallery Item 2 -->
-        <div class="gallery-item">
-          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="textiles" alt="Design Studio">
-          <div class="gallery-overlay">
-            <div class="gallery-caption">Design Studio</div>
-          </div>
-        </div>
-        <!-- Gallery Item 3 -->
-        <div class="gallery-item">
-          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="logistics" alt="Global Logistics">
-          <div class="gallery-overlay">
-            <div class="gallery-caption">Global Logistics</div>
-          </div>
-        </div>
-        <!-- Gallery Item 4 -->
-        <div class="gallery-item">
-          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="manufacturing" alt="Manufacturing Units">
-          <div class="gallery-overlay">
-            <div class="gallery-caption">Manufacturing Units</div>
-          </div>
-        </div>
-        <!-- Gallery Item 5 -->
-        <div class="gallery-item">
-          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="team" alt="Our Team">
-          <div class="gallery-overlay">
-            <div class="gallery-caption">Our Team</div>
-          </div>
-        </div>
-        <!-- Gallery Item 6 -->
-        <div class="gallery-item">
-          <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-img-key="partnership" alt="Partnership Meetings">
-          <div class="gallery-overlay">
-            <div class="gallery-caption">Partnership Meetings</div>
-          </div>
-        </div>
+    <section class="lp-section reveal" id="industries-image">
+      <div class="lp-container">
+        <div class="lp-eyebrow">INDUSTRIES</div>
+        <h2 class="lp-title">Clarity across categories.</h2>
+        <figure class="lp-figure">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/Industries.png" alt="Industries overview">
+        </figure>
       </div>
     </section>
 
-    <section class="industries-two page reveal" id="industries-two">
-      <div class="ind-card" id="ind-fmcg" data-bg-key="fmcg"><a href="fmcg.html"></a><div class="slide-title">FMCG</div></div>
-      <div class="ind-card" id="ind-textiles" data-bg-key="textiles"><a href="textiles.html"></a><div class="slide-title">Textiles & Apparels</div></div>
-    </section>
-    
-
-    
-
-    <section class="split-band reveal" id="industries-split">
-      <div class="split-main">
-        <div class="slider" data-dir="1" data-autoplay="1" data-speed="0.8">
-          <div class="slide" data-bg-file="FMCG IMAGES/Beverages/Non-carbonated/water.png"><a href="index.html#commodities"></a><div class="slide-title">Commodities</div></div>
-          <div class="slide" data-bg-file="FMCG IMAGES/Frozen Foods/Frozen Vegitables/mixed vegetables.png"><a href="index.html#fmcg"></a><div class="slide-title">FMCG</div></div>
-          <div class="slide" data-bg-file="FMCG IMAGES/Beverages/Non-carbonated/non carbonated.png"><a href="index.html#sourcing"></a><div class="slide-title">Sourcing</div></div>
-        </div>
-      </div>
-      <div class="split-side">
-        <div class="slider" data-dir="-1" data-autoplay="1" data-speed="0.6">
-          <div class="slide" style="min-width:320px;max-width:320px;height:200px" data-bg-file="FMCG IMAGES/Bakery/Wafer and Wafer Bars/wafer.jpg"><a href="index.html#textiles"></a><div class="slide-title">Textiles</div></div>
-          <div class="slide" style="min-width:320px;max-width:320px;height:200px" data-bg-file="FMCG IMAGES/Culinary/Seasoning,Spices and Marinade/Black pepper.png"><a href="index.html#industrial"></a><div class="slide-title">Industrial</div></div>
-          <div class="slide" style="min-width:320px;max-width:320px;height:200px" data-bg-file="FMCG IMAGES/Culinary/Seasoning,Spices and Marinade/salt -1.png"><a href="index.html#commodities"></a><div class="slide-title">Commodities</div></div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="slider-band" id="sliderB" style="display:none"></section>
-
-    <!-- sliderA merged into split-side -->
-
-    <!-- Dynamic Product Showcase -->
-    <section class="products-showcase reveal" id="industries">
-      <div class="section-header">
-        <h2 data-i18n-key="shPort">Global Product Portfolio</h2>
-        <p data-i18n-key="shPortSub">Explore our diverse range of sourcing and supply chain solutions.</p>
-      </div>
-      
-      <div id="industry-showcase" class="industry-grid">
-        <!-- Will be populated by JS -->
-      </div>
-    </section>
-
-    <!-- Insights Section -->
-    <section class="insights reveal" id="insights">
-      <div class="section-header">
-        <h2 data-i18n-key="shIns">Harvics Insights</h2>
-        <p data-i18n-key="shInsSub">Latest news and industry updates from our global team</p>
-      </div>
-      <div class="insight-grid">
-        <div class="insight-card">
-          <div class="card-img" data-bg-key="strategy" style="background-size: cover; background-position: center;"></div>
-          <div class="card-body">
-            <span class="card-tag">Industry News</span>
-            <h3>Global Supply Chain Trends 2024</h3>
-            <p>Explore the latest shifts in global logistics and sourcing strategies.</p>
-            <a href="#insights" class="card-link">Read More →</a>
-          </div>
-        </div>
-        <div class="insight-card">
-          <div class="card-img" data-bg-key="textiles" style="background-size: cover; background-position: center;"></div>
-          <div class="card-body">
-            <span class="card-tag">Innovation</span>
-            <h3>Sustainable Textiles</h3>
-            <p>How eco-friendly fabrics are reshaping the fashion industry.</p>
-            <a href="#insights" class="card-link">Read More →</a>
-          </div>
-        </div>
-        <div class="insight-card">
-          <div class="card-img" data-bg-key="office" style="background-size: cover; background-position: center;"></div>
-          <div class="card-body">
-            <span class="card-tag">Corporate</span>
-            <h3>Harvics Expands to Europe</h3>
-            <p>New logistics hubs opening in key European markets.</p>
-            <a href="#insights" class="card-link">Read More →</a>
-          </div>
-        </div>
+    <section class="lp-section reveal" id="world-map">
+      <div class="lp-container">
+        <div class="lp-eyebrow">GLOBAL</div>
+        <h2 class="lp-title">A worldwide execution footprint.</h2>
+        <figure class="lp-figure">
+          <img src="/HILOCORP%20EDITED%20PICTURED%20/TRAE/WORLD%20MAP.jpg" alt="World map">
+        </figure>
       </div>
     </section>
 
     <!-- Connect Section -->
-    <section class="connect reveal" id="connect">
+    <section class="connect reveal frame-section" id="connect">
       <div class="connect-inner">
-        <h2 data-i18n-key="shConn">Ready to Scale Your Business?</h2>
-        <p data-i18n-key="shConnSub">Join thousands of global partners who trust Harvics for their sourcing and supply chain needs.</p>
-        <a href="#contact" class="primary-btn" data-i18n-key="btnStart">Get Started Today</a>
+        <div class="lp-eyebrow">CONTACT</div>
+        <h2>Build your next program with Harvics.</h2>
+        <p>Share your category, target market, volumes and timeline — we’ll map the fastest path from concept to delivery.</p>
+        <div class="lp-actions lp-actions--center">
+          <a class="lp-btn lp-btn--primary" href="/contact.html">Request Quote</a>
+          <a class="lp-btn lp-btn--secondary" href="/hub.html">Explore Hub</a>
+        </div>
       </div>
     </section>
 

@@ -114,7 +114,7 @@
 
     .product-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 32px rgba(90,15,26,0.12);
+      box-shadow: none;
     }
 
     .product-image {
@@ -190,7 +190,7 @@
       border-radius: 2px; cursor: pointer; font-weight: 600; font-size: 15px; 
       transition: all 0.3s; white-space: nowrap; 
     }
-    .newsletter-btn:hover { background: var(--gold); color: var(--burgundy); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3); }
+    .newsletter-btn:hover { background: var(--gold); color: var(--burgundy); transform: translateY(-1px); box-shadow: none; }
     
     @media (max-width: 1024px) { .footer-top { gap: 24px; } }
     @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
@@ -308,7 +308,7 @@
   <div class="ai-fab" id="ai-fab">Ask AI</div>
 
   <!-- AI Panel (Hidden by default, shown on click) -->
-  <div class="ai-panel" id="ai-panel-overlay" style="display:none; position:fixed; bottom:80px; right:24px; width:320px; z-index:2000; box-shadow: 0 4px 20px rgba(90,15,26,0.14);">
+  <div class="ai-panel" id="ai-panel-overlay" style="display:none; position:fixed; bottom:80px; right:24px; width:320px; z-index:2000; box-shadow:none;">
     <div class="ai-panel-title">Harvics AI Assistant <span style="float:right; cursor:pointer;" id="close-ai">×</span></div>
     <div class="ai-panel-note">Ask our intelligence layer about products, styles, or availability.</div>
     <div class="ai-row">
