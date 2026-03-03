@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvics Supreme - Color Palette</title>
+  <link rel="stylesheet" href="root.css">
+  <style>
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 40px;
+    }
+    h1 {
+      color: var(--burgundy);
+      margin-bottom: 10px;
+    }
+    p {
+      color: var(--text-2);
+      margin-bottom: 40px;
+    }
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .color-card {
+      border: 1px solid var(--divider);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .color-swatch {
+      height: 120px;
+      width: 100%;
+    }
+    .color-info {
+      padding: 16px;
+    }
+    .color-name {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--burgundy);
+    }
+    .color-var {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-2);
+      background: rgba(0,0,0,0.05);
+      padding: 2px 6px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .color-hex {
+      font-size: 14px;
+      color: var(--text-2);
+      display: block;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Harvics Supreme Design System</h1>
+  <p>Official Color Palette generated from <code>root.css</code></p>
+
+  <div class="palette-grid">
+    
+    <!-- Primary Colors -->
+    <div class="color-card">
+      <div class="color-swatch" style="background-color: var(--harvics-maroon);"></div>
+      <div class="color-info">
+        <div class="color-name">Harvics Maroon</div>
+        <div class="color-var">--harvics-maroon</div>
+        <span class="color-hex">#6B1F2B</span>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background-color: var(--harvics-gold);"></div>
+      <div class="color-info">
+        <div class="color-name">Harvics Gold</div>
+        <div class="color-var">--harvics-gold</div>
+        <span class="color-hex">#C3A35E</span>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background-color: var(--ivory-primary); border-bottom: 1px solid #ddd;"></div>
+      <div class="color-info">
+        <div class="color-name">Ivory Primary</div>
+        <div class="color-var">--ivory-primary</div>
+        <span class="color-hex">#F5F1E8</span>
+      </div>
+    </div>
+
+    <!-- Functional Mappings -->
+    <div class="color-card">
+      <div class="color-swatch" style="background-color: var(--text-primary);"></div>
+      <div class="color-info">
+        <div class="color-name">Text Primary</div>
+        <div class="color-var">--text-primary</div>
+        <span class="color-hex">#6B1F2B</span>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background-color: var(--bg-primary); border-bottom: 1px solid #ddd;"></div>
+      <div class="color-info">
+        <div class="color-name">Background Primary</div>
+        <div class="color-var">--bg-primary</div>
+        <span class="color-hex">#F5F1E8</span>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background-color: var(--divider);"></div>
+      <div class="color-info">
+        <div class="color-name">Divider</div>
+        <div class="color-var">--divider</div>
+        <span class="color-hex">#C3A35E</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
