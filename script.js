@@ -73,16 +73,16 @@ function getInlineLayout() {
   <nav class="main-nav">
     <ul class="main-menu">
       <li><a href="/index.html#about" data-i18n-key="navAbout">About Us</a></li>
-      <li><a href="/index.html#textiles" data-i18n-key="navTextiles">Textiles &amp; Apparels</a></li>
-      <li><a href="/index.html#fmcg" data-i18n-key="navFmcg">FMCG</a></li>
-      <li><a href="/index.html#commodities" data-i18n-key="navCommodities">Commodities</a></li>
-      <li><a href="/index.html#industrial" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
-      <li><a href="/index.html#minerals" data-i18n-key="navMinerals">Minerals</a></li>
-      <li><a href="/index.html#oil-gas" data-i18n-key="navOilGas">Oil &amp; Gas</a></li>
-      <li><a href="/index.html#real-estate" data-i18n-key="navRealEstate">Real Estate</a></li>
-      <li><a href="/index.html#sourcing" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
-      <li><a href="/index.html#finance" data-i18n-key="navFinance">Finance &amp; HPay</a></li>
-      <li><a href="/index.html#ai" data-i18n-key="navAI">AI &amp; Technology</a></li>
+      <li><a href="/textiles.html" data-i18n-key="navTextiles">Textiles &amp; Apparels</a></li>
+      <li><a href="/fmcg.html" data-i18n-key="navFmcg">FMCG</a></li>
+      <li><a href="/commodities.html" data-i18n-key="navCommodities">Commodities</a></li>
+      <li><a href="/industrial.html" data-i18n-key="navIndustrial">Industrial Solutions</a></li>
+      <li><a href="/minerals.html" data-i18n-key="navMinerals">Minerals</a></li>
+      <li><a href="/oil-gas.html" data-i18n-key="navOilGas">Oil &amp; Gas</a></li>
+      <li><a href="/real-estate.html" data-i18n-key="navRealEstate">Real Estate</a></li>
+      <li><a href="/sourcing.html" data-i18n-key="navSourcing">Sourcing Solutions</a></li>
+      <li><a href="/finance.html" data-i18n-key="navFinance">Finance &amp; HPay</a></li>
+      <li><a href="/ai.html" data-i18n-key="navAI">AI &amp; Technology</a></li>
       <li><a href="/qa.html" data-i18n-key="navQA">Q&amp;A</a></li>
     </ul>
   </nav>
